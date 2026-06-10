@@ -1211,6 +1211,7 @@ export default function App() {
             {activeTab === 'simulator' && (
               <ExamSimulator 
                 isOffline={profile.isOffline}
+                answeredQuestionIds={profile.examHistory ? profile.examHistory.flatMap(h => h.questionIds || []) : []}
                 onExamCompleted={handleExamCompleted} 
               />
             )}

@@ -54,6 +54,79 @@ export const trafficSigns: TrafficSign[] = [
     svgType: "speed_limit",
     extraData: "80"
   },
+  {
+    id: "R-4a",
+    name: "Proibido Virar à Esquerda",
+    code: "R-4a",
+    description: "Indica ao condutor a proibição de realizar a conversão (virar) à esquerda na interseção ou ponto sinalizado.",
+    category: "regulamentacao",
+    svgType: "prohibited_turn_left"
+  },
+  {
+    id: "R-4b",
+    name: "Proibido Virar à Direita",
+    code: "R-4b",
+    description: "Indica ao condutor a proibição de realizar a conversão (virar) à direita na interseção ou ponto sinalizado.",
+    category: "regulamentacao",
+    svgType: "prohibited_turn_right"
+  },
+  {
+    id: "R-5a",
+    name: "Proibido Retornar à Esquerda",
+    code: "R-5a",
+    description: "Regulamenta a proibição de realizar a manobra de retorno para o sentido oposto à esquerda.",
+    category: "regulamentacao",
+    svgType: "prohibited_u_turn"
+  },
+  {
+    id: "R-6a",
+    name: "Proibido Estacionar",
+    code: "R-6a",
+    description: "Indica a proibição temporária ou permanente de estacionamento de veículos no trecho da via abrangido pela sinalização. Paradas rápidas para embarque/desembarque são permitidas.",
+    category: "regulamentacao",
+    svgType: "prohibited_parking"
+  },
+  {
+    id: "R-6b",
+    name: "Proibido Parar e Estacionar",
+    code: "R-6b",
+    description: "Assinala ao condutor que é expressamente proibida tanto a parada rápida quanto o estacionamento de veículos, a qualquer hora do dia ou da noite.",
+    category: "regulamentacao",
+    svgType: "prohibited_stopping"
+  },
+  {
+    id: "R-7",
+    name: "Proibido Ultrapassar",
+    code: "R-7",
+    description: "Regulamenta a proibição de realizar ultrapassagens em trechos de pistas simples com visibilidade comprometida ou pontos críticos.",
+    category: "regulamentacao",
+    svgType: "prohibited_overtaking"
+  },
+  {
+    id: "R-9",
+    name: "Proibido Trânsito de Bicicletas",
+    code: "R-9",
+    description: "Indica a proibição do trânsito de bicicletas na área, via ou trecho sob sinalização, para garantir a segurança dos ciclistas.",
+    category: "regulamentacao",
+    svgType: "prohibited_bikes"
+  },
+  {
+    id: "R-24a",
+    name: "Sentido de Circulação da Via",
+    code: "R-24a",
+    description: "Regulamenta o sentido de circulação de fluxo na via ou pista. Todos os veículos devem seguir no sentido indicado pela seta.",
+    category: "regulamentacao",
+    svgType: "double_way"
+  },
+  {
+    id: "R-28",
+    name: "Velocidade Mínima Permitida",
+    code: "R-28",
+    description: "Regulamenta o limite mínimo de velocidade (por exemplo, 30 km/h) em que o veículo é obrigado a transitar, visando a fluidez do tráfego.",
+    category: "regulamentacao",
+    svgType: "speed_min",
+    extraData: "30"
+  },
   
   // --- ADVERTÊNCIA (Amarelo/Preto, Formato Losango) ---
   {
@@ -75,12 +148,70 @@ export const trafficSigns: TrafficSign[] = [
     extraData: "direita"
   },
   {
+    id: "A-2a",
+    name: "Curva à Direita",
+    code: "A-2a",
+    description: "Adverte o condutor da existência de uma curva à direita na via à frente. Reduza a velocidade de forma preventiva.",
+    category: "advertencia",
+    svgType: "warning_curve_moderate",
+    extraData: "direita"
+  },
+  {
+    id: "A-2b",
+    name: "Curva à Esquerda",
+    code: "A-2b",
+    description: "Adverte o condutor da aproximação de uma curva para a esquerda na via à frente. Reduza a velocidade de forma preventiva.",
+    category: "advertencia",
+    svgType: "warning_curve_moderate",
+    extraData: "esquerda"
+  },
+  {
     id: "A-14",
     name: "Semáforo à Frente",
     code: "A-14",
     description: "Adverte o condutor da aproximação de uma interseção controlada por semáforo eletrônico onde a visibilidade imediata pode ser comprometida.",
     category: "advertencia",
     svgType: "warning_traffic_light"
+  },
+  {
+    id: "A-15",
+    name: "Obras na Via",
+    code: "A-15",
+    description: "Adverte o condutor sobre a presença de obras na pista ou adjacências, demandando velocidade muito reduzida e atenção especial a operários e maquinários.",
+    category: "advertencia",
+    svgType: "warning_works"
+  },
+  {
+    id: "A-22",
+    name: "Passagem de Escolares",
+    code: "A-22",
+    description: "Adverte o condutor da proximidade de um trecho de via com trânsito frequente de escolares e crianças atravessando.",
+    category: "advertencia",
+    svgType: "warning_school"
+  },
+  {
+    id: "A-26b",
+    name: "Passagem em Nível com Barreira",
+    code: "A-26b",
+    description: "Adverte o condutor da existência de um cruzamento rodoferroviário (passagem em nível) dotado de cancela, barreira ou portão à frente.",
+    category: "advertencia",
+    svgType: "warning_barrier"
+  },
+  {
+    id: "A-27",
+    name: "Pista Escorregadia",
+    code: "A-27",
+    description: "Adverte o condutor que o trecho de pista à frente apresenta condições escorregadias decorrente de umidade, óleo ou asfalto liso.",
+    category: "advertencia",
+    svgType: "warning_slippery"
+  },
+  {
+    id: "A-29",
+    name: "Saliência ou Lombada",
+    code: "A-29",
+    description: "Adverte o condutor da existência de uma saliência, quebra-molas ou lombada física instalada no pavimento à frente.",
+    category: "advertencia",
+    svgType: "warning_bump"
   },
   {
     id: "A-32b",

@@ -21,14 +21,17 @@ import { questions as allQuestions } from '../data/questions';
 interface ExamSimulatorProps {
   onExamCompleted: (result: ExamHistory, xpEarned: number) => void;
   isOffline: boolean;
+  answeredQuestionIds: number[];
 }
 
-export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, isOffline }) => {
+export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, isOffline, answeredQuestionIds }) => {
   // Config state
   const [questionCount, setQuestionCount] = useState<number>(30);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectionMode, setSelectionMode] = useState<'all' | 'unanswered'>('all');
   const [examStarted, setExamStarted] = useState<boolean>(false);
   const [examFinished, setExamFinished] = useState<boolean>(false);
+  const [backfillWarning, setBackfillWarning] = useState<boolean>(false);
 
   // Active exam state
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -50,11 +53,36 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, i
       filtered = filtered.filter(q => q.category === selectedCategory);
     }
     
-    // Shuffle the array of filtered questions
-    const shuffled = filtered.sort(() => Math.random() - 0.5);
+    let finalSet: Question[] = [];
     
-    // Select requested quantity (caps to whatever length is available)
-    const finalSet = shuffled.slice(0, Math.min(questionCount, shuffled.length));
+    if (selectionMode === 'unanswered') {
+      // Filter out already answered questions
+      const unanswered = filtered.filter(q => !answeredQuestionIds.includes(q.id));
+      
+      if (unanswered.length < questionCount) {
+        // We don't have enough unanswered questions. Let's backfill!
+        setBackfillWarning(true);
+        const answered = filtered.filter(q => answeredQuestionIds.includes(q.id));
+        // Shuffle both sets
+        const shuffledUnanswered = [...unanswered].sort(() => Math.random() - 0.5);
+        const shuffledAnswered = [...answered].sort(() => Math.random() - 0.5);
+        
+        const needed = questionCount - unanswered.length;
+        // Take all unanswered + slice of answered to fill the slot
+        const combined = [
+          ...shuffledUnanswered,
+          ...shuffledAnswered.slice(0, Math.min(needed, shuffledAnswered.length))
+        ];
+        // Shuffle them together so they are mixed
+        finalSet = combined.sort(() => Math.random() - 0.5);
+      } else {
+        setBackfillWarning(false);
+        finalSet = unanswered.sort(() => Math.random() - 0.5).slice(0, questionCount);
+      }
+    } else {
+      setBackfillWarning(false);
+      finalSet = filtered.sort(() => Math.random() - 0.5).slice(0, Math.min(questionCount, filtered.length));
+    }
     
     setQuestions(finalSet);
     setAnswers({});
@@ -62,13 +90,15 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, i
     setCurrentIndex(0);
     setExamStarted(true);
     setExamFinished(false);
-    setStartTime(Date.now());
+    
+    const timeNow = Date.now();
+    setStartTime(timeNow);
     setElapsedTime(0);
 
     // Initialise timer ticking every second
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
+      setElapsedTime(Math.floor((Date.now() - timeNow) / 1000));
     }, 1000);
   };
 
@@ -151,7 +181,8 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, i
       totalQuestions: questions.length,
       scorePercentage,
       durationSeconds: finalElapsedTime,
-      passed
+      passed,
+      questionIds: questions.map(q => q.id)
     };
 
     onExamCompleted(summaryResult, totalXpEarned);
@@ -184,56 +215,91 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, i
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto" id="exam-setup-grid">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto" id="exam-setup-grid">
           {/* Quantity Selector */}
-          <div className="bg-slate-50 p-5 rounded-2xl dark:bg-slate-800/40 border border-slate-100/80 dark:border-slate-800/40" id="card-qty-selector">
-            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center">
-              <Sparkles className="w-4 h-4 mr-2 text-amber-500" />
-              Quantidade de Questões
-            </label>
-            <div className="grid grid-cols-2 gap-2" id="grid-qty-buttons">
-              {[10, 20, 30, 32].map(num => (
-                <button
-                  key={num}
-                  type="button"
-                  onClick={() => setQuestionCount(num)}
-                  className={`py-2.5 px-4 rounded-xl font-bold text-sm transition-all ${questionCount === num ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700'}`}
-                  id={`btn-select-qty-${num}`}
-                >
-                  {num === 32 ? "Todas (32)" : `${num} Questões`}
-                </button>
-              ))}
+          <div className="bg-slate-50 p-5 rounded-2xl dark:bg-slate-800/40 border border-slate-100/80 dark:border-slate-800/40 flex flex-col justify-between" id="card-qty-selector">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center">
+                <Sparkles className="w-4 h-4 mr-2 text-amber-500" />
+                Quantidade de Questões
+              </label>
+              <div className="grid grid-cols-2 gap-2" id="grid-qty-buttons">
+                {[10, 20, 30, allQuestions.length].map(num => (
+                  <button
+                    key={num}
+                    type="button"
+                    onClick={() => setQuestionCount(num)}
+                    className={`py-2.5 px-2.5 rounded-xl font-bold text-xs transition-all ${questionCount === num ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700'}`}
+                    id={`btn-select-qty-${num}`}
+                  >
+                    {num === allQuestions.length ? `Todas (${allQuestions.length})` : `${num} Questões`}
+                  </button>
+                ))}
+              </div>
             </div>
-            <p className="text-xs text-slate-400 mt-3 font-medium">
-              Nota: O exame oficial do DETRAN no Brasil contém 30 questões.
+            <p className="text-xs text-slate-400 mt-4 font-medium">
+              Nota: O exame oficial do DETRAN contém 30 questões.
             </p>
           </div>
 
           {/* Theme/Category Selector */}
-          <div className="bg-slate-50 p-5 rounded-2xl dark:bg-slate-800/40 border border-slate-100/80 dark:border-slate-800/40" id="card-category-selector">
-            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center">
-              <FileText className="w-4 h-4 mr-2 text-indigo-500" />
-              Filtro Temático
-            </label>
-            <div className="relative" id="wrapper-select-cat">
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-sm rounded-xl py-3 px-4 focus:ring-2 focus:ring-indigo-500 outline-none font-medium appearance-none cursor-pointer"
-                id="select-exam-category"
-              >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>
-                    {cat === 'all' ? 'Simulado Geral (Todas as Áreas)' : cat}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                ▼
+          <div className="bg-slate-50 p-5 rounded-2xl dark:bg-slate-800/40 border border-slate-100/80 dark:border-slate-800/40 flex flex-col justify-between" id="card-category-selector">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center">
+                <FileText className="w-4 h-4 mr-2 text-indigo-500" />
+                Filtro Temático
+              </label>
+              <div className="relative" id="wrapper-select-cat">
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-xl py-3 px-4 focus:ring-2 focus:ring-indigo-500 outline-none font-medium appearance-none cursor-pointer"
+                  id="select-exam-category"
+                >
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>
+                      {cat === 'all' ? 'Simulado Geral (Todas as Áreas)' : cat}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
+                  ▼
+                </div>
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-3 font-medium">
+            <p className="text-xs text-slate-400 mt-4 font-medium">
               Foco estratégico para reforçar as áreas onde você possui mais dificuldades.
+            </p>
+          </div>
+
+          {/* Strategy/Selection Mode Selector */}
+          <div className="bg-slate-50 p-5 rounded-2xl dark:bg-slate-800/40 border border-slate-100/80 dark:border-slate-800/40 flex flex-col justify-between" id="card-strategy-selector">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center">
+                <RotateCcw className="w-4 h-4 mr-2 text-emerald-500" />
+                Método de Seleção
+              </label>
+              <div className="space-y-2" id="grid-strategy-options">
+                <button
+                  type="button"
+                  onClick={() => setSelectionMode('all')}
+                  className={`w-full py-2.5 px-3 rounded-xl font-bold text-xs transition-all text-left flex items-center justify-between border ${selectionMode === 'all' ? 'bg-indigo-600 border-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700'}`}
+                >
+                  <span>Misturar Tudo (Geral)</span>
+                  {selectionMode === 'all' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectionMode('unanswered')}
+                  className={`w-full py-2.5 px-3 rounded-xl font-bold text-xs transition-all text-left flex items-center justify-between border ${selectionMode === 'unanswered' ? 'bg-indigo-600 border-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700'}`}
+                >
+                  <span>Apenas Não Respondidas</span>
+                  {selectionMode === 'unanswered' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                </button>
+              </div>
+            </div>
+            <p className="text-xs text-slate-400 mt-4 font-medium">
+              Escolha priorizar questões inéditas ou randomizar todo o acervo histórico.
             </p>
           </div>
         </div>
@@ -319,6 +385,16 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({ onExamCompleted, i
               />
             </div>
           </div>
+
+          {backfillWarning && (
+            <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-2xl text-xs text-amber-800 dark:text-amber-300 flex items-start space-x-2.5 animate-pulse" id="backfill-warning-alert">
+              <AlertCircle className="w-5 h-5 flex-shrink-0 text-amber-500 mt-0.5" />
+              <div>
+                <span className="font-bold">Aviso de Simulado: </span>
+                Não havia perguntas inéditas suficientes na categoria escolhida para cobrir as {questionCount} selecionadas. O simulador preencheu as vagas restantes com questões já feitas.
+              </div>
+            </div>
+          )}
 
           {/* Question Text */}
           <div className="mb-6 p-4 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl border border-slate-100 dark:border-slate-800" id="live-question-header">

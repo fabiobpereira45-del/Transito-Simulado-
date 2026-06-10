@@ -23,7 +23,41 @@ export interface TrafficSign {
   code?: string;
   description: string;
   category: SignCategory;
-  svgType: 'stop' | 'yield' | 'prohibited' | 'speed_limit' | 'warning_curve' | 'warning_pedestrian' | 'warning_traffic_light' | 'indicator_service' | 'light_regular' | 'light_pedestrian' | 'horn_short' | 'horn_long' | 'line_continuous' | 'line_broken' | 'line_double' | 'gest_agent_stop' | 'gest_driver_left' | 'gest_driver_right' | 'gest_driver_slow';
+  svgType: 
+    | 'stop' 
+    | 'yield' 
+    | 'prohibited' 
+    | 'speed_limit' 
+    | 'warning_curve' 
+    | 'warning_pedestrian' 
+    | 'warning_traffic_light' 
+    | 'indicator_service' 
+    | 'light_regular' 
+    | 'light_pedestrian' 
+    | 'horn_short' 
+    | 'horn_long' 
+    | 'line_continuous' 
+    | 'line_broken' 
+    | 'line_double' 
+    | 'gest_agent_stop' 
+    | 'gest_driver_left' 
+    | 'gest_driver_right' 
+    | 'gest_driver_slow'
+    | 'prohibited_turn_left'
+    | 'prohibited_turn_right'
+    | 'prohibited_u_turn'
+    | 'prohibited_parking'
+    | 'prohibited_stopping'
+    | 'prohibited_overtaking'
+    | 'prohibited_bikes'
+    | 'double_way'
+    | 'speed_min'
+    | 'warning_curve_moderate'
+    | 'warning_works'
+    | 'warning_school'
+    | 'warning_barrier'
+    | 'warning_slippery'
+    | 'warning_bump';
   extraData?: string; // Limit speed, toque count, description of gestures
 }
 
@@ -35,6 +69,7 @@ export interface ExamHistory {
   scorePercentage: number;
   durationSeconds: number;
   passed: boolean;
+  questionIds?: number[];
 }
 
 export interface Achievement {
