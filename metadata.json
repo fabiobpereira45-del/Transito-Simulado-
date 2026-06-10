@@ -1,0 +1,6 @@
+{
+  "name": "Simulado e Memorização de Trânsito CNH",
+  "description": "Aplicativo especialista em trânsito para primeira habilitação e mudança de categoria com simulados completos, placas, mini-game de memorização, conquistas, nível/XP e ranking simulado offline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
