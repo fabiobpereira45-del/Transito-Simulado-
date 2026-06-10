@@ -12,6 +12,10 @@ export type SignCategory =
   | 'advertencia' // A-1, A-2, etc.
   | 'indicacao' // Servicos, etc.
   | 'educativa' // Educational signs
+  | 'servicos' // Auxiliary services
+  | 'turismo' // Tourist attractions
+  | 'obras' // Construction/roadwork signs
+  | 'horizontal' // Horizontal road markings
   | 'luminosos' // Traffic lights
   | 'buzinas' // Horn signals
   | 'horizontais' // Road lanes
@@ -74,7 +78,13 @@ export interface TrafficSign {
     | 'A-42a' | 'A-42b' | 'A-42c' | 'A-43' | 'A-44' | 'A-45' | 'A-46' | 'A-47' | 'A-48'
     | 'IND-1' | 'IND-2' | 'IND-3' | 'IND-4' | 'IND-5' | 'IND-6' | 'IND-7' | 'IND-8' | 'IND-9' 
     | 'IND-10' | 'IND-11' | 'IND-12' | 'IND-13' | 'IND-14' | 'IND-15' | 'IND-16' | 'IND-17'
-    | 'ED-1' | 'ED-2' | 'ED-3' | 'ED-4' | 'ED-5' | 'ED-6' | 'ED-7' | 'ED-8' | 'ED-9' | 'ED-10' | 'ED-11';
+    | 'ED-1' | 'ED-2' | 'ED-3' | 'ED-4' | 'ED-5' | 'ED-6' | 'ED-7' | 'ED-8' | 'ED-9' | 'ED-10' | 'ED-11'
+    | 'S-1' | 'S-2' | 'S-3' | 'S-4' | 'S-5' | 'S-6' | 'S-7' | 'S-8' | 'S-9' | 'S-10' | 'S-11' | 'S-12' | 'S-14' | 'S-15'
+    | 'TUR-1' | 'TUR-2' | 'TUR-3' | 'TUR-4' | 'TUR-5' | 'TUR-6'
+    | 'OBR-1' | 'OBR-2' | 'OBR-3' | 'OBR-4' | 'OBR-5' | 'OBR-6' | 'OBR-7' | 'OBR-8'
+    | 'OBR-9' | 'OBR-10' | 'OBR-11' | 'OBR-12' | 'OBR-13' | 'OBR-14' | 'OBR-15' | 'OBR-16'
+    | 'OBR-D1' | 'OBR-D2' | 'OBR-D3'
+    | 'MH-AMA' | 'MH-BRA' | 'MH-VRM' | 'MH-AZL' | 'MH-PRT';
   extraData?: string; // Limit speed, toque count, description of gestures
 }
 

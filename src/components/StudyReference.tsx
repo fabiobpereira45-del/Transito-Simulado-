@@ -10,13 +10,16 @@ import {
   Flame, 
   Navigation,
   Accessibility,
-  Eye,
   CheckCircle,
   HelpCircle,
   Play,
   FileText,
   Compass,
   GraduationCap,
+  Wrench,
+  Palmtree,
+  HardHat,
+  Minus,
   X
 } from 'lucide-react';
 import { trafficSigns } from '../data/trafficSigns';
@@ -39,6 +42,10 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
     { value: 'advertencia', label: 'Advertência', icon: <ShieldAlert className="w-4 h-4 text-amber-500" /> },
     { value: 'indicacao', label: 'Orientação & Indicação', icon: <Compass className="w-4 h-4 text-blue-500" /> },
     { value: 'educativa', label: 'Educativas', icon: <GraduationCap className="w-4 h-4 text-emerald-500" /> },
+    { value: 'servicos', label: 'Serviços Auxiliares', icon: <Wrench className="w-4 h-4 text-slate-500" /> },
+    { value: 'turismo', label: 'Atrativos Turísticos', icon: <Palmtree className="w-4 h-4 text-amber-600" /> },
+    { value: 'obras', label: 'Sinalização de Obras', icon: <HardHat className="w-4 h-4 text-orange-500" /> },
+    { value: 'horizontal', label: 'Sinalização Horizontal', icon: <Minus className="w-4 h-4 text-gray-400" /> },
     { value: 'luminosos', label: 'Luminosos', icon: <TrafficCone className="w-4 h-4 text-emerald-500" /> },
     { value: 'horizontais', label: 'Horizontais (Asfalto)', icon: <Navigation className="w-4 h-4 text-sky-500" /> },
     { value: 'buzinas', label: 'Buzinas & Apitos', icon: <Volume2 className="w-4 h-4 text-indigo-500" /> },
@@ -346,6 +353,8 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
                       : selectedSign.category === 'advertencia' ? 'Advertência'
                       : selectedSign.category === 'indicacao' ? 'Indicação / Orientação'
                       : selectedSign.category === 'educativa' ? 'Placa Educativa'
+                      : selectedSign.category === 'servicos' ? 'Serviço Auxiliar'
+                      : selectedSign.category === 'turismo' ? 'Atrativo Turístico'
                       : selectedSign.category === 'luminosos' ? 'Sinal Luminoso'
                       : selectedSign.category === 'horizontais' ? 'Sinalização Horizontal'
                       : selectedSign.category === 'buzinas' ? 'Buzinas & Audio'
@@ -392,6 +401,14 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
                         ? "Placas de indicação e orientação ajudam a se localizar e navegar pela via pública. Elas não impõem multas ou restrições."
                         : selectedSign.category === 'educativa'
                         ? "Placas educativas relembram e reforçam boas condutas de segurança. Respeite sempre os conselhos dessas placas!"
+                        : selectedSign.category === 'servicos'
+                        ? "Placas de serviços auxiliares indicam conveniências ao longo da via, como postos, mecânicos ou hotéis. Úteis para planejamento de viagem!"
+                        : selectedSign.category === 'turismo'
+                        ? "Placas marrons de atrativos turísticos orientam rotas para pontos de interesse ecológico, histórico, cultural ou de lazer."
+                        : selectedSign.category === 'obras'
+                        ? "Nas zonas de obras, redobre a atenção, respeite o limite de velocidade reduzido e mantenha distância segura dos operários na pista!"
+                        : selectedSign.category === 'horizontal'
+                        ? "A sinalização horizontal complementa a vertical. Linha amarela separa sentidos opostos; branca separa mesmo sentido. Jamais confunda!"
                         : "Lembre-se: no exame e nas ruas, a sinalização emitida pelo Agente de Trânsito prevalece sobre qualquer sinalização ou luz semafórica!"
                       }
                     </span>

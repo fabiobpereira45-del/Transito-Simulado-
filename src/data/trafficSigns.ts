@@ -1338,5 +1338,366 @@ export const trafficSigns: TrafficSign[] = [
     description: "Placa educativa alertando os motoristas (especialmente de caminhões e ônibus) para testar e revisar o sistema de freios antes de descidas acentuadas.",
     category: "educativa",
     svgType: "ED-11"
+  },
+
+  // --- SERVIÇOS AUXILIARES ---
+  {
+    id: "S-1",
+    name: "Área de Estacionamento",
+    code: "S-1",
+    description: "Indica a existência de uma área regulamentada para o estacionamento de veículos de forma geral.",
+    category: "servicos",
+    svgType: "S-1"
+  },
+  {
+    id: "S-2",
+    name: "Serviço Telefônico",
+    code: "S-2",
+    description: "Indica a existência de um telefone público ou posto telefônico de autoatendimento nas proximidades da via.",
+    category: "servicos",
+    svgType: "S-2"
+  },
+  {
+    id: "S-3",
+    name: "Serviço Mecânico",
+    code: "S-3",
+    description: "Indica a presença de uma oficina mecânica ou socorro mecânico para veículos nas proximidades.",
+    category: "servicos",
+    svgType: "S-3"
+  },
+  {
+    id: "S-4",
+    name: "Abastecimento",
+    code: "S-4",
+    description: "Indica a proximidade de um posto de abastecimento de combustíveis (gasolina, álcool, diesel ou GNV).",
+    category: "servicos",
+    svgType: "S-4"
+  },
+  {
+    id: "S-5",
+    name: "Pronto Socorro",
+    code: "S-5",
+    description: "Indica a presença de um hospital, clínica de pronto atendimento médico ou socorro de emergência nas proximidades.",
+    category: "servicos",
+    svgType: "S-5"
+  },
+  {
+    id: "S-6",
+    name: "Serviço Sanitário",
+    code: "S-6",
+    description: "Indica a existência de instalações sanitárias (banheiros públicos) de livre acesso nas proximidades da via.",
+    category: "servicos",
+    svgType: "S-6"
+  },
+  {
+    id: "S-7",
+    name: "Restaurante",
+    code: "S-7",
+    description: "Indica a existência de um estabelecimento para refeições (restaurante, lanchonete) nas proximidades.",
+    category: "servicos",
+    svgType: "S-7"
+  },
+  {
+    id: "S-8",
+    name: "Hotel",
+    code: "S-8",
+    description: "Indica a presença de estabelecimento hoteleiro ou hospedagem (hotel, pousada, motel) nas proximidades.",
+    category: "servicos",
+    svgType: "S-8"
+  },
+  {
+    id: "S-9",
+    name: "Área de Campismo",
+    code: "S-9",
+    description: "Indica a existência de uma área própria de camping (campismo) com infraestrutura para acampamento.",
+    category: "servicos",
+    svgType: "S-9"
+  },
+  {
+    id: "S-10",
+    name: "Aeroporto",
+    code: "S-10",
+    description: "Indica a existência de um aeródromo ou aeroporto com conexões de voo comerciais/privados nas proximidades.",
+    category: "servicos",
+    svgType: "S-10"
+  },
+  {
+    id: "S-11",
+    name: "Estacionamento de Trailer",
+    code: "S-11",
+    description: "Indica uma área regulamentada para o estacionamento ou repouso de trailers e veículos recreativos similares.",
+    category: "servicos",
+    svgType: "S-11"
+  },
+  {
+    id: "S-12",
+    name: "Transporte sobre Água",
+    code: "S-12",
+    description: "Indica a proximidade de um terminal de balsa, ferry boat ou transporte de veículos sobre vias fluviais ou marítimas.",
+    category: "servicos",
+    svgType: "S-12"
+  },
+  {
+    id: "S-14",
+    name: "Ponto de Parada",
+    code: "S-14",
+    description: "Indica o local estabelecido para parada de ônibus de transporte coletivo de passageiros na via pública.",
+    category: "servicos",
+    svgType: "S-14"
+  },
+  {
+    id: "S-15",
+    name: "Passagem Protegida para Pedestres",
+    code: "S-15",
+    description: "Indica que o local à frente conta com faixa, passarela ou passagem subterrânea de pedestres dotada de segurança.",
+    category: "servicos",
+    svgType: "S-15"
+  },
+
+  // --- ATRATIVOS TURÍSTICOS ---
+  {
+    id: "TUR-1",
+    name: "Atrativos: Cach. Santa Maria / Mirante / Pq. Pinheiro / Prainha",
+    code: "TUR-1",
+    description: "Placa diagrama marrom pré-indicativa de rotas e direções para atrativos ecológicos e de lazer locais.",
+    category: "turismo",
+    svgType: "TUR-1"
+  },
+  {
+    id: "TUR-2",
+    name: "Patrimônio Natural",
+    code: "TUR-2",
+    description: "Placa indicadora de atrativo turístico ecológico protegido por lei de conservação ambiental (Patrimônio Natural).",
+    category: "turismo",
+    svgType: "TUR-2"
+  },
+  {
+    id: "TUR-3",
+    name: "Praia",
+    code: "TUR-3",
+    description: "Placa indicadora de atrativo de lazer litorâneo ou balneário de praia e recreação aquática.",
+    category: "turismo",
+    svgType: "TUR-3"
+  },
+  {
+    id: "TUR-4",
+    name: "Distâncias: Taperapuã / Rio dos Mangues / Ponta Grande",
+    code: "TUR-4",
+    description: "Placa turística indicadora de distâncias em quilômetros restantes para pontos turísticos e balneários.",
+    category: "turismo",
+    svgType: "TUR-4"
+  },
+  {
+    id: "TUR-5",
+    name: "Direção de Atrativos Históricos e Culturais",
+    code: "TUR-5",
+    description: "Placa de indicação de atrativos turísticos de cunho histórico ou arquitetônico, como igrejas e museus.",
+    category: "turismo",
+    svgType: "TUR-5"
+  },
+  {
+    id: "TUR-6",
+    name: "Parque Nacional do Itatiaia",
+    code: "TUR-6",
+    description: "Placa indicadora de sentido posicionada sobre a pista orientando a direção imediata para o Parque Nacional do Itatiaia.",
+    category: "turismo",
+    svgType: "TUR-6"
+  },
+
+  // --- SINALIZAÇÃO DE OBRAS ---
+  {
+    id: "OBR-1",
+    name: "Obras na Pista",
+    code: "OBR-1",
+    description: "Indica a presença de serviços de conservação ou construção na pista de rolamento, exigindo atenção redobrada e redução de velocidade pelo condutor.",
+    category: "obras",
+    svgType: "OBR-1"
+  },
+  {
+    id: "OBR-2",
+    name: "Lama na Pista",
+    code: "OBR-2",
+    description: "Alerta para a presença de lama ou material escorregadio lançado na pista por veículos de obra, tornando o asfalto instável.",
+    category: "obras",
+    svgType: "OBR-2"
+  },
+  {
+    id: "OBR-3",
+    name: "Cascalho na Pista",
+    code: "OBR-3",
+    description: "Avisa que existem pedras ou cascalhos espalhados na pista, podendo projetar fragmentos e danificar veículos ou causar acidentes.",
+    category: "obras",
+    svgType: "OBR-3"
+  },
+  {
+    id: "OBR-4",
+    name: "Saliência ou Lombada",
+    code: "OBR-4",
+    description: "Indica a existência de saliência transversal na pista, como lombada artificial, elevação de tampão ou ondulações causadas pela obra.",
+    category: "obras",
+    svgType: "OBR-4"
+  },
+  {
+    id: "OBR-5",
+    name: "Mão Dupla (em Obras)",
+    code: "OBR-5",
+    description: "Informa que o trecho de obra está em regime de mão dupla temporário, onde o fluxo de veículos nos dois sentidos ocorre na mesma faixa.",
+    category: "obras",
+    svgType: "OBR-5"
+  },
+  {
+    id: "OBR-6",
+    name: "Caminhão de Obras",
+    code: "OBR-6",
+    description: "Sinaliza a circulação ou cruzamento de caminhões e maquinário pesado de obras na pista, exigindo cuidado extra pelos motoristas.",
+    category: "obras",
+    svgType: "OBR-6"
+  },
+  {
+    id: "OBR-7",
+    name: "Projeção de Pedras",
+    code: "OBR-7",
+    description: "Alerta que o trecho possui material granular solto que pode ser projetado pelos pneus dos veículos, podendo atingir para-brisas e outros veículos.",
+    category: "obras",
+    svgType: "OBR-7"
+  },
+  {
+    id: "OBR-8",
+    name: "Pista Escorregadia (em Obras)",
+    code: "OBR-8",
+    description: "Indica que a pista no trecho de obras está molhada, com graxa ou material escorregadio, aumentando o risco de derrapagem.",
+    category: "obras",
+    svgType: "OBR-8"
+  },
+  {
+    id: "OBR-9",
+    name: "Estreitamento de Pista à Direita",
+    code: "OBR-9",
+    description: "Indica que a faixa de rolamento à direita está bloqueada pela obra, obrigando os veículos a se deslocarem para a faixa da esquerda.",
+    category: "obras",
+    svgType: "OBR-9"
+  },
+  {
+    id: "OBR-10",
+    name: "Estreitamento de Pista à Esquerda",
+    code: "OBR-10",
+    description: "Indica que a faixa de rolamento à esquerda está bloqueada pela obra, obrigando os veículos a se deslocarem para a faixa da direita.",
+    category: "obras",
+    svgType: "OBR-10"
+  },
+  {
+    id: "OBR-11",
+    name: "Bifurcação de Faixas",
+    code: "OBR-11",
+    description: "Indica o ponto onde as faixas se separam em desvio de obras, com duas vias alternativas disponíveis para o trânsito.",
+    category: "obras",
+    svgType: "OBR-11"
+  },
+  {
+    id: "OBR-12",
+    name: "Altura Máxima Permitida (Obras)",
+    code: "OBR-12",
+    description: "Informa a altura máxima permitida de passagem de veículos no trecho, geralmente em função de estruturas provisórias montadas para a obra.",
+    category: "obras",
+    svgType: "OBR-12"
+  },
+  {
+    id: "OBR-13",
+    name: "PARE — Sinalização de Obras",
+    code: "OBR-13",
+    description: "Exige a parada total do veículo antes de prosseguir no trecho de obras. Usualmente associada a um sistema de controle manual de tráfego.",
+    category: "obras",
+    svgType: "OBR-13"
+  },
+  {
+    id: "OBR-14",
+    name: "Largura Máxima Permitida (Obras)",
+    code: "OBR-14",
+    description: "Indica a largura máxima de passagem no trecho de obras, normalmente causada pelo estreitamento da pista ou corredor formado pelos equipamentos.",
+    category: "obras",
+    svgType: "OBR-14"
+  },
+  {
+    id: "OBR-15",
+    name: "Trabalhadores na Pista",
+    code: "OBR-15",
+    description: "Indica que há operários e trabalhadores realizando serviços na pista ou nas suas imediações. Exige redução de velocidade e atenção máxima.",
+    category: "obras",
+    svgType: "OBR-15"
+  },
+  {
+    id: "OBR-16",
+    name: "Estreitamento de Ambos os Lados",
+    code: "OBR-16",
+    description: "Indica que a pista é estreitada de ambos os lados devido à obra, resultando em um corredor central para o tráfego.",
+    category: "obras",
+    svgType: "OBR-16"
+  },
+  {
+    id: "OBR-D1",
+    name: "Desvio à Esquerda",
+    code: "OBR-D1",
+    description: "Placa retangular laranja indicando que o trânsito deve ser desviado à esquerda a determinada distância, em função das obras na pista.",
+    category: "obras",
+    svgType: "OBR-D1"
+  },
+  {
+    id: "OBR-D2",
+    name: "Desvio",
+    code: "OBR-D2",
+    description: "Placa retangular laranja com seta diagonal, indicando que há um desvio obrigatório do trajeto normal em função das obras.",
+    category: "obras",
+    svgType: "OBR-D2"
+  },
+  {
+    id: "OBR-D3",
+    name: "Desvio à Direita",
+    code: "OBR-D3",
+    description: "Placa retangular laranja indicando que o trânsito deve ser desviado à direita a determinada distância, em função das obras na pista.",
+    category: "obras",
+    svgType: "OBR-D3"
+  },
+
+  // --- SINALIZAÇÃO HORIZONTAL ---
+  {
+    id: "MH-AMA",
+    name: "Linha Amarela",
+    code: "MH-AMA",
+    description: "Linha longitudinal pintada no asfalto na cor amarela. Separa fluxos de sentidos opostos de tráfego. Quando contínua, é proibido ultrapassar; quando tracejada, permite ultrapassagem desde que segura.",
+    category: "horizontal",
+    svgType: "MH-AMA"
+  },
+  {
+    id: "MH-BRA",
+    name: "Linha Branca",
+    code: "MH-BRA",
+    description: "Linha longitudinal pintada no asfalto na cor branca. Separa faixas de mesmo sentido de circulação. Quando tracejada, permite troca de faixa; quando contínua, o trânsito deve permanecer na faixa.",
+    category: "horizontal",
+    svgType: "MH-BRA"
+  },
+  {
+    id: "MH-VRM",
+    name: "Linha Vermelha",
+    code: "MH-VRM",
+    description: "Marcação horizontal pintada no asfalto na cor vermelha. Demarca áreas reservadas exclusivamente para serviços de saúde e emergência, como espaço de estacionamento de ambulâncias em hospitais.",
+    category: "horizontal",
+    svgType: "MH-VRM"
+  },
+  {
+    id: "MH-AZL",
+    name: "Linha Azul",
+    code: "MH-AZL",
+    description: "Marcação horizontal pintada no asfalto na cor azul. Demarca vagas de estacionamento exclusivas para pessoas com deficiência (PCD), acompanhando o símbolo internacional de acessibilidade.",
+    category: "horizontal",
+    svgType: "MH-AZL"
+  },
+  {
+    id: "MH-PRT",
+    name: "Linha Preta",
+    code: "MH-PRT",
+    description: "Marcação horizontal pintada no asfalto na cor preta. Utilizada como delimitação de contraste em superfícies de pavimento claro (como calçadas claras, ciclovias ou pistas de concreto branco), demarcando limites de faixas.",
+    category: "horizontal",
+    svgType: "MH-PRT"
   }
 ];
+

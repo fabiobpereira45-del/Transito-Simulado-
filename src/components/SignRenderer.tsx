@@ -39,6 +39,23 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
     'ED-1', 'ED-2', 'ED-3', 'ED-4', 'ED-5', 'ED-6', 'ED-7', 'ED-8', 'ED-9', 'ED-10', 'ED-11'
   ];
 
+  const servicesCodes = [
+    'S-1', 'S-2', 'S-3', 'S-4', 'S-5', 'S-6', 'S-7', 'S-8', 'S-9', 'S-10', 'S-11', 'S-12', 'S-14', 'S-15'
+  ];
+
+  const touristCodes = [
+    'TUR-1', 'TUR-2', 'TUR-3', 'TUR-4', 'TUR-5', 'TUR-6'
+  ];
+
+  const workDiamondCodes = [
+    'OBR-1','OBR-2','OBR-3','OBR-4','OBR-5','OBR-6','OBR-7','OBR-8',
+    'OBR-9','OBR-10','OBR-11','OBR-12','OBR-13','OBR-14','OBR-15','OBR-16'
+  ];
+
+  const workRectCodes = ['OBR-D1', 'OBR-D2', 'OBR-D3'];
+
+  const horizontalCodes = ['MH-AMA', 'MH-BRA', 'MH-VRM', 'MH-AZL', 'MH-PRT'];
+
   // Aliases for backward compatibility
   const isCircularRegulatory = circularRegulatoryCodes.includes(type) || 
     ['prohibited', 'speed_limit', 'prohibited_turn_left', 'prohibited_turn_right', 
@@ -51,6 +68,11 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
   const isDestinationGuidance = destinationGuidanceCodes.includes(type);
   const isEducational = educationalCodes.includes(type);
+  const isServiceSign = servicesCodes.includes(type);
+  const isTouristSign = touristCodes.includes(type);
+  const isWorkDiamond = workDiamondCodes.includes(type);
+  const isWorkRect = workRectCodes.includes(type);
+  const isHorizontal = horizontalCodes.includes(type);
 
   // Helper for bike SVG drawing
   const renderBikeIcon = (x: number, y: number, scale: number) => (
@@ -180,6 +202,12 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             <stop offset="0%" stopColor="#10B981" />
             <stop offset="60%" stopColor="#059669" />
             <stop offset="100%" stopColor="#047857" />
+          </linearGradient>
+
+          <linearGradient id="brownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8B5A2B" />
+            <stop offset="60%" stopColor="#704214" />
+            <stop offset="100%" stopColor="#5C3317" />
           </linearGradient>
         </defs>
 
@@ -2085,6 +2113,633 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             )}
           </g>
         )}
+
+        {/* --- PLACAS DE SERVIÇOS AUXILIARES (S-1 a S-15 em Azul/Branco) --- */}
+        {isServiceSign && (
+          <g filter="url(#plateShadow)">
+            <rect x="20" y="4" width="60" height="92" rx="6" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
+            <rect x="23" y="7" width="54" height="86" rx="4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <rect x="27" y="11" width="46" height="46" rx="3" fill="#FFFFFF" />
+            <circle cx="50" cy="5.5" r="1.5" fill="url(#blackGrad)" />
+            <circle cx="50" cy="94.5" r="1.5" fill="url(#blackGrad)" />
+
+            {/* Bottom Arrow/Distance */}
+            {(type === 'S-3' || type === 'S-9' || type === 'S-10' || type === 'S-1' || type === 'S-8' || type === 'S-2' || type === 'S-12') && (
+              <path d="M42,74 L58,74 M58,74 L52,68 M58,74 L52,80" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            )}
+            {(type === 'S-6' || type === 'S-11' || type === 'S-15') && (
+              <path d="M58,74 L42,74 M42,74 L48,68 M42,74 L48,80" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            )}
+            {(type === 'S-4' || type === 'S-7') && (
+              <text x="50" y="78" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">500 m</text>
+            )}
+
+            {/* Specific Pictograms */}
+            {type === 'S-3' && (
+              <g>
+                <path d="M34,44 L56,22" stroke="#000000" strokeWidth="4" strokeLinecap="round" />
+                <circle cx="56" cy="22" r="5.5" fill="#000000" />
+                <circle cx="56" cy="22" r="2.2" fill="#FFFFFF" />
+                <line x1="56" y1="22" x2="52" y2="26" stroke="#FFFFFF" strokeWidth="2" />
+                <path d="M56,44 L34,22" stroke="#000000" strokeWidth="2.8" strokeLinecap="round" />
+                <rect x="29" y="17" width="10" height="6" rx="1" fill="#000000" transform="rotate(-45 34 20)" />
+              </g>
+            )}
+
+            {type === 'S-4' && (
+              <g>
+                <rect x="36" y="22" width="16" height="24" rx="2" fill="#000000" />
+                <rect x="38" y="25" width="12" height="6" fill="#FFFFFF" />
+                <rect x="41" y="34" width="6" height="6" fill="#FFFFFF" />
+                <path d="M52,26 C55,26 57,28 57,33 L57,38 C57,41 55,41 55,38" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                <rect x="54" y="24" width="2.5" height="4" fill="#000000" />
+              </g>
+            )}
+
+            {type === 'S-6' && (
+              <g>
+                <path d="M34,26 L46,26 L46,30" fill="none" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" />
+                <line x1="40" y1="20" x2="40" y2="26" stroke="#000000" strokeWidth="3" />
+                <line x1="36" y1="20" x2="44" y2="20" stroke="#000000" strokeWidth="2.5" />
+                <circle cx="46" cy="34" r="1.5" fill="#000000" />
+                <circle cx="46" cy="39" r="1.5" fill="#000000" />
+                <path d="M34,44 C38,44 42,42 46,44 C49,45 52,43 54,40 C52,38 48,39 46,38 C42,37 38,39 34,39 Z" fill="#000000" />
+              </g>
+            )}
+
+            {type === 'S-7' && (
+              <g>
+                <path d="M35,43 L55,23" stroke="#000000" strokeWidth="3" strokeLinecap="round" />
+                <path d="M35,43 L32,46 M33,41 L29,44 M37,45 L34,48" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                <path d="M55,43 L35,23" stroke="#000000" strokeWidth="3" strokeLinecap="round" />
+                <circle cx="55" cy="43" r="4.5" fill="#000000" />
+              </g>
+            )}
+
+            {type === 'S-9' && (
+              <g>
+                <polygon points="31,44 50,20 69,44" fill="#000000" />
+                <polygon points="44,44 50,32 56,44" fill="#FFFFFF" />
+                <line x1="28" y1="44" x2="72" y2="44" stroke="#000000" strokeWidth="2" />
+              </g>
+            )}
+
+            {type === 'S-10' && (
+              <g>
+                <path d="M50,15 L50,47 M50,22 L32,34 L32,38 L50,30 M50,30 L68,38 L68,34 L50,22 M50,43 L42,47 L42,49 L50,47 M50,47 L58,49 L58,47 L50,43" fill="#000000" stroke="#000000" strokeWidth="1.5" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {type === 'S-11' && (
+              <g>
+                <rect x="32" y="24" width="30" height="18" rx="3" fill="#000000" />
+                <circle cx="42" cy="42" r="3.5" fill="#000000" stroke="#FFFFFF" strokeWidth="1.2" />
+                <rect x="36" y="28" width="10" height="6" fill="#FFFFFF" />
+                <rect x="52" y="28" width="6" height="14" fill="#FFFFFF" />
+                <path d="M62,38 L68,38 L68,41" fill="none" stroke="#000000" strokeWidth="2" />
+              </g>
+            )}
+
+            {type === 'S-1' && (
+              <text x="50" y="44" fill="#000000" fontSize="32" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">E</text>
+            )}
+
+            {type === 'S-8' && (
+              <g>
+                <rect x="38" y="28" width="24" height="6" fill="#000000" />
+                <rect x="34" y="22" width="4" height="20" fill="#000000" />
+                <rect x="62" y="28" width="3" height="14" fill="#000000" />
+                <rect x="40" y="24" width="5" height="4" rx="1" fill="#FFFFFF" stroke="#000000" strokeWidth="1.2" />
+                <rect x="38" y="34" width="24" height="2" fill="#000000" />
+              </g>
+            )}
+
+            {type === 'S-2' && (
+              <path d="M34,26 C33,28 34,31 37,34 L43,40 C46,43 49,44 51,42 L54,39 C55,38 54,36 53,35 L48,32 C47,31 46,31 45,32 L43,34 Q41,32 39,30 L41,28 C42,27 42,26 41,25 L38,20 C37,19 35,18 34,20 Z" fill="#000000" />
+            )}
+
+            {type === 'S-12' && (
+              <g>
+                <path d="M30,36 L70,36 L66,42 L34,42 Z" fill="#000000" />
+                <path d="M28,45 Q35,43 42,45 Q49,47 56,45 Q63,43 70,45" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                <path d="M30,48 Q37,46 44,48 Q51,50 58,48 Q65,46 72,48" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                <rect x="42" y="27" width="16" height="7" rx="1.5" fill="#000000" />
+                <rect x="45" y="23" width="10" height="5" rx="1" fill="#000000" />
+                <circle cx="46" cy="34" r="2.2" fill="#FFFFFF" />
+                <circle cx="54" cy="34" r="2.2" fill="#FFFFFF" />
+              </g>
+            )}
+
+            {type === 'S-14' && (
+              <g>
+                <rect x="31" y="24" width="38" height="18" rx="3" fill="#000000" />
+                <rect x="34" y="27" width="8" height="6" fill="#FFFFFF" />
+                <rect x="44" y="27" width="8" height="6" fill="#FFFFFF" />
+                <rect x="54" y="27" width="8" height="6" fill="#FFFFFF" />
+                <circle cx="40" cy="42" r="3.2" fill="#000000" />
+                <circle cx="60" cy="42" r="3.2" fill="#000000" />
+                <rect x="63" y="27" width="4" height="15" fill="#FFFFFF" />
+              </g>
+            )}
+
+            {type === 'S-15' && (
+              <g>
+                <path d="M47,27 L53,27 L55,37 H52 L50,32 L48,37 H45 Z" fill="#000000" />
+                <circle cx="50" cy="22" r="3" fill="#000000" />
+                <line x1="31" y1="41" x2="69" y2="41" stroke="#000000" strokeWidth="2.5" strokeDasharray="4,3" />
+                <line x1="31" y1="45" x2="69" y2="45" stroke="#000000" strokeWidth="2.5" strokeDasharray="4,3" />
+              </g>
+            )}
+
+            {type === 'S-5' && (
+              <g>
+                <path d="M45,19 H55 V49 H45 Z" fill="#EF4444" />
+                <path d="M35,29 H65 V39 H35 Z" fill="#EF4444" />
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* --- PLACAS DE ATRATIVOS TURÍSTICOS (TUR-1 a TUR-6 em Marrom) --- */}
+        {isTouristSign && (
+          <g>
+            {/* TUR-1 and TUR-6 are vertical / large rectangular */}
+            {(type === 'TUR-1' || type === 'TUR-6') && (
+              <g filter="url(#plateShadow)">
+                <rect x="15" y="5" width="70" height="90" rx="8" fill="url(#brownGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
+                <rect x="18" y="8" width="64" height="84" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.2" />
+                <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+                <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+
+                {type === 'TUR-1' && (
+                  <g>
+                    <line x1="18" y1="78" x2="82" y2="78" stroke="#FFFFFF" strokeWidth="1.2" />
+                    <text x="50" y="86" fill="#FFFFFF" fontSize="6.8" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">500 m</text>
+                    <path d="M28,70 L28,24" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+                    <path d="M28,24 L25,29 M28,24 L31,29" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M28,52 Q28,45 38,45 L48,45" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" />
+                    <path d="M48,45 L43,42 M48,45 L43,48" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M28,64 Q28,58 38,58 L48,58" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" />
+                    <path d="M48,58 L43,55 M48,58 L43,61" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <rect x="23" y="14" width="8" height="8" rx="1.5" fill="#FFFFFF" />
+                    <path d="M24,18 C25,17 26,17 27,18" stroke="#000000" strokeWidth="0.8" fill="none" />
+                    <text x="34" y="20" fill="#FFFFFF" fontSize="4.8" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Cach. Santa Maria</text>
+                    <rect x="50" y="36" width="8" height="8" rx="1.5" fill="#FFFFFF" />
+                    <text x="60" y="42" fill="#FFFFFF" fontSize="4.8" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Mirante</text>
+                    <rect x="50" y="49" width="8" height="8" rx="1.5" fill="#FFFFFF" />
+                    <text x="60" y="55" fill="#FFFFFF" fontSize="4.8" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Parque Pinheiro</text>
+                    <rect x="50" y="59" width="8" height="8" rx="1.5" fill="#FFFFFF" />
+                    <text x="60" y="65" fill="#FFFFFF" fontSize="4.8" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Prainha</text>
+                  </g>
+                )}
+
+                {type === 'TUR-6' && (
+                  <g>
+                    <text x="50" y="50" fill="#FFFFFF" fontSize="7.8" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Pq. Nac. Itatiaia</text>
+                    <path d="M50,62 L50,78 M50,78 L46,73 M50,78 L54,73" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <rect x="46" y="22" width="8" height="8" rx="1.5" fill="#FFFFFF" />
+                    <circle cx="48" cy="25" r="0.8" fill="#000000" />
+                    <circle cx="52" cy="25" r="0.8" fill="#000000" />
+                    <line x1="48" y1="25" x2="48" y2="28" stroke="#000000" strokeWidth="0.5" />
+                    <line x1="52" y1="25" x2="52" y2="28" stroke="#000000" strokeWidth="0.5" />
+                    <path d="M47,27 Q49,29 51,29 Q53,29 53,27" fill="none" stroke="#000000" strokeWidth="0.5" />
+                  </g>
+                )}
+              </g>
+            )}
+
+            {/* TUR-2 and TUR-3 are square identifying plates */}
+            {(type === 'TUR-2' || type === 'TUR-3') && (
+              <g filter="url(#plateShadow)">
+                <rect x="8" y="8" width="84" height="84" rx="8" fill="url(#brownGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
+                <rect x="11" y="11" width="78" height="78" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.2" />
+                <rect x="22" y="18" width="56" height="42" rx="3" fill="#FFFFFF" />
+                <circle cx="50" cy="12.5" r="1.5" fill="url(#blackGrad)" />
+                <circle cx="50" cy="87.5" r="1.5" fill="url(#blackGrad)" />
+
+                {type === 'TUR-2' && (
+                  <g>
+                    <path d="M42,48 L42,32" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                    <circle cx="42" cy="30" r="5" fill="#000000" />
+                    <path d="M58,48 L58,32" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                    <circle cx="58" cy="30" r="5" fill="#000000" />
+                    <path d="M28,34 Q32,46 44,48 L42,52 Q30,50 26,38 Z" fill="#000000" />
+                    <path d="M72,34 Q68,46 56,48 L58,52 Q70,50 74,38 Z" fill="#000000" />
+                    <rect x="37" y="52" width="4" height="5" fill="#000000" />
+                    <rect x="59" y="52" width="4" height="5" fill="#000000" />
+                    <text x="50" y="71" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Patrimônio</text>
+                    <text x="50" y="79" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">natural</text>
+                  </g>
+                )}
+
+                {type === 'TUR-3' && (
+                  <g>
+                    <line x1="50" y1="50" x2="44" y2="28" stroke="#000000" strokeWidth="2.2" />
+                    <path d="M32,32 C34,24 54,24 56,32 Z" fill="#000000" />
+                    <path d="M26,50 Q33,48 40,50 Q47,52 54,50 Q61,48 68,50" fill="none" stroke="#000000" strokeWidth="2.2" strokeLinecap="round" />
+                    <path d="M28,54 Q35,52 42,54 Q49,56 56,54 Q63,52 70,54" fill="none" stroke="#000000" strokeWidth="2.2" strokeLinecap="round" />
+                    <text x="50" y="74" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Praia</text>
+                  </g>
+                )}
+              </g>
+            )}
+
+            {/* TUR-4 and TUR-5 are horizontal rectangular plates */}
+            {(type === 'TUR-4' || type === 'TUR-5') && (
+              <g filter="url(#plateShadow)">
+                <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#brownGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+                <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+                <circle cx="50" cy="19.5" r="2" fill="url(#blackGrad)" />
+                <circle cx="50" cy="80.5" r="2" fill="url(#blackGrad)" />
+
+                {type === 'TUR-4' && (
+                  <g>
+                    <path d="M14,32 L10,32 M10,32 L12,30 M10,32 L12,34" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M14,50 L10,50 M10,50 L12,48 M10,50 L12,52" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M14,68 L10,68 M10,68 L12,66 M10,68 L12,70" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <text x="20" y="35" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Taperapuã</text>
+                    <text x="84" y="35" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">2 km</text>
+                    <text x="20" y="53" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Rio dos Mangues</text>
+                    <text x="84" y="53" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">4 km</text>
+                    <text x="20" y="71" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Ponta Grande</text>
+                    <text x="84" y="71" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">6 km</text>
+                  </g>
+                )}
+
+                {type === 'TUR-5' && (
+                  <g>
+                    <line x1="8" y1="50" x2="92" y2="50" stroke="#FFFFFF" strokeWidth="1.5" />
+                    <path d="M18,34 L12,34 M12,34 L15,31 M12,34 L15,37" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <rect x="22" y="24" width="8" height="8" rx="1" fill="#FFFFFF" />
+                    <text x="32" y="30" fill="#FFFFFF" fontSize="6.2" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Museu de Arte Sacra</text>
+                    <rect x="22" y="36" width="8" height="8" rx="1" fill="#FFFFFF" />
+                    <text x="32" y="42" fill="#FFFFFF" fontSize="6.2" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Igreja de S. Sebastião</text>
+                    
+                    <path d="M76,68 L82,68 M82,68 L79,65 M82,68 L79,71" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <rect x="64" y="56" width="8" height="8" rx="1" fill="#FFFFFF" />
+                    <text x="14" y="62" fill="#FFFFFF" fontSize="6.2" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Casa da Moeda</text>
+                    <rect x="64" y="68" width="8" height="8" rx="1" fill="#FFFFFF" />
+                    <text x="14" y="74" fill="#FFFFFF" fontSize="6.2" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Catedral S. Francisco</text>
+                  </g>
+                )}
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* ============================================================ */}
+        {/* OBRAS — Losango Laranja com Pictograma Preto                  */}
+        {/* ============================================================ */}
+        {isWorkDiamond && (
+          <g>
+            {/* Losango laranja com borda escura */}
+            <polygon
+              points="50,4 96,50 50,96 4,50"
+              fill="url(#metalBorderGrad)"
+              filter="url(#plateShadow)"
+            />
+            <polygon
+              points="50,7 93,50 50,93 7,50"
+              fill="#F97316"
+            />
+            <polygon
+              points="50,12 88,50 50,88 12,50"
+              fill="none"
+              stroke="#1C1917"
+              strokeWidth="2.5"
+            />
+
+            {/* OBR-1: Obras na Pista — peão com pá */}
+            {type === 'OBR-1' && (
+              <g transform="translate(28,22) scale(0.44)">
+                {/* Figura humana trabalhador */}
+                <circle cx="50" cy="18" r="8" fill="#1C1917" />
+                <path d="M42,28 Q50,24 58,28 L60,55 H40 Z" fill="#1C1917" />
+                <line x1="40" y1="55" x2="36" y2="80" stroke="#1C1917" strokeWidth="5" strokeLinecap="round" />
+                <line x1="60" y1="55" x2="64" y2="80" stroke="#1C1917" strokeWidth="5" strokeLinecap="round" />
+                {/* Braço com pá */}
+                <line x1="58" y1="35" x2="75" y2="22" stroke="#1C1917" strokeWidth="5" strokeLinecap="round" />
+                <rect x="70" y="10" width="12" height="18" rx="2" fill="#1C1917" />
+              </g>
+            )}
+
+            {/* OBR-2: Lama na Pista — carro com respingo */}
+            {type === 'OBR-2' && (
+              <g>
+                {renderCarIcon(24, 35, 0.5)}
+                {/* Ondas de lama */}
+                <path d="M36,68 Q40,62 44,68 Q48,74 52,68 Q56,62 60,68" fill="none" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" />
+                <path d="M30,76 Q36,70 42,76 Q48,82 54,76 Q60,70 66,76" fill="none" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" />
+              </g>
+            )}
+
+            {/* OBR-3: Cascalho na Pista — carro com pedras voando */}
+            {type === 'OBR-3' && (
+              <g>
+                {renderCarIcon(24, 36, 0.48)}
+                {/* Pedras voando */}
+                <circle cx="62" cy="38" r="3" fill="#1C1917" />
+                <circle cx="68" cy="32" r="2.2" fill="#1C1917" />
+                <circle cx="58" cy="28" r="2.5" fill="#1C1917" />
+                <circle cx="72" cy="42" r="2" fill="#1C1917" />
+                <path d="M55,72 Q58,68 65,68" fill="none" stroke="#1C1917" strokeWidth="2.5" strokeLinecap="round"/>
+              </g>
+            )}
+
+            {/* OBR-4: Saliência/Lombada — ondulação na pista */}
+            {type === 'OBR-4' && (
+              <g>
+                {renderCarIcon(26, 32, 0.48)}
+                <path d="M22,72 Q30,60 40,60 Q50,60 58,72 Q66,84 76,72"
+                  fill="none" stroke="#1C1917" strokeWidth="4" strokeLinecap="round" />
+              </g>
+            )}
+
+            {/* OBR-5: Mão Dupla — duas setas opostas */}
+            {type === 'OBR-5' && (
+              <g>
+                {/* Seta para cima */}
+                <path d="M50,15 L44,28 L47,28 L47,50 L53,50 L53,28 L56,28 Z" fill="#1C1917" />
+                {/* Seta para baixo */}
+                <path d="M50,85 L44,72 L47,72 L47,50 L53,50 L53,72 L56,72 Z" fill="#1C1917" />
+              </g>
+            )}
+
+            {/* OBR-6: Caminhão de Obras */}
+            {type === 'OBR-6' && (
+              <g transform="translate(12,28) scale(0.76)">
+                {renderTruckIcon(0, 0, 1)}
+              </g>
+            )}
+
+            {/* OBR-7: Projeção de Pedras — carro + fragmentos */}
+            {type === 'OBR-7' && (
+              <g>
+                {renderCarIcon(20, 38, 0.48)}
+                <circle cx="60" cy="35" r="3.5" fill="#1C1917" />
+                <circle cx="68" cy="28" r="2.5" fill="#1C1917" />
+                <circle cx="64" cy="44" r="2" fill="#1C1917" />
+                <circle cx="72" cy="38" r="3" fill="#1C1917" />
+                <circle cx="58" cy="25" r="2" fill="#1C1917" />
+                {/* Linhas de impacto */}
+                <line x1="54" y1="46" x2="60" y2="36" stroke="#1C1917" strokeWidth="1.5" />
+                <line x1="60" y1="36" x2="66" y2="28" stroke="#1C1917" strokeWidth="1.5" />
+              </g>
+            )}
+
+            {/* OBR-8: Pista Escorregadia em Obras — carro derrapando */}
+            {type === 'OBR-8' && (
+              <g>
+                <g transform="translate(22,30) rotate(-12,25,12) scale(0.5)">
+                  {/* Car body tilted */}
+                  <rect x="5" y="12" width="40" height="18" rx="4" fill="#1C1917" />
+                  <rect x="10" y="3" width="30" height="11" rx="2.5" fill="#1C1917" />
+                  <circle cx="12" cy="22" r="3.2" fill="#F97316" />
+                  <circle cx="38" cy="22" r="3.2" fill="#F97316" />
+                </g>
+                {/* Traços de derrapagem */}
+                <path d="M28,72 Q38,68 50,70 Q62,72 72,68" fill="none" stroke="#1C1917" strokeWidth="3" strokeDasharray="4,3" strokeLinecap="round" />
+                <path d="M30,78 Q40,74 52,76 Q64,78 74,74" fill="none" stroke="#1C1917" strokeWidth="3" strokeDasharray="4,3" strokeLinecap="round" />
+              </g>
+            )}
+
+            {/* OBR-9: Estreitamento à Direita */}
+            {type === 'OBR-9' && (
+              <g>
+                {/* Faixa esquerda reta */}
+                <path d="M22,28 L22,72" stroke="#1C1917" strokeWidth="3" />
+                {/* Faixa direita que converge */}
+                <path d="M78,28 L45,72" stroke="#1C1917" strokeWidth="3" />
+                {/* Seta central */}
+                <path d="M50,40 L50,68 M50,68 L44,60 M50,68 L56,60" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                <text x="50" y="86" fill="#1C1917" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 100 m</text>
+              </g>
+            )}
+
+            {/* OBR-10: Estreitamento à Esquerda */}
+            {type === 'OBR-10' && (
+              <g>
+                {/* Faixa direita reta */}
+                <path d="M78,28 L78,72" stroke="#1C1917" strokeWidth="3" />
+                {/* Faixa esquerda que converge */}
+                <path d="M22,28 L55,72" stroke="#1C1917" strokeWidth="3" />
+                {/* Seta central */}
+                <path d="M50,40 L50,68 M50,68 L44,60 M50,68 L56,60" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                <text x="50" y="86" fill="#1C1917" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 100 m</text>
+              </g>
+            )}
+
+            {/* OBR-11: Bifurcação de Faixas */}
+            {type === 'OBR-11' && (
+              <g>
+                {/* Faixa central que se divide */}
+                <path d="M50,72 L50,54 M50,54 L36,30 M50,54 L64,30" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" />
+                {/* Seta esquerda */}
+                <path d="M36,30 L31,36 M36,30 L42,34" stroke="#1C1917" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Seta direita */}
+                <path d="M64,30 L59,36 M64,30 L70,34" stroke="#1C1917" strokeWidth="2.5" strokeLinecap="round" />
+                <text x="50" y="86" fill="#1C1917" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 100 m</text>
+              </g>
+            )}
+
+            {/* OBR-12: Altura Máxima (Obras) */}
+            {type === 'OBR-12' && (
+              <g>
+                {/* Seta dupla vertical */}
+                <path d="M50,20 L44,30 L47,30 L47,70 L44,70 L50,80 L56,70 L53,70 L53,30 L56,30 Z" fill="#1C1917" />
+                <text x="50" y="52" fill="#F97316" fontSize="10" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">4,40m</text>
+              </g>
+            )}
+
+            {/* OBR-13: PARE em obras */}
+            {type === 'OBR-13' && (
+              <g>
+                <text x="50" y="54" fill="#1C1917" fontSize="18" fontWeight="900" textAnchor="middle" fontFamily="Arial, sans-serif" letterSpacing="1">PARE</text>
+                <text x="50" y="72" fill="#1C1917" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 100 m</text>
+              </g>
+            )}
+
+            {/* OBR-14: Largura Máxima (Obras) */}
+            {type === 'OBR-14' && (
+              <g>
+                {/* Seta dupla horizontal */}
+                <path d="M18,50 L28,44 L28,47 L72,47 L72,44 L82,50 L72,56 L72,53 L28,53 L28,56 Z" fill="#1C1917" />
+                <text x="50" y="42" fill="#1C1917" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">2,60m</text>
+                <text x="50" y="72" fill="#1C1917" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">ÚLTIMA SAÍDA</text>
+              </g>
+            )}
+
+            {/* OBR-15: Trabalhadores na Pista */}
+            {type === 'OBR-15' && (
+              <g transform="translate(26,18) scale(0.48)">
+                <circle cx="50" cy="18" r="8" fill="#1C1917" />
+                <path d="M42,28 Q50,24 58,28 L62,60 H38 Z" fill="#1C1917" />
+                <line x1="38" y1="60" x2="33" y2="85" stroke="#1C1917" strokeWidth="6" strokeLinecap="round" />
+                <line x1="62" y1="60" x2="67" y2="85" stroke="#1C1917" strokeWidth="6" strokeLinecap="round" />
+                {/* Pá/ferramenta */}
+                <line x1="60" y1="36" x2="80" y2="18" stroke="#1C1917" strokeWidth="5" strokeLinecap="round" />
+                <path d="M75,10 L88,10 L88,22 L75,22 Z" fill="#1C1917" />
+              </g>
+            )}
+
+            {/* OBR-16: Estreitamento dos dois lados */}
+            {type === 'OBR-16' && (
+              <g>
+                {/* Linhas que fecham dos dois lados */}
+                <path d="M20,28 L35,72" stroke="#1C1917" strokeWidth="3" />
+                <path d="M80,28 L65,72" stroke="#1C1917" strokeWidth="3" />
+                {/* Seta central para baixo */}
+                <path d="M50,30 L50,68 M50,68 L44,60 M50,68 L56,60" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                <text x="50" y="86" fill="#1C1917" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 100 m</text>
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* ============================================================ */}
+        {/* OBRAS — Placas Retangulares de Desvio                         */}
+        {/* ============================================================ */}
+        {isWorkRect && (
+          <g filter="url(#plateShadow)">
+            <rect x="3" y="25" width="94" height="50" rx="6" fill="#1C1917" />
+            <rect x="5" y="27" width="90" height="46" rx="5" fill="#F97316" />
+            <rect x="7" y="29" width="86" height="42" rx="4" fill="none" stroke="#1C1917" strokeWidth="2" />
+
+            {type === 'OBR-D1' && (
+              <g>
+                <text x="36" y="47" fill="#1C1917" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">DESVIO À</text>
+                <text x="36" y="56" fill="#1C1917" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">ESQUERDA</text>
+                <text x="36" y="65" fill="#1C1917" fontSize="6" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 200 m</text>
+                {/* Seta à esquerda */}
+                <path d="M75,50 L65,50 M65,50 L70,45 M65,50 L70,55" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {type === 'OBR-D2' && (
+              <g>
+                <text x="42" y="50" fill="#1C1917" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">DESVIO</text>
+                {/* Seta diagonal */}
+                <path d="M65,58 L78,45 M78,45 L72,45 M78,45 L78,51" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {type === 'OBR-D3' && (
+              <g>
+                <text x="64" y="47" fill="#1C1917" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">DESVIO À</text>
+                <text x="64" y="56" fill="#1C1917" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">DIREITA</text>
+                <text x="64" y="65" fill="#1C1917" fontSize="6" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">A 200 m</text>
+                {/* Seta à direita */}
+                <path d="M18,50 L28,50 M28,50 L23,45 M28,50 L23,55" stroke="#1C1917" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* ============================================================ */}
+        {/* SINALIZAÇÃO HORIZONTAL — Vista aérea de pista                */}
+        {/* ============================================================ */}
+        {isHorizontal && (
+          <g filter="url(#plateShadow)">
+            {/* Fundo retangular (asfalto) */}
+            <rect x="3" y="8" width="94" height="84" rx="8" fill="#1C1917" />
+            <rect x="5" y="10" width="90" height="80" rx="7" fill="#2D2D2D" />
+
+            {/* Fundo de asfalto texturizado */}
+            <rect x="5" y="10" width="90" height="80" rx="7" fill="#374151" />
+
+            {/* === AMARELA: separa sentidos opostos — tracejada centralizada === */}
+            {type === 'MH-AMA' && (
+              <g>
+                {/* Banner superior amarelo */}
+                <rect x="3" y="8" width="94" height="16" rx="8" fill="#FACC15" />
+                <text x="50" y="20" fill="#1C1917" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">AMARELA</text>
+                {/* Linha tracejada amarela no centro do asfalto */}
+                <line x1="10" y1="50" x2="27" y2="50" stroke="#FACC15" strokeWidth="3.5" strokeLinecap="round" />
+                <line x1="34" y1="50" x2="51" y2="50" stroke="#FACC15" strokeWidth="3.5" strokeLinecap="round" />
+                <line x1="58" y1="50" x2="75" y2="50" stroke="#FACC15" strokeWidth="3.5" strokeLinecap="round" />
+                <line x1="82" y1="50" x2="90" y2="50" stroke="#FACC15" strokeWidth="3.5" strokeLinecap="round" />
+                {/* Setas de sentido oposto */}
+                <path d="M30,38 L22,38 M22,38 L26,34 M22,38 L26,42" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M65,62 L73,62 M73,62 L69,58 M73,62 L69,66" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* === BRANCA: separa mesmo sentido — tracejada === */}
+            {type === 'MH-BRA' && (
+              <g>
+                {/* Banner superior branco */}
+                <rect x="3" y="8" width="94" height="16" rx="8" fill="#FFFFFF" />
+                <rect x="3" y="8" width="94" height="16" rx="8" fill="none" stroke="#374151" strokeWidth="1.5" />
+                <text x="50" y="20" fill="#1C1917" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">BRANCA</text>
+                {/* Linha tracejada branca no centro */}
+                <line x1="10" y1="50" x2="27" y2="50" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
+                <line x1="34" y1="50" x2="51" y2="50" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
+                <line x1="58" y1="50" x2="75" y2="50" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
+                <line x1="82" y1="50" x2="90" y2="50" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
+                {/* Duas setas mesma direção */}
+                <path d="M72,38 L80,38 M80,38 L76,34 M80,38 L76,42" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M72,62 L80,62 M80,62 L76,58 M80,62 L76,66" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* === VERMELHA: área de saúde/emergência === */}
+            {type === 'MH-VRM' && (
+              <g>
+                {/* Banner vermelho */}
+                <rect x="3" y="8" width="94" height="16" rx="8" fill="#EF4444" />
+                <text x="50" y="20" fill="#FFFFFF" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">VERMELHA</text>
+                {/* Área demarcada vermelha */}
+                <rect x="20" y="36" width="60" height="42" rx="3" fill="none" stroke="#EF4444" strokeWidth="3" />
+                {/* Cruz de emergência */}
+                <rect x="44" y="47" width="12" height="4" rx="1" fill="#EF4444" />
+                <rect x="48" y="43" width="4" height="12" rx="1" fill="#EF4444" />
+                {/* Círculo em volta */}
+                <circle cx="50" cy="57" r="11" fill="none" stroke="#EF4444" strokeWidth="2" />
+              </g>
+            )}
+
+            {/* === AZUL: vaga PCD === */}
+            {type === 'MH-AZL' && (
+              <g>
+                {/* Banner azul */}
+                <rect x="3" y="8" width="94" height="16" rx="8" fill="#3B82F6" />
+                <text x="50" y="20" fill="#FFFFFF" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">AZUL</text>
+                {/* Área demarcada azul */}
+                <rect x="20" y="36" width="60" height="42" rx="3" fill="none" stroke="#3B82F6" strokeWidth="3" />
+                {/* Ícone PCD / Cadeira de rodas */}
+                <circle cx="50" cy="43" r="3.5" fill="#3B82F6" />
+                <path d="M47,48 L47,58 L54,58 L57,65" stroke="#3B82F6" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                <path d="M44,52 L56,52" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round" />
+                <circle cx="50" cy="68" r="4.5" fill="none" stroke="#3B82F6" strokeWidth="2.2" />
+              </g>
+            )}
+
+            {/* === PRETA: contraste em piso claro === */}
+            {type === 'MH-PRT' && (
+              <g>
+                {/* Banner preto */}
+                <rect x="3" y="8" width="94" height="16" rx="8" fill="#111827" />
+                <text x="50" y="20" fill="#FFFFFF" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">PRETA</text>
+                {/* Piso mais claro para a preta se destacar */}
+                <rect x="5" y="26" width="90" height="62" rx="6" fill="#9CA3AF" />
+                {/* Linha preta contínua */}
+                <line x1="68" y1="30" x2="68" y2="84" stroke="#111827" strokeWidth="5" />
+                {/* Faixas de uso geral */}
+                <path d="M20,40 L28,40 M28,40 L24,36 M28,40 L24,44" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M20,57 L28,57 M28,57 L24,53 M28,57 L24,61" stroke="#4ADE80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                {/* Grade no lado direito */}
+                <line x1="72" y1="30" x2="90" y2="30" stroke="#111827" strokeWidth="2" />
+                <line x1="72" y1="38" x2="90" y2="38" stroke="#111827" strokeWidth="2" />
+                <line x1="72" y1="46" x2="90" y2="46" stroke="#111827" strokeWidth="2" />
+                <line x1="72" y1="54" x2="90" y2="54" stroke="#111827" strokeWidth="2" />
+                <line x1="72" y1="62" x2="90" y2="62" stroke="#111827" strokeWidth="2" />
+                <line x1="72" y1="70" x2="90" y2="70" stroke="#111827" strokeWidth="2" />
+                <line x1="72" y1="78" x2="90" y2="78" stroke="#111827" strokeWidth="2" />
+              </g>
+            )}
+          </g>
+        )}
+
       </svg>
     </div>
   );
