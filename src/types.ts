@@ -11,6 +11,7 @@ export type SignCategory =
   | 'regulamentacao' // R-1, R-2, etc.
   | 'advertencia' // A-1, A-2, etc.
   | 'indicacao' // Servicos, etc.
+  | 'educativa' // Educational signs
   | 'luminosos' // Traffic lights
   | 'buzinas' // Horn signals
   | 'horizontais' // Road lanes
@@ -70,7 +71,10 @@ export interface TrafficSign {
     | 'A-21a' | 'A-21b' | 'A-21c' | 'A-21d' | 'A-21e' | 'A-22' | 'A-23' | 'A-24' | 'A-25' | 'A-26a'
     | 'A-26b' | 'A-27' | 'A-28' | 'A-29' | 'A-30a' | 'A-30b' | 'A-30c' | 'A-31' | 'A-32a' | 'A-32b'
     | 'A-33a' | 'A-33b' | 'A-34' | 'A-35' | 'A-36' | 'A-37' | 'A-38' | 'A-39' | 'A-40' | 'A-41'
-    | 'A-42a' | 'A-42b' | 'A-42c' | 'A-43' | 'A-44' | 'A-45' | 'A-46' | 'A-47' | 'A-48';
+    | 'A-42a' | 'A-42b' | 'A-42c' | 'A-43' | 'A-44' | 'A-45' | 'A-46' | 'A-47' | 'A-48'
+    | 'IND-1' | 'IND-2' | 'IND-3' | 'IND-4' | 'IND-5' | 'IND-6' | 'IND-7' | 'IND-8' | 'IND-9' 
+    | 'IND-10' | 'IND-11' | 'IND-12' | 'IND-13' | 'IND-14' | 'IND-15' | 'IND-16' | 'IND-17'
+    | 'ED-1' | 'ED-2' | 'ED-3' | 'ED-4' | 'ED-5' | 'ED-6' | 'ED-7' | 'ED-8' | 'ED-9' | 'ED-10' | 'ED-11';
   extraData?: string; // Limit speed, toque count, description of gestures
 }
 

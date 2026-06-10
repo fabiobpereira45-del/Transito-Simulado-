@@ -1110,5 +1110,233 @@ export const trafficSigns: TrafficSign[] = [
     description: "Condutor estende o braço esquerdo e realiza movimentos oscilantes suaves de cima para baixo. Sinaliza aos motoristas que reduzam a velocidade ou parem o veículo decorrente de perigo à frente.",
     category: "gestos",
     svgType: "gest_driver_slow"
+  },
+
+  // --- ORIENTAÇÃO DE DESTINO E INDICAÇÃO ---
+  {
+    id: "IND-1",
+    name: "Lapa / Zona Oeste",
+    code: "IND-1",
+    description: "Placa de identificação de bairros ou regiões urbanas, indicando a rota para a Lapa e Zona Oeste.",
+    category: "indicacao",
+    svgType: "IND-1"
+  },
+  {
+    id: "IND-2",
+    name: "B. Ouro Preto / Regional Pampulha",
+    code: "IND-2",
+    description: "Placa indicativa de localidade, direcionando para o Bairro Ouro Preto e a Regional Pampulha.",
+    category: "indicacao",
+    svgType: "IND-2"
+  },
+  {
+    id: "IND-3",
+    name: "Boqueirão",
+    code: "IND-3",
+    description: "Placa de identificação de bairro ou localidade (Boqueirão) em cor azul regulamentar.",
+    category: "indicacao",
+    svgType: "IND-3"
+  },
+  {
+    id: "IND-4",
+    name: "Av. Navegantes",
+    code: "IND-4",
+    description: "Placa de identificação de logradouro público, indicando a Avenida Navegantes.",
+    category: "indicacao",
+    svgType: "IND-4"
+  },
+  {
+    id: "IND-5",
+    name: "Marco Quilométrico: km 321",
+    code: "IND-5",
+    description: "Placa indicativa de quilometragem da via, situando o condutor no quilômetro 321 da rodovia.",
+    category: "indicacao",
+    svgType: "IND-5"
+  },
+  {
+    id: "IND-6",
+    name: "Marco Quilométrico com Sentido: Norte km 77",
+    code: "IND-6",
+    description: "Placa de indicação de quilometragem da via associada ao sentido de direção (Norte, quilômetro 77).",
+    category: "indicacao",
+    svgType: "IND-6"
+  },
+  {
+    id: "IND-7",
+    name: "Limite de Municípios: Recife / Jaboatão dos Guararapes",
+    code: "IND-7",
+    description: "Placa indicadora de limite geográfico entre os municípios de Recife e Jaboatão dos Guararapes.",
+    category: "indicacao",
+    svgType: "IND-7"
+  },
+  {
+    id: "IND-8",
+    name: "Divisa de Estados: Mato Grosso / Mato Grosso do Sul",
+    code: "IND-8",
+    description: "Placa de indicação de limite estadual, demarcando a divisa entre Mato Grosso e Mato Grosso do Sul.",
+    category: "indicacao",
+    svgType: "IND-8"
+  },
+  {
+    id: "IND-9",
+    name: "Perímetro Urbano: Porto Alegre",
+    code: "IND-9",
+    description: "Placa indicadora de início ou limite de perímetro urbano para o município de Porto Alegre.",
+    category: "indicacao",
+    svgType: "IND-9"
+  },
+  {
+    id: "IND-10",
+    name: "Direção: CEAGESP / Inst. Butantã",
+    code: "IND-10",
+    description: "Placa verde de orientação de destino indicando rotas de saída para o CEAGESP e Instituto Butantã.",
+    category: "indicacao",
+    svgType: "IND-10"
+  },
+  {
+    id: "IND-11",
+    name: "Conexão de Vias: Zona Leste / Rod. Dutra",
+    code: "IND-11",
+    description: "Placa mista (verde e azul) orientando o fluxo local para a Zona Leste e de rodovia para a Rodovia Presidente Dutra.",
+    category: "indicacao",
+    svgType: "IND-11"
+  },
+  {
+    id: "IND-12",
+    name: "Direções: São Luís / Teresina",
+    code: "IND-12",
+    description: "Placa de orientação de destino rodoviário indicando direções bifurcadas para São Luís e Teresina.",
+    category: "indicacao",
+    svgType: "IND-12"
+  },
+  {
+    id: "IND-13",
+    name: "Indicação de Retorno",
+    code: "IND-13",
+    description: "Placa verde que indica a aproximação de uma alça ou local regulamentado para manobra de retorno.",
+    category: "indicacao",
+    svgType: "IND-13"
+  },
+  {
+    id: "IND-14",
+    name: "Bifurcação: Goiânia / Retorno",
+    code: "IND-14",
+    description: "Placa verde pré-indicativa de direções bifurcadas em rodovia: Goiânia (em frente) ou Retorno (saída lateral).",
+    category: "indicacao",
+    svgType: "IND-14"
+  },
+  {
+    id: "IND-15",
+    name: "Faixas: Zona Oeste / Centro / Zona Norte",
+    code: "IND-15",
+    description: "Placa de orientação de faixas de tráfego, direcionando motoristas para a Zona Oeste, Centro ou Zona Norte.",
+    category: "indicacao",
+    svgType: "IND-15"
+  },
+  {
+    id: "IND-16",
+    name: "Placa de Distâncias: Vassouras / Paraíba do Sul / Três Rios",
+    code: "IND-16",
+    description: "Placa verde de distância indicando os quilômetros restantes para Vassouras (5 km), Paraíba do Sul (57 km) e Três Rios (64 km).",
+    category: "indicacao",
+    svgType: "IND-16"
+  },
+  {
+    id: "IND-17",
+    name: "Direção e Distância: Florianópolis / São José / Palhoça",
+    code: "IND-17",
+    description: "Placa de destino e distância indicando saídas à direita com distâncias para Florianópolis (7 km), São José (6 km) e Palhoça (14 km).",
+    category: "indicacao",
+    svgType: "IND-17"
+  },
+
+  // --- PLACAS EDUCATIVAS ---
+  {
+    id: "ED-1",
+    name: "Use o Cinto de Segurança",
+    code: "ED-1",
+    description: "Placa educativa alertando condutores e passageiros sobre a obrigatoriedade do uso do cinto de segurança.",
+    category: "educativa",
+    svgType: "ED-1"
+  },
+  {
+    id: "ED-2",
+    name: "Obedeça a Sinalização",
+    code: "ED-2",
+    description: "Placa educativa exortando a importância do respeito integral às leis e placas de trânsito.",
+    category: "educativa",
+    svgType: "ED-2"
+  },
+  {
+    id: "ED-3",
+    name: "Só Ultrapasse com Segurança",
+    code: "ED-3",
+    description: "Placa educativa orientando os condutores a realizarem ultrapassagens somente sob condições seguras.",
+    category: "educativa",
+    svgType: "ED-3"
+  },
+  {
+    id: "ED-4",
+    name: "Pare Fora da Pista",
+    code: "ED-4",
+    description: "Placa educativa alertando para que paradas de emergência ou descanso sejam realizadas fora da pista de rolamento (no acostamento ou refúgio).",
+    category: "educativa",
+    svgType: "ED-4"
+  },
+  {
+    id: "ED-5",
+    name: "Ultrapasse Somente pela Esquerda",
+    code: "ED-5",
+    description: "Placa educativa instruindo que a ultrapassagem deve ser efetuada exclusivamente pelo lado esquerdo da via.",
+    category: "educativa",
+    svgType: "ED-5"
+  },
+  {
+    id: "ED-6",
+    name: "Longo Trecho em Declive",
+    code: "ED-6",
+    description: "Placa educativa alertando sobre um declive acentuado prolongado, instruindo o uso de freio motor.",
+    category: "educativa",
+    svgType: "ED-6"
+  },
+  {
+    id: "ED-7",
+    name: "Luz Baixa ao Cruzar Veículos",
+    code: "ED-7",
+    description: "Placa educativa solicitando o uso de luz baixa ao cruzar com outros veículos em sentido oposto para evitar ofuscamento.",
+    category: "educativa",
+    svgType: "ED-7"
+  },
+  {
+    id: "ED-8",
+    name: "Não Ultrapasse com Faixa Contínua",
+    code: "ED-8",
+    description: "Placa educativa relembrando a proibição absoluta de ultrapassar em trechos com faixa amarela contínua.",
+    category: "educativa",
+    svgType: "ED-8"
+  },
+  {
+    id: "ED-9",
+    name: "Sob Neblina Use Luz Baixa",
+    code: "ED-9",
+    description: "Placa educativa orientando o uso obrigatório de faróis baixos sob condições climáticas de neblina ou cerração.",
+    category: "educativa",
+    svgType: "ED-9"
+  },
+  {
+    id: "ED-10",
+    name: "Sob Neblina Reduza Velocidade",
+    code: "ED-10",
+    description: "Placa educativa instruindo a redução de velocidade sob neblina ou fumaça densa na via.",
+    category: "educativa",
+    svgType: "ED-10"
+  },
+  {
+    id: "ED-11",
+    name: "Verifique os Freios",
+    code: "ED-11",
+    description: "Placa educativa alertando os motoristas (especialmente de caminhões e ônibus) para testar e revisar o sistema de freios antes de descidas acentuadas.",
+    category: "educativa",
+    svgType: "ED-11"
   }
 ];

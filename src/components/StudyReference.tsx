@@ -15,6 +15,8 @@ import {
   HelpCircle,
   Play,
   FileText,
+  Compass,
+  GraduationCap,
   X
 } from 'lucide-react';
 import { trafficSigns } from '../data/trafficSigns';
@@ -35,6 +37,8 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
     { value: 'all', label: 'Todos', icon: <BookOpen className="w-4 h-4" /> },
     { value: 'regulamentacao', label: 'Regulamentação', icon: <Milestone className="w-4 h-4 text-rose-500" /> },
     { value: 'advertencia', label: 'Advertência', icon: <ShieldAlert className="w-4 h-4 text-amber-500" /> },
+    { value: 'indicacao', label: 'Orientação & Indicação', icon: <Compass className="w-4 h-4 text-blue-500" /> },
+    { value: 'educativa', label: 'Educativas', icon: <GraduationCap className="w-4 h-4 text-emerald-500" /> },
     { value: 'luminosos', label: 'Luminosos', icon: <TrafficCone className="w-4 h-4 text-emerald-500" /> },
     { value: 'horizontais', label: 'Horizontais (Asfalto)', icon: <Navigation className="w-4 h-4 text-sky-500" /> },
     { value: 'buzinas', label: 'Buzinas & Apitos', icon: <Volume2 className="w-4 h-4 text-indigo-500" /> },
@@ -340,6 +344,8 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
                   <span className="text-xs font-bold bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 px-2.5 py-1 rounded-md uppercase tracking-wider">
                     {selectedSign.category === 'regulamentacao' ? 'Regulamentação' 
                       : selectedSign.category === 'advertencia' ? 'Advertência'
+                      : selectedSign.category === 'indicacao' ? 'Indicação / Orientação'
+                      : selectedSign.category === 'educativa' ? 'Placa Educativa'
                       : selectedSign.category === 'luminosos' ? 'Sinal Luminoso'
                       : selectedSign.category === 'horizontais' ? 'Sinalização Horizontal'
                       : selectedSign.category === 'buzinas' ? 'Buzinas & Audio'
@@ -382,6 +388,10 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
                         ? "Desobedecer as placas redondas de regulamentação gera infração punível diretamente com multas regulamentadas pelo CTB!" 
                         : selectedSign.category === 'advertencia' 
                         ? "Placas de advertência alertam sobre condições à frente. Reduza preventivamente a velocidade nas proximidades dessas placas!"
+                        : selectedSign.category === 'indicacao'
+                        ? "Placas de indicação e orientação ajudam a se localizar e navegar pela via pública. Elas não impõem multas ou restrições."
+                        : selectedSign.category === 'educativa'
+                        ? "Placas educativas relembram e reforçam boas condutas de segurança. Respeite sempre os conselhos dessas placas!"
                         : "Lembre-se: no exame e nas ruas, a sinalização emitida pelo Agente de Trânsito prevalece sobre qualquer sinalização ou luz semafórica!"
                       }
                     </span>

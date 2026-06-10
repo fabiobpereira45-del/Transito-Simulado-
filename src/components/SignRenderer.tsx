@@ -30,6 +30,15 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
     'A-46', 'A-47', 'A-48'
   ];
 
+  const destinationGuidanceCodes = [
+    'IND-1', 'IND-2', 'IND-3', 'IND-4', 'IND-5', 'IND-6', 'IND-7', 'IND-8', 'IND-9', 
+    'IND-10', 'IND-11', 'IND-12', 'IND-13', 'IND-14', 'IND-15', 'IND-16', 'IND-17'
+  ];
+
+  const educationalCodes = [
+    'ED-1', 'ED-2', 'ED-3', 'ED-4', 'ED-5', 'ED-6', 'ED-7', 'ED-8', 'ED-9', 'ED-10', 'ED-11'
+  ];
+
   // Aliases for backward compatibility
   const isCircularRegulatory = circularRegulatoryCodes.includes(type) || 
     ['prohibited', 'speed_limit', 'prohibited_turn_left', 'prohibited_turn_right', 
@@ -39,6 +48,9 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
   const isWarningSign = warningSignCodes.includes(type) || 
     ['warning_curve', 'warning_pedestrian', 'warning_traffic_light', 'warning_curve_moderate', 
      'warning_works', 'warning_school', 'warning_barrier', 'warning_slippery', 'warning_bump'].includes(type);
+
+  const isDestinationGuidance = destinationGuidanceCodes.includes(type);
+  const isEducational = educationalCodes.includes(type);
 
   // Helper for bike SVG drawing
   const renderBikeIcon = (x: number, y: number, scale: number) => (
@@ -162,6 +174,12 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           <linearGradient id="blackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#4B5563" />
             <stop offset="100%" stopColor="#111827" />
+          </linearGradient>
+
+          <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#10B981" />
+            <stop offset="60%" stopColor="#059669" />
+            <stop offset="100%" stopColor="#047857" />
           </linearGradient>
         </defs>
 
@@ -1743,11 +1761,330 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               <line x1="25" y1="48" x2="7" y2="48" stroke="#F1F5F9" strokeWidth="5.5" strokeLinecap="round" className="animate-bounce"/>
               <circle cx="5" cy="48" r="3.5" fill="#CBD5E1" className="animate-bounce"/>
               <path d="M4,55 Q1,60 4,65" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round"/>
-              <path d="M4,41 Q1,36 4,31" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round"/>
+<path d="M4,41 Q1,36 4,31" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round"/>
             </g>
           </g>
         )}
 
+        {/* --- PLACAS DE ORIENTAÇÃO DE DESTINO (IND-1 a IND-9 em Azul) --- */}
+        {type === 'IND-1' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="50" x2="92" y2="50" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="38" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Lapa</text>
+            <text x="50" y="69" fill="#FFFFFF" fontSize="11" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Zona Oeste</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-2' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="50" x2="92" y2="50" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="38" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">B. Ouro Preto</text>
+            <text x="50" y="69" fill="#FFFFFF" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Regional Pampulha</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-3' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="20" width="92" height="60" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="24" width="84" height="52" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="56" fill="#FFFFFF" fontSize="14" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Boqueirão</text>
+            <circle cx="50" cy="12" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="88" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-4' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="20" width="92" height="60" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="24" width="84" height="52" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="56" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Av. Navegantes</text>
+            <circle cx="50" cy="12" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="88" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-5' && (
+          <g filter="url(#plateShadow)">
+            <rect x="25" y="10" width="50" height="80" rx="6" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="29" y="14" width="42" height="72" rx="4" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="38" fill="#FFFFFF" fontSize="13" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">km</text>
+            <text x="50" y="68" fill="#FFFFFF" fontSize="18" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">321</text>
+            <circle cx="50" cy="5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="95" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-6' && (
+          <g filter="url(#plateShadow)">
+            <rect x="25" y="10" width="50" height="80" rx="6" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="29" y="14" width="42" height="72" rx="4" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="29" y1="36" x2="71" y2="36" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="28" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">NORTE</text>
+            <text x="50" y="54" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">km</text>
+            <text x="50" y="74" fill="#FFFFFF" fontSize="14" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">77</text>
+            <circle cx="50" cy="5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="95" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-7' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="38" x2="92" y2="38" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="30" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">LIMITE DE MUNICÍPIOS</text>
+            <text x="50" y="53" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Recife</text>
+            <text x="50" y="71" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Jaboatão dos Guararapes</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-8' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="38" x2="92" y2="38" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="30" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">DIVISA DE ESTADOS</text>
+            <text x="50" y="53" fill="#FFFFFF" fontSize="9.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Mato Grosso</text>
+            <text x="50" y="71" fill="#FFFFFF" fontSize="8.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Mato Grosso do Sul</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-9' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="38" x2="92" y2="38" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="50" y="30" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">PERÍMETRO URBANO</text>
+            <text x="50" y="62" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">Porto Alegre</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {/* --- PLACAS DE ORIENTAÇÃO DE DESTINO (IND-10 a IND-17 em Verde) --- */}
+        {type === 'IND-10' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="14" y="38" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">CEAGESP</text>
+            <path d="M78,35 L86,27 M86,27 L80,27 M86,27 L86,33" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M18,66 L18,78 M18,66 L14,70 M18,66 L22,70" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <text x="28" y="76" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Inst. Butantã</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-11' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <path d="M5,50 L95,50 L95,77 A8,8 0 0 1 87,85 L13,85 A8,8 0 0 1 5,77 Z" fill="url(#blueGrad)" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="50" x2="92" y2="50" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="14" y="38" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Zona Leste</text>
+            <path d="M78,35 L86,27 M86,27 L80,27 M86,27 L86,33" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="14" y="58" width="22" height="16" rx="3" fill="#FFFFFF" />
+            <rect x="15" y="59" width="20" height="14" rx="2" fill="url(#blueGrad)" />
+            <text x="25" y="69" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="middle">BR-116</text>
+            <text x="42" y="70" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Dutra</text>
+            <path d="M78,65 L86,73 M86,73 L80,73 M86,73 L86,67" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-12' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <line x1="8" y1="50" x2="92" y2="50" stroke="#FFFFFF" strokeWidth="1.5" />
+            <path d="M22,32 L14,32 M14,32 L18,28 M14,32 L18,36" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <text x="30" y="36" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">São Luís</text>
+            <text x="14" y="70" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Teresina</text>
+            <path d="M78,68 L86,68 M86,68 L82,64 M86,68 L82,72" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-13' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="20" width="92" height="60" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="24" width="84" height="52" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="12" y="55" fill="#FFFFFF" fontSize="12" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Retorno</text>
+            <path d="M74,52 L84,42 M84,42 L78,42 M84,42 L84,48" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="50" cy="12" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="88" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-14' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <path d="M20,74 L20,30" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+            <path d="M20,30 L16,36 M20,30 L24,36" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M20,54 Q20,44 36,44 L42,44" fill="none" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" />
+            <path d="M42,44 L36,40 M42,44 L36,48" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <text x="52" y="35" fill="#FFFFFF" fontSize="9.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Goiânia</text>
+            <text x="52" y="68" fill="#FFFFFF" fontSize="9.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Retorno</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-15' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <path d="M22,35 L14,27 M14,27 L20,27 M14,27 L14,33" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <text x="28" y="34" fill="#FFFFFF" fontSize="9" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Zona Oeste</text>
+            <line x1="8" y1="46" x2="92" y2="46" stroke="#FFFFFF" strokeWidth="1.2" />
+            <path d="M18,60 L18,78 M18,60 L14,64 M18,60 L22,64" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <text x="28" y="62" fill="#FFFFFF" fontSize="9" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Centro</text>
+            <text x="28" y="76" fill="#FFFFFF" fontSize="9" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Zona Norte</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-16' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="12" y="36" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Vassouras</text>
+            <text x="88" y="36" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">5 km</text>
+            <text x="12" y="56" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Paraíba do Sul</text>
+            <text x="88" y="56" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">57 km</text>
+            <text x="12" y="76" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Três Rios</text>
+            <text x="88" y="76" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">64 km</text>
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {type === 'IND-17' && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#greenGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
+            <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <text x="12" y="32" fill="#FFFFFF" fontSize="5.8" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Florianópolis</text>
+            <text x="82" y="32" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">7</text>
+            <line x1="8" y1="42" x2="92" y2="42" stroke="#FFFFFF" strokeWidth="1" />
+            <text x="12" y="55" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">São José</text>
+            <text x="70" y="55" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">6</text>
+            <path d="M78,52 L86,52 M86,52 L82,48 M86,52 L82,56" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="8" y1="65" x2="92" y2="65" stroke="#FFFFFF" strokeWidth="1" />
+            <text x="12" y="78" fill="#FFFFFF" fontSize="6.5" fontWeight="bold" textAnchor="start" fontFamily="sans-serif">Palhoça</text>
+            <text x="70" y="78" fill="#FFFFFF" fontSize="7.5" fontWeight="bold" textAnchor="end" fontFamily="sans-serif">14</text>
+            <path d="M78,75 L86,75 M86,75 L82,71 M86,75 L82,79" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
+            <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+          </g>
+        )}
+
+        {/* --- PLACAS EDUCATIVAS (ED-1 a ED-11 em Branco/Preto) --- */}
+        {isEducational && (
+          <g filter="url(#plateShadow)">
+            <rect x="4" y="20" width="92" height="60" rx="6" fill="url(#whiteGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
+            <rect x="8" y="24" width="84" height="52" rx="4" fill="none" stroke="#000000" strokeWidth="1.5" />
+            <rect x="10" y="26" width="80" height="48" rx="3" fill="none" stroke="#000000" strokeWidth="0.8" />
+            <circle cx="2" cy="50" r="1.5" fill="url(#blackGrad)" />
+            <circle cx="98" cy="50" r="1.5" fill="url(#blackGrad)" />
+
+            {/* Render conditional texts inside educational borders */}
+            {type === 'ED-1' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">USE O CINTO</text>
+                <text x="50" y="60">DE SEGURANÇA</text>
+              </g>
+            )}
+
+            {type === 'ED-2' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">OBEDEÇA A</text>
+                <text x="50" y="60">SINALIZAÇÃO</text>
+              </g>
+            )}
+
+            {type === 'ED-3' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">SÓ ULTRAPASSE</text>
+                <text x="50" y="60">COM SEGURANÇA</text>
+              </g>
+            )}
+
+            {type === 'ED-4' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">PARE FORA</text>
+                <text x="50" y="60">DA PISTA</text>
+              </g>
+            )}
+
+            {type === 'ED-5' && (
+              <g fill="#000000" fontSize="6.8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="40">ULTRAPASSE</text>
+                <text x="50" y="52">SOMENTE</text>
+                <text x="50" y="64">PELA ESQUERDA</text>
+              </g>
+            )}
+
+            {type === 'ED-6' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">LONGO TRECHO</text>
+                <text x="50" y="60">EM DECLIVE</text>
+              </g>
+            )}
+
+            {type === 'ED-7' && (
+              <g fill="#000000" fontSize="6.8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="40">LUZ BAIXA</text>
+                <text x="50" y="52">AO CRUZAR</text>
+                <text x="50" y="64">VEÍCULOS</text>
+              </g>
+            )}
+
+            {type === 'ED-8' && (
+              <g fill="#000000" fontSize="6.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">NÃO ULTRAPASSE</text>
+                <text x="50" y="60">COM FAIXA CONTÍNUA</text>
+              </g>
+            )}
+
+            {type === 'ED-9' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">SOB NEBLINA</text>
+                <text x="50" y="60">USE LUZ BAIXA</text>
+              </g>
+            )}
+
+            {type === 'ED-10' && (
+              <g fill="#000000" fontSize="6.8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="40">SOB NEBLINA</text>
+                <text x="50" y="52">REDUZA</text>
+                <text x="50" y="64">VELOCIDADE</text>
+              </g>
+            )}
+
+            {type === 'ED-11' && (
+              <g fill="#000000" fontSize="7.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+                <text x="50" y="46">VERIFIQUE</text>
+                <text x="50" y="60">OS FREIOS</text>
+              </g>
+            )}
+          </g>
+        )}
       </svg>
     </div>
   );
