@@ -441,13 +441,26 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             )}
 
             {type === 'R-11' && (
-              <g>
-                <g stroke="url(#blackGrad)" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(30, 36) scale(0.68)" filter="url(#symbolShadow)">
-                  <rect x="15" y="10" width="25" height="15" />
-                  <path d="M15,20 L2,20 M15,13 L2,13" />
-                  <circle cx="27.5" cy="32" r="7" strokeWidth="2.5" />
-                  <path d="M2,20 L-10,20 L-15,10 M-10,20 L-12,32 M-7,20 L-9,32" />
-                </g>
+              <g filter="url(#symbolShadow)">
+                {/* Veículo de tração animal - carroça lateral */}
+                {/* Carro/carroça */}
+                <rect x="38" y="36" width="26" height="14" rx="2" fill="url(#blackGrad)" />
+                <rect x="40" y="32" width="10" height="6" rx="1" fill="url(#blackGrad)" />
+                {/* Roda traseira */}
+                <circle cx="44" cy="52" r="6" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
+                {/* Roda dianteira */}
+                <circle cx="60" cy="52" r="5" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
+                {/* Varas de tração */}
+                <line x1="38" y1="44" x2="26" y2="44" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="38" y1="42" x2="26" y2="42" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Animal (cavalo simplificado) */}
+                <ellipse cx="22" cy="41" rx="8" ry="5" fill="url(#blackGrad)" />
+                <rect x="14" y="36" width="5" height="10" rx="2" fill="url(#blackGrad)" />
+                <line x1="14" y1="46" x2="12" y2="54" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="18" y1="46" x2="16" y2="54" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Cabeça do animal */}
+                <ellipse cx="13" cy="35" rx="4" ry="5" fill="url(#blackGrad)" />
+                <line x1="13" y1="30" x2="13" y2="24" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
             )}
@@ -461,15 +474,23 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {type === 'R-13' && (
               <g>
-                <g fill="url(#blackGrad)" transform="translate(30, 33) scale(0.7)" filter="url(#symbolShadow)">
-                  <circle cx="12" cy="32" r="10" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
-                  <circle cx="12" cy="32" r="5" />
-                  <circle cx="42" cy="35" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
-                  <circle cx="42" cy="35" r="3.5" />
-                  <rect x="18" y="18" width="22" height="15" rx="2" />
-                  <rect x="12" y="10" width="10" height="10" />
-                  <path d="M12,10 L18,2 H30 L35,10" stroke="url(#blackGrad)" strokeWidth="3" fill="none" />
-                  <line x1="38" y1="18" x2="38" y2="8" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <g filter="url(#symbolShadow)">
+                  {/* Trator - vista lateral clara */}
+                  {/* Corpo principal */}
+                  <rect x="26" y="36" width="26" height="18" rx="2" fill="url(#blackGrad)" />
+                  {/* Capô/motor */}
+                  <rect x="26" y="38" width="12" height="14" rx="1" fill="url(#blackGrad)" />
+                  {/* Cabine */}
+                  <rect x="38" y="33" width="14" height="12" rx="2" fill="url(#blackGrad)" />
+                  <rect x="40" y="35" width="10" height="7" fill="#FFFFFF" />
+                  {/* Exaustor */}
+                  <rect x="31" y="30" width="3" height="8" fill="url(#blackGrad)" />
+                  {/* Roda traseira grande */}
+                  <circle cx="36" cy="56" r="10" fill="none" stroke="url(#blackGrad)" strokeWidth="4" />
+                  <circle cx="36" cy="56" r="4" fill="url(#blackGrad)" />
+                  {/* Roda dianteira pequena */}
+                  <circle cx="56" cy="58" r="7" fill="none" stroke="url(#blackGrad)" strokeWidth="3.5" />
+                  <circle cx="56" cy="58" r="2.5" fill="url(#blackGrad)" />
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
@@ -599,12 +620,17 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             )}
 
             {type === 'R-22' && (
-              <g stroke="url(#blackGrad)" strokeWidth="3" fill="none" transform="translate(35, 35) scale(0.6)" filter="url(#symbolShadow)">
-                <circle cx="25" cy="25" r="22" strokeWidth="6" />
-                <line x1="25" y1="3" x2="25" y2="47" />
-                <line x1="3" y1="25" x2="47" y2="25" />
-                <line x1="9" y1="9" x2="41" y2="41" />
-                <line x1="9" y1="41" x2="41" y2="9" />
+              <g filter="url(#symbolShadow)">
+                {/* Faróis - dois retângulos arredondados simulando luzes */}
+                <rect x="28" y="38" width="14" height="10" rx="2" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
+                <rect x="58" y="38" width="14" height="10" rx="2" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
+                {/* Raios de luz */}
+                <line x1="42" y1="40" x2="55" y2="37" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
+                <line x1="42" y1="43" x2="55" y2="43" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
+                <line x1="42" y1="46" x2="55" y2="49" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
+                {/* Texto LUZ ALTA */}
+                <text x="50" y="32" fill="url(#blackGrad)" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="Arial, sans-serif">LUZ</text>
+                <text x="50" y="65" fill="url(#blackGrad)" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="Arial, sans-serif">ALTA</text>
               </g>
             )}
 
@@ -2134,127 +2160,209 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               <text x="50" y="78" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">500 m</text>
             )}
 
-            {/* Specific Pictograms */}
-            {type === 'S-3' && (
-              <g>
-                <path d="M34,44 L56,22" stroke="#000000" strokeWidth="4" strokeLinecap="round" />
-                <circle cx="56" cy="22" r="5.5" fill="#000000" />
-                <circle cx="56" cy="22" r="2.2" fill="#FFFFFF" />
-                <line x1="56" y1="22" x2="52" y2="26" stroke="#FFFFFF" strokeWidth="2" />
-                <path d="M56,44 L34,22" stroke="#000000" strokeWidth="2.8" strokeLinecap="round" />
-                <rect x="29" y="17" width="10" height="6" rx="1" fill="#000000" transform="rotate(-45 34 20)" />
-              </g>
-            )}
+            {/* Specific Pictograms - redesenhados com fidelidade ao CTB */}
 
-            {type === 'S-4' && (
-              <g>
-                <rect x="36" y="22" width="16" height="24" rx="2" fill="#000000" />
-                <rect x="38" y="25" width="12" height="6" fill="#FFFFFF" />
-                <rect x="41" y="34" width="6" height="6" fill="#FFFFFF" />
-                <path d="M52,26 C55,26 57,28 57,33 L57,38 C57,41 55,41 55,38" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
-                <rect x="54" y="24" width="2.5" height="4" fill="#000000" />
-              </g>
-            )}
-
-            {type === 'S-6' && (
-              <g>
-                <path d="M34,26 L46,26 L46,30" fill="none" stroke="#000000" strokeWidth="3.2" strokeLinecap="round" />
-                <line x1="40" y1="20" x2="40" y2="26" stroke="#000000" strokeWidth="3" />
-                <line x1="36" y1="20" x2="44" y2="20" stroke="#000000" strokeWidth="2.5" />
-                <circle cx="46" cy="34" r="1.5" fill="#000000" />
-                <circle cx="46" cy="39" r="1.5" fill="#000000" />
-                <path d="M34,44 C38,44 42,42 46,44 C49,45 52,43 54,40 C52,38 48,39 46,38 C42,37 38,39 34,39 Z" fill="#000000" />
-              </g>
-            )}
-
-            {type === 'S-7' && (
-              <g>
-                <path d="M35,43 L55,23" stroke="#000000" strokeWidth="3" strokeLinecap="round" />
-                <path d="M35,43 L32,46 M33,41 L29,44 M37,45 L34,48" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
-                <path d="M55,43 L35,23" stroke="#000000" strokeWidth="3" strokeLinecap="round" />
-                <circle cx="55" cy="43" r="4.5" fill="#000000" />
-              </g>
-            )}
-
-            {type === 'S-9' && (
-              <g>
-                <polygon points="31,44 50,20 69,44" fill="#000000" />
-                <polygon points="44,44 50,32 56,44" fill="#FFFFFF" />
-                <line x1="28" y1="44" x2="72" y2="44" stroke="#000000" strokeWidth="2" />
-              </g>
-            )}
-
-            {type === 'S-10' && (
-              <g>
-                <path d="M50,15 L50,47 M50,22 L32,34 L32,38 L50,30 M50,30 L68,38 L68,34 L50,22 M50,43 L42,47 L42,49 L50,47 M50,47 L58,49 L58,47 L50,43" fill="#000000" stroke="#000000" strokeWidth="1.5" strokeLinejoin="round" />
-              </g>
-            )}
-
-            {type === 'S-11' && (
-              <g>
-                <rect x="32" y="24" width="30" height="18" rx="3" fill="#000000" />
-                <circle cx="42" cy="42" r="3.5" fill="#000000" stroke="#FFFFFF" strokeWidth="1.2" />
-                <rect x="36" y="28" width="10" height="6" fill="#FFFFFF" />
-                <rect x="52" y="28" width="6" height="14" fill="#FFFFFF" />
-                <path d="M62,38 L68,38 L68,41" fill="none" stroke="#000000" strokeWidth="2" />
-              </g>
-            )}
-
+            {/* S-1: Estacionamento - letra P grande em negrito (padrão CTB) */}
             {type === 'S-1' && (
-              <text x="50" y="44" fill="#000000" fontSize="32" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">E</text>
-            )}
-
-            {type === 'S-8' && (
               <g>
-                <rect x="38" y="28" width="24" height="6" fill="#000000" />
-                <rect x="34" y="22" width="4" height="20" fill="#000000" />
-                <rect x="62" y="28" width="3" height="14" fill="#000000" />
-                <rect x="40" y="24" width="5" height="4" rx="1" fill="#FFFFFF" stroke="#000000" strokeWidth="1.2" />
-                <rect x="38" y="34" width="24" height="2" fill="#000000" />
+                <text x="50" y="49" fill="#000000" fontSize="38" fontWeight="900" textAnchor="middle" fontFamily="Arial, sans-serif">P</text>
               </g>
             )}
 
+            {/* S-2: Telefone - monofone clássico de perfil */}
             {type === 'S-2' && (
-              <path d="M34,26 C33,28 34,31 37,34 L43,40 C46,43 49,44 51,42 L54,39 C55,38 54,36 53,35 L48,32 C47,31 46,31 45,32 L43,34 Q41,32 39,30 L41,28 C42,27 42,26 41,25 L38,20 C37,19 35,18 34,20 Z" fill="#000000" />
-            )}
-
-            {type === 'S-12' && (
-              <g>
-                <path d="M30,36 L70,36 L66,42 L34,42 Z" fill="#000000" />
-                <path d="M28,45 Q35,43 42,45 Q49,47 56,45 Q63,43 70,45" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
-                <path d="M30,48 Q37,46 44,48 Q51,50 58,48 Q65,46 72,48" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
-                <rect x="42" y="27" width="16" height="7" rx="1.5" fill="#000000" />
-                <rect x="45" y="23" width="10" height="5" rx="1" fill="#000000" />
-                <circle cx="46" cy="34" r="2.2" fill="#FFFFFF" />
-                <circle cx="54" cy="34" r="2.2" fill="#FFFFFF" />
+              <g fill="#000000">
+                {/* Corpo do telefone */}
+                <path d="M37,20 C35,20 33,22 33,24 L33,27 C33,29 35,31 37,31 L40,31 L40,22 Z" />
+                <path d="M60,33 C62,33 64,31 64,29 L64,26 C64,24 62,22 60,22 L57,22 L57,31 Z" />
+                {/* Arco superior do monofone */}
+                <path d="M40,22 Q50,14 57,22" fill="none" stroke="#000000" strokeWidth="6" strokeLinecap="round" />
+                {/* Cabo do monofone */}
+                <path d="M40,31 Q40,40 38,43 Q36,46 37,48" fill="none" stroke="#000000" strokeWidth="4" strokeLinecap="round" />
+                <path d="M57,31 Q57,40 59,43 Q61,46 60,48" fill="none" stroke="#000000" strokeWidth="4" strokeLinecap="round" />
+                {/* Base inferior */}
+                <path d="M37,48 C35,48 33,46 33,44 L33,42 C33,40 35,39 37,39 L40,39 L40,48 Z" />
+                <path d="M60,48 C62,48 64,46 64,44 L64,41 C64,39 62,38 60,38 L57,38 L57,48 Z" />
+                <path d="M40,39 Q50,52 57,38" fill="none" stroke="#000000" strokeWidth="6" strokeLinecap="round" />
               </g>
             )}
 
-            {type === 'S-14' && (
-              <g>
-                <rect x="31" y="24" width="38" height="18" rx="3" fill="#000000" />
-                <rect x="34" y="27" width="8" height="6" fill="#FFFFFF" />
-                <rect x="44" y="27" width="8" height="6" fill="#FFFFFF" />
-                <rect x="54" y="27" width="8" height="6" fill="#FFFFFF" />
-                <circle cx="40" cy="42" r="3.2" fill="#000000" />
-                <circle cx="60" cy="42" r="3.2" fill="#000000" />
-                <rect x="63" y="27" width="4" height="15" fill="#FFFFFF" />
+            {/* S-3: Mecânico - chave inglesa */}
+            {type === 'S-3' && (
+              <g fill="#000000">
+                {/* Corpo da chave inglesa - diagonal */}
+                <rect x="31" y="29" width="38" height="8" rx="3" transform="rotate(-45 50 33)" />
+                {/* Cabeça ajustável da chave (abertura em U) */}
+                <path d="M56,18 C58,16 62,16 64,18 L66,22 L62,26 L58,26 L56,22 Z" />
+                <path d="M63,18 L63,26" stroke="#FFFFFF" strokeWidth="2" />
+                {/* Ponta oposta da chave */}
+                <path d="M36,46 L33,49 L35,51 L38,48 L41,51 L44,48 L41,45 Z" />
               </g>
             )}
 
-            {type === 'S-15' && (
-              <g>
-                <path d="M47,27 L53,27 L55,37 H52 L50,32 L48,37 H45 Z" fill="#000000" />
-                <circle cx="50" cy="22" r="3" fill="#000000" />
-                <line x1="31" y1="41" x2="69" y2="41" stroke="#000000" strokeWidth="2.5" strokeDasharray="4,3" />
-                <line x1="31" y1="45" x2="69" y2="45" stroke="#000000" strokeWidth="2.5" strokeDasharray="4,3" />
+            {/* S-4: Abastecimento - bomba de gasolina */}
+            {type === 'S-4' && (
+              <g fill="#000000">
+                {/* Corpo principal da bomba */}
+                <rect x="34" y="22" width="18" height="28" rx="2" />
+                {/* Visor/display */}
+                <rect x="36" y="25" width="14" height="8" fill="#FFFFFF" />
+                {/* Painel inferior */}
+                <rect x="36" y="36" width="6" height="5" fill="#FFFFFF" />
+                {/* Mangote/mangueira */}
+                <path d="M52,24 C57,22 60,24 60,30 L60,36" fill="none" stroke="#000000" strokeWidth="3.5" strokeLinecap="round" />
+                {/* Bocal */}
+                <rect x="57" y="36" width="6" height="4" rx="1" />
+                {/* Base */}
+                <rect x="31" y="50" width="24" height="3" rx="1" />
               </g>
             )}
 
+            {/* S-5: Pronto-Socorro - cruz de emergência */}
             {type === 'S-5' && (
               <g>
-                <path d="M45,19 H55 V49 H45 Z" fill="#EF4444" />
-                <path d="M35,29 H65 V39 H35 Z" fill="#EF4444" />
+                <rect x="44" y="16" width="12" height="36" rx="2" fill="#EF4444" />
+                <rect x="32" y="28" width="36" height="12" rx="2" fill="#EF4444" />
+              </g>
+            )}
+
+            {/* S-6: Sanitário - silhuetas masculina e feminina lado a lado */}
+            {type === 'S-6' && (
+              <g fill="#000000">
+                {/* Figura masculina (esquerda) - simples */}
+                <circle cx="38" cy="20" r="4" />
+                <path d="M34,26 L42,26 L42,36 L40,36 L40,30 L36,30 L36,36 L34,36 Z" />
+                <line x1="34" y1="36" x2="33" y2="44" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="42" y1="36" x2="43" y2="44" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Divisória */}
+                <line x1="50" y1="17" x2="50" y2="47" stroke="#000000" strokeWidth="1.5" />
+                {/* Figura feminina (direita) - saia triangular */}
+                <circle cx="62" cy="20" r="4" />
+                <path d="M58,26 L66,26 L66,28 L68,44 L56,44 L58,28 Z" />
+              </g>
+            )}
+
+            {/* S-7: Restaurante - garfo e faca cruzados */}
+            {type === 'S-7' && (
+              <g fill="#000000">
+                {/* Garfo (esquerda) */}
+                <line x1="40" y1="18" x2="40" y2="48" stroke="#000000" strokeWidth="3" strokeLinecap="round" />
+                <line x1="37" y1="18" x2="37" y2="28" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                <line x1="43" y1="18" x2="43" y2="28" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
+                <path d="M37,28 Q40,32 43,28" fill="none" stroke="#000000" strokeWidth="2" />
+                {/* Faca (direita) */}
+                <line x1="60" y1="18" x2="60" y2="48" stroke="#000000" strokeWidth="3" strokeLinecap="round" />
+                <path d="M60,18 L65,24 L60,30" fill="#000000" stroke="#000000" strokeWidth="1" />
+              </g>
+            )}
+
+            {/* S-8: Hotel - letra H grande estilizada */}
+            {type === 'S-8' && (
+              <g fill="#000000">
+                {/* Letra H */}
+                <rect x="32" y="18" width="7" height="32" rx="1.5" />
+                <rect x="61" y="18" width="7" height="32" rx="1.5" />
+                <rect x="39" y="31" width="22" height="7" rx="1.5" />
+              </g>
+            )}
+
+            {/* S-9: Camping - barraca triangular com poste */}
+            {type === 'S-9' && (
+              <g>
+                {/* Corpo da barraca */}
+                <polygon points="50,16 30,46 70,46" fill="#000000" />
+                <polygon points="50,20 34,44 66,44" fill="#FFFFFF" />
+                {/* Porta da barraca */}
+                <path d="M44,46 Q50,36 56,46" fill="#000000" />
+                {/* Linha do solo */}
+                <line x1="27" y1="46" x2="73" y2="46" stroke="#000000" strokeWidth="2.5" />
+              </g>
+            )}
+
+            {/* S-10: Aeroporto - avião em vista frontal */}
+            {type === 'S-10' && (
+              <g fill="#000000">
+                {/* Fuselagem */}
+                <ellipse cx="50" cy="34" rx="4" ry="14" />
+                {/* Asas */}
+                <path d="M46,34 L28,42 L28,46 L46,40 Z" />
+                <path d="M54,34 L72,42 L72,46 L54,40 Z" />
+                {/* Cauda */}
+                <path d="M47,20 L38,26 L38,28 L47,24 Z" />
+                <path d="M53,20 L62,26 L62,28 L53,24 Z" />
+                {/* Linha de solo */}
+                <line x1="28" y1="48" x2="72" y2="48" stroke="#000000" strokeWidth="2.5" />
+              </g>
+            )}
+
+            {/* S-11: Estacionamento de Trailer - carro puxando trailer */}
+            {type === 'S-11' && (
+              <g fill="#000000">
+                {/* Carro trator */}
+                <rect x="28" y="26" width="20" height="14" rx="2" />
+                <rect x="30" y="22" width="14" height="6" rx="1.5" />
+                <rect x="31" y="23" width="12" height="4" fill="#FFFFFF" />
+                <circle cx="32" cy="40" r="4" fill="#111" />
+                <circle cx="44" cy="40" r="4" fill="#111" />
+                {/* Engate */}
+                <line x1="48" y1="33" x2="52" y2="33" stroke="#000000" strokeWidth="2" />
+                {/* Trailer */}
+                <rect x="52" y="22" width="20" height="18" rx="2" />
+                <rect x="54" y="24" width="16" height="10" fill="#FFFFFF" />
+                <circle cx="57" cy="40" r="4" fill="#111" />
+                <circle cx="67" cy="40" r="4" fill="#111" />
+              </g>
+            )}
+
+            {/* S-12: Balsa/Ferry - barco com carro em cima */}
+            {type === 'S-12' && (
+              <g fill="#000000">
+                {/* Casco da balsa */}
+                <path d="M25,38 L30,32 L70,32 L75,38 L75,44 Q50,50 25,44 Z" />
+                {/* Água ondulada */}
+                <path d="M22,46 Q28,44 34,46 Q40,48 46,46 Q52,44 58,46 Q64,48 70,46 Q76,44 80,46" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Mini carro em cima */}
+                <rect x="35" y="24" width="22" height="8" rx="2" />
+                <rect x="38" y="19" width="14" height="6" rx="1" />
+                <circle cx="39" cy="32" r="2.5" fill="#FFFFFF" />
+                <circle cx="53" cy="32" r="2.5" fill="#FFFFFF" />
+              </g>
+            )}
+
+            {/* S-14: Ponto de Parada - ônibus de perfil */}
+            {type === 'S-14' && (
+              <g fill="#000000">
+                {/* Corpo do ônibus */}
+                <rect x="29" y="22" width="42" height="22" rx="3" />
+                {/* Janelas */}
+                <rect x="33" y="26" width="7" height="7" fill="#FFFFFF" />
+                <rect x="43" y="26" width="7" height="7" fill="#FFFFFF" />
+                <rect x="53" y="26" width="7" height="7" fill="#FFFFFF" />
+                {/* Porta */}
+                <rect x="63" y="26" width="5" height="10" fill="#FFFFFF" />
+                {/* Parachoque dianteiro */}
+                <rect x="29" y="40" width="5" height="4" rx="1" />
+                {/* Rodas */}
+                <circle cx="37" cy="44" r="4.5" />
+                <circle cx="62" cy="44" r="4.5" />
+                <circle cx="37" cy="44" r="2" fill="#FFFFFF" />
+                <circle cx="62" cy="44" r="2" fill="#FFFFFF" />
+              </g>
+            )}
+
+            {/* S-15: Passagem Protegida para Pedestres - figura + faixas */}
+            {type === 'S-15' && (
+              <g>
+                {/* Figura do pedestre (esquerda) */}
+                <circle cx="38" cy="20" r="4" fill="#000000" />
+                <path d="M34,26 L42,26 L42,36 L40,36 L40,30 L36,30 L36,36 L34,36 Z" fill="#000000" />
+                <line x1="34" y1="36" x2="33" y2="46" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="42" y1="36" x2="43" y2="46" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Faixas de travessia (direita) */}
+                <rect x="52" y="18" width="16" height="4" rx="1" fill="#000000" />
+                <rect x="52" y="25" width="16" height="4" rx="1" fill="#000000" />
+                <rect x="52" y="32" width="16" height="4" rx="1" fill="#000000" />
+                <rect x="52" y="39" width="16" height="4" rx="1" fill="#000000" />
               </g>
             )}
           </g>
