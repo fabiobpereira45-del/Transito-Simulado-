@@ -45,9 +45,8 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
     { value: 'servicos', label: 'Serviços Auxiliares', icon: <Wrench className="w-4 h-4 text-slate-500" /> },
     { value: 'turismo', label: 'Atrativos Turísticos', icon: <Palmtree className="w-4 h-4 text-amber-600" /> },
     { value: 'obras', label: 'Sinalização de Obras', icon: <HardHat className="w-4 h-4 text-orange-500" /> },
-    { value: 'horizontal', label: 'Sinalização Horizontal', icon: <Minus className="w-4 h-4 text-gray-400" /> },
+    { value: 'horizontal', label: 'Sinalização Horizontal', icon: <Navigation className="w-4 h-4 text-sky-500" /> },
     { value: 'luminosos', label: 'Luminosos', icon: <TrafficCone className="w-4 h-4 text-emerald-500" /> },
-    { value: 'horizontais', label: 'Horizontais (Asfalto)', icon: <Navigation className="w-4 h-4 text-sky-500" /> },
     { value: 'buzinas', label: 'Buzinas & Apitos', icon: <Volume2 className="w-4 h-4 text-indigo-500" /> },
     { value: 'gestos', label: 'Gestos', icon: <Accessibility className="w-4 h-4 text-purple-500" /> }
   ];
@@ -356,6 +355,7 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
                       : selectedSign.category === 'servicos' ? 'Serviço Auxiliar'
                       : selectedSign.category === 'turismo' ? 'Atrativo Turístico'
                       : selectedSign.category === 'luminosos' ? 'Sinal Luminoso'
+                      : selectedSign.category === 'horizontal' ? 'Sinalização Horizontal'
                       : selectedSign.category === 'horizontais' ? 'Sinalização Horizontal'
                       : selectedSign.category === 'buzinas' ? 'Buzinas & Audio'
                       : selectedSign.category === 'gestos' ? 'Gestos'
@@ -407,7 +407,7 @@ export const StudyReference: React.FC<StudyReferenceProps> = ({ onSignReviewed }
                         ? "Placas marrons de atrativos turísticos orientam rotas para pontos de interesse ecológico, histórico, cultural ou de lazer."
                         : selectedSign.category === 'obras'
                         ? "Nas zonas de obras, redobre a atenção, respeite o limite de velocidade reduzido e mantenha distância segura dos operários na pista!"
-                        : selectedSign.category === 'horizontal'
+                        : (selectedSign.category === 'horizontal' || selectedSign.category === 'horizontais')
                         ? "A sinalização horizontal complementa a vertical. Linha amarela separa sentidos opostos; branca separa mesmo sentido. Jamais confunda!"
                         : "Lembre-se: no exame e nas ruas, a sinalização emitida pelo Agente de Trânsito prevalece sobre qualquer sinalização ou luz semafórica!"
                       }

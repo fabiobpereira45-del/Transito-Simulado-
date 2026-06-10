@@ -1058,29 +1058,6 @@ export const trafficSigns: TrafficSign[] = [
     extraData: "Toque prolongado"
   },
 
-  // --- SINAIS HORIZONTAIS ---
-  {
-    id: "HOR-1",
-    name: "Linha Contínua Simples Amarela",
-    description: "Separadora de via dupla. Indica que o condutor NÃO pode efetuar manobra de ultrapassagem em nenhuma das direções pavimentadas. Transpor essa linha é infração gravíssima perigosa.",
-    category: "horizontais",
-    svgType: "line_continuous",
-    extraData: "amarela"
-  },
-  {
-    id: "HOR-2",
-    name: "Linha Seccionada Branca/Amarela",
-    description: "Indica via seccionada por traços pontilhados. Permite realizar ultrapassagens e manobras de mudança de faixa cruzada com total segurança e sinalização prévia.",
-    category: "horizontais",
-    svgType: "line_broken"
-  },
-  {
-    id: "HOR-3",
-    name: "Linha Dupla Contínua Amarela",
-    description: "Indica proibição dupla total e absoluta de ultrapassem nos dois fluxos de trânsito. Muito comum em curvas de serras de mão dupla e vias com alta taxa de acidentes frontais severos.",
-    category: "horizontais",
-    svgType: "line_double"
-  },
 
   // --- GESTOS DO AGENTE E CONDUTOR ---
   {

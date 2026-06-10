@@ -74,6 +74,43 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
   const isWorkRect = workRectCodes.includes(type);
   const isHorizontal = horizontalCodes.includes(type);
 
+  // Horizontal sign rendering (MH series)
+  // Simple rectangular plate with optional text (extraData) for each horizontal sign type.
+  // The design follows the existing style: metal border, white interior, red border, and centered text.
+  // Additional specific icons can be added later.
+  // Example: MH-AMA (Amarelo)
+  const renderHorizontalPlate = (label: string, extra?: string) => (
+    <g filter="url(#symbolShadow)">
+      <rect x="15" y="15" width="70" height="70" rx="6" fill="url(#metalBorderGrad)" filter="url(#plateShadow)" />
+      <rect x="16.5" y="16.5" width="67" height="67" rx="4.5" fill="url(#whiteGrad)" />
+      <rect x="19.8" y="19.8" width="60.4" height="60.4" rx="3.5" fill="none" stroke="url(#blackGrad)" strokeWidth="3.2" />
+      <text x="50" y="58" fill="url(#blackGrad)" fontSize="24" fontWeight="900" fontFamily="Arial, system-ui, sans-serif" textAnchor="middle" filter="url(#symbolShadow)">
+        {extra || label}
+      </text>
+    </g>
+  );
+
+  // Rendering based on type
+  const HorizontalSign = () => {
+    switch (type) {
+      case 'MH-AMA':
+        return renderHorizontalPlate('AMA');
+      case 'MH-BRA':
+        return renderHorizontalPlate('BRA');
+      case 'MH-VRM':
+        return renderHorizontalPlate('VRM');
+      case 'MH-AZL':
+        return renderHorizontalPlate('AZL');
+      case 'MH-PRT':
+        return renderHorizontalPlate('PRT');
+      default:
+        return null;
+    }
+  };
+  
+  // At render time include this block where other conditional sections are rendered.
+
+
   // Helper for bike SVG drawing
   const renderBikeIcon = (x: number, y: number, scale: number) => (
     <g stroke="url(#blackGrad)" strokeWidth={4} fill="none" strokeLinecap="round" strokeLinejoin="round" transform={`translate(${x}, ${y}) scale(${scale})`}>
@@ -389,13 +426,19 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             {(type === 'R-7' || type === 'prohibited_overtaking') && (
               <g>
                 <g filter="url(#symbolShadow)">
-                  {renderCarIcon(23, 38, 0.22)}
-                  <g transform="translate(53, 38) scale(0.22)">
-                    <rect x="10" y="30" width="30" height="25" rx="5" fill="url(#redGrad)" />
-                    <rect x="15" y="10" width="20" height="22" rx="4" fill="url(#redGrad)" />
-                    <rect x="18" y="14" width="14" height="8" fill="#FFFFFF" />
-                    <circle cx="18" cy="55" r="4.5" fill="#111827" />
-                    <circle cx="32" cy="55" r="4.5" fill="#111827" />
+                  {/* Carro preto (atrás) - maior e visível */}
+                  <g fill="url(#blackGrad)">
+                    <path d="M17,54 L17,46 L22,46 L25,40 L39,40 L42,46 L47,46 L47,54 Z" />
+                    <rect x="24" y="40" width="14" height="5" fill="#FFFFFF" />
+                    <circle cx="22" cy="56" r="3.5" fill="#1F2937" />
+                    <circle cx="42" cy="56" r="3.5" fill="#1F2937" />
+                  </g>
+                  {/* Carro vermelho (frente, ultrapassando) */}
+                  <g fill="url(#redGrad)">
+                    <path d="M50,50 L50,42 L55,42 L58,36 L72,36 L75,42 L80,42 L80,50 Z" />
+                    <rect x="57" y="36" width="13" height="5" fill="#FFFFFF" />
+                    <circle cx="55" cy="52" r="3.5" fill="#1F2937" />
+                    <circle cx="75" cy="52" r="3.5" fill="#1F2937" />
                   </g>
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
@@ -428,39 +471,89 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {type === 'R-9' && (
               <g>
-                {renderTruckIcon(23, 33, 0.25)}
+                <g filter="url(#symbolShadow)">
+                  {/* Caminhão - lateral clara e grande */}
+                  <g fill="url(#blackGrad)">
+                    {/* Carreta */}
+                    <rect x="14" y="34" width="36" height="22" rx="2" />
+                    {/* Cabine */}
+                    <rect x="50" y="30" width="20" height="26" rx="3" />
+                    <rect x="52" y="33" width="16" height="10" fill="#FFFFFF" />
+                    {/* Para-choque */}
+                    <rect x="50" y="52" width="20" height="4" rx="1" />
+                    {/* Rodas */}
+                    <circle cx="22" cy="58" r="6" fill="#1F2937" />
+                    <circle cx="22" cy="58" r="2.5" fill="#FFFFFF" />
+                    <circle cx="38" cy="58" r="6" fill="#1F2937" />
+                    <circle cx="38" cy="58" r="2.5" fill="#FFFFFF" />
+                    <circle cx="62" cy="58" r="6" fill="#1F2937" />
+                    <circle cx="62" cy="58" r="2.5" fill="#FFFFFF" />
+                  </g>
+                </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
             )}
 
             {type === 'R-10' && (
               <g>
-                {renderCarIcon(26, 36, 0.24)}
+                <g filter="url(#symbolShadow)">
+                  {/* Carro visto de frente - oficial do CTB */}
+                  {/* Rodas/Pneus */}
+                  <rect x="31" y="60" width="7.5" height="7" rx="1.5" fill="#111827" />
+                  <rect x="61.5" y="60" width="7.5" height="7" rx="1.5" fill="#111827" />
+                  {/* Retrovisores */}
+                  <rect x="25" y="40" width="4" height="6" rx="1.5" fill="url(#blackGrad)" />
+                  <rect x="71" y="40" width="4" height="6" rx="1.5" fill="url(#blackGrad)" />
+                  <line x1="29" y1="43" x2="33" y2="43" stroke="url(#blackGrad)" strokeWidth="2" />
+                  <line x1="67" y1="43" x2="71" y2="43" stroke="url(#blackGrad)" strokeWidth="2" />
+                  {/* Cabine */}
+                  <path d="M34,44 L38,32 A3,3 0 0,1 41,30 H59 A3,3 0 0,1 62,32 L66,44 Z" fill="url(#blackGrad)" />
+                  {/* Vidro frontal */}
+                  <path d="M36.2,43 L39.5,33.5 A1.2,1.2 0 0,1 40.7,32.5 H59.3 A1.2,1.2 0 0,1 60.5,33.5 L63.8,43 Z" fill="#FFFFFF" />
+                  {/* Corpo/Chassis principal */}
+                  <rect x="28" y="44" width="44" height="18" rx="4" fill="url(#blackGrad)" />
+                  {/* Faróis */}
+                  <circle cx="34" cy="51" r="3.2" fill="#FFFFFF" />
+                  <circle cx="66" cy="51" r="3.2" fill="#FFFFFF" />
+                  {/* Grade central */}
+                  <rect x="42" y="50" width="16" height="5" rx="1.2" fill="#FFFFFF" />
+                  <line x1="50" y1="50" x2="50" y2="55" stroke="url(#blackGrad)" strokeWidth="1.2" />
+                </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
             )}
 
             {type === 'R-11' && (
-              <g filter="url(#symbolShadow)">
-                {/* Veículo de tração animal - carroça lateral */}
-                {/* Carro/carroça */}
-                <rect x="38" y="36" width="26" height="14" rx="2" fill="url(#blackGrad)" />
-                <rect x="40" y="32" width="10" height="6" rx="1" fill="url(#blackGrad)" />
-                {/* Roda traseira */}
-                <circle cx="44" cy="52" r="6" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
-                {/* Roda dianteira */}
-                <circle cx="60" cy="52" r="5" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
-                {/* Varas de tração */}
-                <line x1="38" y1="44" x2="26" y2="44" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
-                <line x1="38" y1="42" x2="26" y2="42" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
-                {/* Animal (cavalo simplificado) */}
-                <ellipse cx="22" cy="41" rx="8" ry="5" fill="url(#blackGrad)" />
-                <rect x="14" y="36" width="5" height="10" rx="2" fill="url(#blackGrad)" />
-                <line x1="14" y1="46" x2="12" y2="54" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
-                <line x1="18" y1="46" x2="16" y2="54" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
-                {/* Cabeça do animal */}
-                <ellipse cx="13" cy="35" rx="4" ry="5" fill="url(#blackGrad)" />
-                <line x1="13" y1="30" x2="13" y2="24" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
+              <g>
+                <g filter="url(#symbolShadow)">
+                  {/* CARROÇA COM CAVALO - fiel ao CTB */}
+                  {/* Caixão da carroça */}
+                  <rect x="42" y="36" width="24" height="14" rx="2" fill="url(#blackGrad)" />
+                  {/* Roda grande da carroça com raios */}
+                  <circle cx="47" cy="53" r="10" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
+                  <circle cx="47" cy="53" r="2" fill="url(#blackGrad)" />
+                  <line x1="47" y1="43" x2="47" y2="63" stroke="url(#blackGrad)" strokeWidth="1.5" />
+                  <line x1="37" y1="53" x2="57" y2="53" stroke="url(#blackGrad)" strokeWidth="1.5" />
+                  <line x1="40" y1="46" x2="54" y2="60" stroke="url(#blackGrad)" strokeWidth="1.2" />
+                  <line x1="54" y1="46" x2="40" y2="60" stroke="url(#blackGrad)" strokeWidth="1.2" />
+                  {/* Varas de tração (lanças) */}
+                  <line x1="42" y1="42" x2="24" y2="42" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="42" y1="46" x2="24" y2="46" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  {/* Corpo do cavalo */}
+                  <ellipse cx="19" cy="44" rx="9" ry="5" fill="url(#blackGrad)" />
+                  {/* Pescoço */}
+                  <path d="M13,42 C12,38 14,34 16,33" stroke="url(#blackGrad)" strokeWidth="4" fill="none" strokeLinecap="round" />
+                  {/* Cabeça */}
+                  <ellipse cx="16" cy="31" rx="4.5" ry="4" fill="url(#blackGrad)" />
+                  {/* Crina/orelha */}
+                  <path d="M17,27 L18,24 L20,26" fill="url(#blackGrad)" />
+                  {/* Patas dianteiras */}
+                  <line x1="15" y1="49" x2="13" y2="58" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="20" y1="49" x2="18" y2="58" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  {/* Patas traseiras */}
+                  <line x1="23" y1="49" x2="21" y2="58" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="27" y1="49" x2="25" y2="58" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
             )}
@@ -475,22 +568,28 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             {type === 'R-13' && (
               <g>
                 <g filter="url(#symbolShadow)">
-                  {/* Trator - vista lateral clara */}
-                  {/* Corpo principal */}
-                  <rect x="26" y="36" width="26" height="18" rx="2" fill="url(#blackGrad)" />
-                  {/* Capô/motor */}
-                  <rect x="26" y="38" width="12" height="14" rx="1" fill="url(#blackGrad)" />
-                  {/* Cabine */}
-                  <rect x="38" y="33" width="14" height="12" rx="2" fill="url(#blackGrad)" />
-                  <rect x="40" y="35" width="10" height="7" fill="#FFFFFF" />
-                  {/* Exaustor */}
-                  <rect x="31" y="30" width="3" height="8" fill="url(#blackGrad)" />
-                  {/* Roda traseira grande */}
-                  <circle cx="36" cy="56" r="10" fill="none" stroke="url(#blackGrad)" strokeWidth="4" />
-                  <circle cx="36" cy="56" r="4" fill="url(#blackGrad)" />
-                  {/* Roda dianteira pequena */}
-                  <circle cx="56" cy="58" r="7" fill="none" stroke="url(#blackGrad)" strokeWidth="3.5" />
-                  <circle cx="56" cy="58" r="2.5" fill="url(#blackGrad)" />
+                  {/* Trator - vista lateral correta (roda grande na traseira/direita, pequena na frente/esquerda) */}
+                  <g fill="url(#blackGrad)">
+                    {/* Corpo/Chassis principal */}
+                    <rect x="27" y="39" width="16" height="15" rx="1" />
+                    {/* Capô do motor (frente) */}
+                    <rect x="27" y="42" width="15" height="12" rx="1" />
+                    {/* Cabine (traseira) */}
+                    <rect x="43" y="32" width="15" height="16" rx="2" />
+                    <rect x="45" y="34" width="11" height="9" fill="#FFFFFF" rx="0.5" />
+                    {/* Exaustor (chaminé) */}
+                    <rect x="33" y="32" width="3" height="10" rx="0.5" />
+                  </g>
+                  {/* Roda traseira grande (direita) com raios */}
+                  <circle cx="51" cy="56" r="12.5" fill="none" stroke="url(#blackGrad)" strokeWidth="4.5" />
+                  <circle cx="51" cy="56" r="3.5" fill="url(#blackGrad)" />
+                  <line x1="51" y1="43.5" x2="51" y2="68.5" stroke="url(#blackGrad)" strokeWidth="2.2" />
+                  <line x1="38.5" y1="56" x2="63.5" y2="56" stroke="url(#blackGrad)" strokeWidth="2.2" />
+                  <line x1="42" y1="47" x2="60" y2="65" stroke="url(#blackGrad)" strokeWidth="1.8" />
+                  <line x1="60" y1="47" x2="42" y2="65" stroke="url(#blackGrad)" strokeWidth="1.8" />
+                  {/* Roda dianteira pequena (esquerda) */}
+                  <circle cx="34" cy="60" r="8.5" fill="none" stroke="url(#blackGrad)" strokeWidth="3.5" />
+                  <circle cx="34" cy="60" r="2.5" fill="url(#blackGrad)" />
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
@@ -621,16 +720,23 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {type === 'R-22' && (
               <g filter="url(#symbolShadow)">
-                {/* Faróis - dois retângulos arredondados simulando luzes */}
-                <rect x="28" y="38" width="14" height="10" rx="2" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
-                <rect x="58" y="38" width="14" height="10" rx="2" fill="none" stroke="url(#blackGrad)" strokeWidth="3" />
-                {/* Raios de luz */}
-                <line x1="42" y1="40" x2="55" y2="37" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
-                <line x1="42" y1="43" x2="55" y2="43" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
-                <line x1="42" y1="46" x2="55" y2="49" stroke="url(#blackGrad)" strokeWidth="2" strokeLinecap="round" />
-                {/* Texto LUZ ALTA */}
-                <text x="50" y="32" fill="url(#blackGrad)" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="Arial, sans-serif">LUZ</text>
-                <text x="50" y="65" fill="url(#blackGrad)" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="Arial, sans-serif">ALTA</text>
+                {/* Corrente de neve/tração - pneu com correntes CTB */}
+                {/* Pneu central */}
+                <circle cx="50" cy="50" r="17" fill="none" stroke="url(#blackGrad)" strokeWidth="6" />
+                <circle cx="50" cy="50" r="6" fill="url(#blackGrad)" />
+                {/* Raios do aro */}
+                <line x1="50" y1="33" x2="50" y2="67" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <line x1="33" y1="50" x2="67" y2="50" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {/* Correntes ao redor do pneu - elos ovais */}
+                <ellipse cx="50" cy="27" rx="5" ry="4" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <ellipse cx="50" cy="73" rx="5" ry="4" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <ellipse cx="27" cy="50" rx="4" ry="5" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <ellipse cx="73" cy="50" rx="4" ry="5" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {/* Elos diagonais */}
+                <ellipse cx="38" cy="38" rx="4" ry="4" transform="rotate(45 38 38)" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <ellipse cx="62" cy="38" rx="4" ry="4" transform="rotate(-45 62 38)" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <ellipse cx="38" cy="62" rx="4" ry="4" transform="rotate(-45 38 62)" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                <ellipse cx="62" cy="62" rx="4" ry="4" transform="rotate(45 62 62)" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
               </g>
             )}
 
@@ -795,12 +901,28 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {type === 'R-37' && (
               <g>
-                <g fill="url(#blackGrad)" transform="translate(30, 36) scale(0.8)" filter="url(#symbolShadow)">
-                  <circle cx="10" cy="22" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
-                  <circle cx="40" cy="22" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
-                  <path d="M10,22 L22,12 L33,12 L40,22" stroke="url(#blackGrad)" strokeWidth="3.5" fill="none" />
-                  <line x1="16" y1="17" x2="25" y2="17" stroke="url(#blackGrad)" strokeWidth="3" />
-                  <line x1="33" y1="12" x2="31" y2="5" stroke="url(#blackGrad)" strokeWidth="3.5" />
+                <g filter="url(#symbolShadow)">
+                  {/* Motocicleta - perfil claro e proporcional */}
+                  <g fill="url(#blackGrad)">
+                    {/* Roda traseira */}
+                    <circle cx="30" cy="58" r="12" fill="none" stroke="url(#blackGrad)" strokeWidth="4" />
+                    <circle cx="30" cy="58" r="3.5" fill="url(#blackGrad)" />
+                    {/* Roda dianteira */}
+                    <circle cx="68" cy="58" r="12" fill="none" stroke="url(#blackGrad)" strokeWidth="4" />
+                    <circle cx="68" cy="58" r="3.5" fill="url(#blackGrad)" />
+                    {/* Chassi / quadro */}
+                    <path d="M30,58 L42,36 L55,36 L68,58" fill="none" stroke="url(#blackGrad)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M42,36 L38,46 L30,58" fill="none" stroke="url(#blackGrad)" strokeWidth="4" strokeLinecap="round" />
+                    {/* Motor/corpo central */}
+                    <ellipse cx="48" cy="46" rx="8" ry="6" />
+                    {/* Guidom */}
+                    <path d="M55,36 L62,32 L66,34" fill="none" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" />
+                    {/* Selim/assento */}
+                    <ellipse cx="43" cy="35" rx="8" ry="3" />
+                    {/* Capacete/piloto */}
+                    <ellipse cx="40" cy="29" rx="7" ry="6" />
+                    <path d="M34,30 Q33,26 36,24 Q40,22 45,26" fill="url(#blackGrad)" stroke="none" />
+                  </g>
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
@@ -808,27 +930,75 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {type === 'R-38' && (
               <g>
-                <g fill="url(#blackGrad)" transform="translate(26, 36) scale(0.24)" filter="url(#symbolShadow)">
-                  <rect x="5" y="10" width="60" height="25" rx="4" />
-                  <rect x="10" y="14" width="12" height="8" fill="#FFFFFF" />
-                  <rect x="26" y="14" width="12" height="8" fill="#FFFFFF" />
-                  <rect x="42" y="14" width="12" height="8" fill="#FFFFFF" />
-                  <circle cx="18" cy="40" r="6" fill="#111827" />
-                  <circle cx="52" cy="40" r="6" fill="#111827" />
+                <g filter="url(#symbolShadow)">
+                  {/* Ônibus - perfil lateral claro */}
+                  <g fill="url(#blackGrad)">
+                    <rect x="14" y="32" width="72" height="24" rx="3" />
+                    <rect x="16" y="25" width="68" height="9" rx="2" />
+                    {/* Janelas */}
+                    <rect x="18" y="27" width="10" height="5" fill="#FFFFFF" />
+                    <rect x="31" y="27" width="10" height="5" fill="#FFFFFF" />
+                    <rect x="44" y="27" width="10" height="5" fill="#FFFFFF" />
+                    <rect x="57" y="27" width="10" height="5" fill="#FFFFFF" />
+                    {/* Para-brisas dianteiro */}
+                    <rect x="71" y="27" width="10" height="5" fill="#FFFFFF" />
+                    {/* Porta */}
+                    <rect x="71" y="35" width="10" height="14" fill="#FFFFFF" />
+                    {/* Para-choque */}
+                    <rect x="14" y="54" width="72" height="3" rx="1" />
+                    {/* Rodas */}
+                    <circle cx="26" cy="58" r="7.5" fill="#1F2937" />
+                    <circle cx="26" cy="58" r="3" fill="#FFFFFF" />
+                    <circle cx="72" cy="58" r="7.5" fill="#1F2937" />
+                    <circle cx="72" cy="58" r="3" fill="#FFFFFF" />
+                  </g>
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
             )}
 
             {type === 'R-39' && (
-              renderTruckIcon(22, 32, 0.26)
+              <g filter="url(#symbolShadow)">
+                {/* Caminhão grande - obrigatório (sem barra) */}
+                <g fill="url(#blackGrad)">
+                  <rect x="12" y="34" width="38" height="22" rx="2" />
+                  <rect x="50" y="28" width="22" height="28" rx="3" />
+                  <rect x="52" y="31" width="18" height="12" fill="#FFFFFF" />
+                  <rect x="50" y="52" width="22" height="4" rx="1" />
+                  <circle cx="21" cy="59" r="7" fill="#1F2937" />
+                  <circle cx="21" cy="59" r="2.8" fill="#FFFFFF" />
+                  <circle cx="38" cy="59" r="7" fill="#1F2937" />
+                  <circle cx="38" cy="59" r="2.8" fill="#FFFFFF" />
+                  <circle cx="63" cy="59" r="7" fill="#1F2937" />
+                  <circle cx="63" cy="59" r="2.8" fill="#FFFFFF" />
+                </g>
+              </g>
             )}
 
             {type === 'R-40' && (
               <g>
-                <g stroke="url(#blackGrad)" strokeWidth="3.2" fill="none" strokeLinecap="round" transform="translate(30, 38) scale(0.8)" filter="url(#symbolShadow)">
-                  <circle cx="8" cy="22" r="4.5" fill="url(#blackGrad)" stroke="none" />
-                  <path d="M8,22 L42,10 M16,19 L32,26 L42,26 M32,26 L35,32 M24,21 L26,30" />
+                <g filter="url(#symbolShadow)">
+                  {/* Carrinho de mão conduzido por pessoa - oficial do CTB */}
+                  {/* Pessoa à esquerda */}
+                  {/* Cabeça */}
+                  <circle cx="33" cy="38" r="3.5" fill="url(#blackGrad)" />
+                  {/* Corpo e pernas */}
+                  <line x1="33" y1="41.5" x2="36.5" y2="54" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" />
+                  <line x1="36.5" y1="54" x2="31.5" y2="65" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" />
+                  <line x1="36.5" y1="54" x2="39" y2="65" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" />
+                  {/* Braço segurando o carrinho */}
+                  <path d="M34,44 L44,47 M44,47 L51,47.5" fill="none" stroke="url(#blackGrad)" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+                  
+                  {/* Carrinho de mão à direita */}
+                  {/* Suporte inferior / Pés */}
+                  <line x1="53.5" y1="49" x2="53.5" y2="59" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  {/* Cabo principal de sustentação */}
+                  <path d="M46.5" y1="53.5" x2="68" y2="46" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" />
+                  {/* Cesto/Caçamba do carrinho */}
+                  <polygon points="50.5,47 62,43 65.5,33.5 52.5,35.5" fill="url(#blackGrad)" />
+                  {/* Roda frontal */}
+                  <circle cx="68" cy="53" r="5" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                  <circle cx="68" cy="53" r="1.5" fill="url(#blackGrad)" />
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
@@ -1379,15 +1549,29 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {/* A-31: Trânsito de tratores ou maquinaria agrícola */}
             {type === 'A-31' && (
-              <g fill="url(#blackGrad)" transform="translate(30, 33) scale(0.7)" filter="url(#symbolShadow)">
-                <circle cx="12" cy="32" r="10" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
-                <circle cx="12" cy="32" r="5" />
-                <circle cx="42" cy="35" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
-                <circle cx="42" cy="35" r="3.5" />
-                <rect x="18" y="18" width="22" height="15" rx="2" />
-                <rect x="12" y="10" width="10" height="10" />
-                <path d="M12,10 L18,2 H30 L35,10" stroke="url(#blackGrad)" strokeWidth="3" fill="none" />
-                <line x1="38" y1="18" x2="38" y2="8" stroke="url(#blackGrad)" strokeWidth="2.5" />
+              <g filter="url(#symbolShadow)" transform="translate(1, 1) scale(0.98)">
+                {/* Trator - vista lateral correta (roda grande na traseira/direita, pequena na frente/esquerda) */}
+                <g fill="url(#blackGrad)">
+                  {/* Corpo/Chassis principal */}
+                  <rect x="27" y="39" width="16" height="15" rx="1" />
+                  {/* Capô do motor (frente) */}
+                  <rect x="27" y="42" width="15" height="12" rx="1" />
+                  {/* Cabine (traseira) */}
+                  <rect x="43" y="32" width="15" height="16" rx="2" />
+                  <rect x="45" y="34" width="11" height="9" fill="#FFFFFF" rx="0.5" />
+                  {/* Exaustor (chaminé) */}
+                  <rect x="33" y="32" width="3" height="10" rx="0.5" />
+                </g>
+                {/* Roda traseira grande (direita) com raios */}
+                <circle cx="51" cy="56" r="12.5" fill="none" stroke="url(#blackGrad)" strokeWidth="4.5" />
+                <circle cx="51" cy="56" r="3.5" fill="url(#blackGrad)" />
+                <line x1="51" y1="43.5" x2="51" y2="68.5" stroke="url(#blackGrad)" strokeWidth="2.2" />
+                <line x1="38.5" y1="56" x2="63.5" y2="56" stroke="url(#blackGrad)" strokeWidth="2.2" />
+                <line x1="42" y1="47" x2="60" y2="65" stroke="url(#blackGrad)" strokeWidth="1.8" />
+                <line x1="60" y1="47" x2="42" y2="65" stroke="url(#blackGrad)" strokeWidth="1.8" />
+                {/* Roda dianteira pequena (esquerda) */}
+                <circle cx="34" cy="60" r="8.5" fill="none" stroke="url(#blackGrad)" strokeWidth="3.5" />
+                <circle cx="34" cy="60" r="2.5" fill="url(#blackGrad)" />
               </g>
             )}
 
@@ -1448,17 +1632,55 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {/* A-35: Animais */}
             {type === 'A-35' && (
-              <g fill="url(#blackGrad)" transform="translate(25, 34) scale(0.9)" filter="url(#symbolShadow)">
-                <path d="M5,15 C5,10 12,8 20,8 H40 C44,8 48,12 48,18 V28 H10 V38 H5 Z M10,28 V44 H15 V28 Z M38,28 V44 H43 V28 Z" />
-                <circle cx="3" cy="12" r="2" />
+              <g filter="url(#symbolShadow)" transform="translate(2, 4) scale(0.95)">
+                {/* Animais na pista - boi/vaca de perfil detalhado */}
+                <g fill="url(#blackGrad)">
+                  {/* Corpo */}
+                  <ellipse cx="48" cy="46" rx="20" ry="12" />
+                  {/* Cabeça */}
+                  <ellipse cx="68" cy="40" rx="10" ry="8" />
+                  {/* Focinho */}
+                  <ellipse cx="77" cy="42" rx="5" ry="4" />
+                  {/* Narinas */}
+                  <circle cx="75" cy="41" r="1.2" fill="#FFFFFF" />
+                  <circle cx="79" cy="41" r="1.2" fill="#FFFFFF" />
+                  {/* Chifres */}
+                  <path d="M66,33 L64,26 M70,33 L72,26" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                  {/* Orelha */}
+                  <ellipse cx="65" cy="35" rx="4" ry="2.5" transform="rotate(30 65 35)" />
+                  {/* Patas */}
+                  <rect x="34" y="57" width="5" height="12" rx="2" />
+                  <rect x="44" y="57" width="5" height="12" rx="2" />
+                  <rect x="54" y="57" width="5" height="12" rx="2" />
+                  <rect x="64" y="57" width="5" height="12" rx="2" />
+                  {/* Cauda */}
+                  <path d="M28,44 C22,42 20,40 22,36" stroke="url(#blackGrad)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                  <circle cx="22" cy="35" r="3" />
+                </g>
               </g>
             )}
 
             {type === 'A-36' && (
-              <g fill="none" filter="url(#symbolShadow)">
-                <path d="M36,25 L38,15 L43,15 M38,15 Q30,12 28,6" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" />
-                <path d="M42,22 Q54,12 66,18 M66,18 L74,24 L66,28 M54,20 L60,38 H64 L56,20" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" />
-                <path d="M36,25 L32,34 Q24,38 14,38 M14,38 L6,24 H0 L8,45" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" />
+              <g filter="url(#symbolShadow)" transform="translate(1, 4) scale(1.02)">
+                {/* Cervo saltando (Animais Selvagens) - Oficial do CTB */}
+                {/* Pernas dianteiras (dobradas) */}
+                <path d="M51,43 L58,51 L49,57" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                <path d="M48,45 L54,53 L46,59" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                {/* Pernas traseiras (estendidas) */}
+                <path d="M35,46 L21,52 L12,50" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                <path d="M37,48 L25,56 L16,55" stroke="url(#blackGrad)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                
+                {/* Corpo, pescoço e cabeça */}
+                <g fill="url(#blackGrad)">
+                  <ellipse cx="44" cy="44" rx="13" ry="6.5" transform="rotate(-22 44 44)" />
+                  <path d="M48,40 L63,28 C65,26.5 67,29 65,31 L53,44 Z" />
+                  <ellipse cx="61" cy="27" rx="3.5" ry="1.5" transform="rotate(-50 61 27)" />
+                </g>
+                
+                {/* Chifres */}
+                <path d="M63,27 L65,16 M64,21 L69,19 M63,18 L60,14" stroke="url(#blackGrad)" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+                {/* Rabo */}
+                <path d="M32,43 C31,40 33,39 34,39" stroke="url(#blackGrad)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
               </g>
             )}
 
