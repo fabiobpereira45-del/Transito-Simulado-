@@ -9,6 +9,76 @@ interface SignRendererProps {
 export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, size = 96 }) => {
   const pixelSize = typeof size === 'number' ? `${size}px` : size;
 
+  // Set containing all 55 circular regulatory signs codes
+  const circularRegulatoryCodes = [
+    'R-3', 'R-4a', 'R-4b', 'R-5a', 'R-5b', 'R-6a', 'R-6b', 'R-6c', 'R-7', 'R-8a', 'R-8b', 
+    'R-9', 'R-10', 'R-11', 'R-12', 'R-13', 'R-14', 'R-15', 'R-16', 'R-17', 'R-18', 'R-19', 
+    'R-20', 'R-21', 'R-22', 'R-23', 'R-24a', 'R-24b', 'R-25a', 'R-25b', 'R-25c', 'R-25d', 
+    'R-26', 'R-27', 'R-28', 'R-29', 'R-30', 'R-31', 'R-32', 'R-33', 'R-34', 'R-35a', 'R-35b', 
+    'R-36a', 'R-36b', 'R-36c', 'R-37', 'R-38', 'R-39', 'R-40', 'R-41', 'R-42a', 'R-42b', 
+    'R-43a', 'R-43b'
+  ];
+
+  // Aliases from the previous code implementation
+  const isCircularRegulatory = circularRegulatoryCodes.includes(type) || 
+    ['prohibited', 'speed_limit', 'prohibited_turn_left', 'prohibited_turn_right', 
+     'prohibited_u_turn', 'prohibited_parking', 'prohibited_stopping', 
+     'prohibited_overtaking', 'prohibited_bikes', 'double_way'].includes(type);
+
+  // Helper for bike SVG drawing
+  const renderBikeIcon = (x: number, y: number, scale: number) => (
+    <g stroke="url(#blackGrad)" strokeWidth={4} fill="none" strokeLinecap="round" strokeLinejoin="round" transform={`translate(${x}, ${y}) scale(${scale})`}>
+      <circle cx="33" cy="50" r="9" strokeWidth={3} />
+      <circle cx="67" cy="50" r="9" strokeWidth={3} />
+      <path d="M33,50 L48,50 L58,38 L67,50 M48,50 L42,34 L37,34 M58,38 L54,31 L58,31" />
+    </g>
+  );
+
+  // Helper for pedestrian SVG drawing
+  const renderPedestrianIcon = (x: number, y: number, scale: number) => (
+    <g fill="url(#blackGrad)" stroke="none" transform={`translate(${x}, ${y}) scale(${scale})`}>
+      <circle cx="50" cy="30" r="5.5" />
+      <path d="M46,38 H54 V55 H51 V68 H49 V55 H46 Z" />
+      <path d="M42,38 L44,52 H46 L44,38 Z" />
+      <path d="M54,38 L56,52 H54 L56,38 Z" />
+    </g>
+  );
+
+  // Helper for truck SVG drawing
+  const renderTruckIcon = (x: number, y: number, scale: number) => (
+    <g transform={`translate(${x}, ${y}) scale(${scale})`}>
+      <rect x="5" y="15" width="22" height="25" rx="3" fill="url(#blackGrad)" />
+      <rect x="27" y="5" width="32" height="35" rx="4" fill="url(#blackGrad)" />
+      <circle cx="16" cy="45" r="6" fill="#111827" />
+      <circle cx="48" cy="45" r="6" fill="#111827" />
+    </g>
+  );
+
+  // Helper for VLT/train drawing
+  const renderVLTIcon = (x: number, y: number, scale: number) => (
+    <g fill="url(#blackGrad)" transform={`translate(${x}, ${y}) scale(${scale})`}>
+      <rect x="5" y="8" width="38" height="36" rx="6" />
+      <rect x="9" y="13" width="30" height="14" fill="#FFFFFF" />
+      <circle cx="13" cy="35" r="3.2" fill="#FFFFFF" />
+      <circle cx="35" cy="35" r="3.2" fill="#FFFFFF" />
+      <line x1="-5" y1="48" x2="53" y2="48" stroke="url(#blackGrad)" strokeWidth="4" />
+      <line x1="12" y1="48" x2="12" y2="54" stroke="url(#blackGrad)" strokeWidth="3" />
+      <line x1="36" y1="48" x2="36" y2="54" stroke="url(#blackGrad)" strokeWidth="3" />
+      <path d="M24,8 L20,0 H28 L24,8" fill="none" stroke="url(#blackGrad)" strokeWidth="2.5" />
+    </g>
+  );
+
+  // Helper for car silhouette drawing
+  const renderCarIcon = (x: number, y: number, scale: number) => (
+    <g fill="url(#blackGrad)" transform={`translate(${x}, ${y}) scale(${scale})`}>
+      <rect x="5" y="12" width="40" height="18" rx="4" />
+      <rect x="10" y="3" width="30" height="11" rx="2.5" />
+      <rect x="13" y="6" width="24" height="5" fill="#FFFFFF" />
+      <circle cx="12" cy="22" r="3.2" fill="#FFFFFF" />
+      <circle cx="38" cy="22" r="3.2" fill="#FFFFFF" />
+    </g>
+  );
+
   return (
     <div 
       className="flex items-center justify-center select-none"
@@ -80,8 +150,8 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           </linearGradient>
         </defs>
 
-        {/* 1. PLACA R-1: Parada Obrigatória (Octógono Vermelho) */}
-        {type === 'stop' && (
+        {/* --- 1. R-1: Parada Obrigatória (Octógono) --- */}
+        {(type === 'stop' || type === 'R-1') && (
           <g>
             <polygon 
               points="30,4 70,4 96,30 96,70 70,96 30,96 4,70 4,30" 
@@ -111,14 +181,13 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             >
               PARE
             </text>
-            {/* Screws */}
             <circle cx="50" cy="11" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
             <circle cx="50" cy="89" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
-        {/* 2. PLACA R-2: Dê a Preferência (Triângulo Invertido) */}
-        {type === 'yield' && (
+        {/* --- 2. R-2: Dê a Preferência (Triângulo Invertido) --- */}
+        {(type === 'yield' || type === 'R-2') && (
           <g>
             <polygon 
               points="2,6 98,6 50,94" 
@@ -137,18 +206,13 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               stroke="url(#redGrad)" 
               strokeWidth="2.5"
             />
-            {/* Screws */}
             <circle cx="28" cy="12" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
             <circle cx="72" cy="12" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
-        {/* 3. PLACAS CIRCULARES DE REGULAMENTAÇÃO COM BORDA METÁLICA (Fundo Branco, Anel Vermelho) */}
-        {[
-          'prohibited', 'speed_limit', 'prohibited_turn_left', 'prohibited_turn_right',
-          'prohibited_u_turn', 'prohibited_parking', 'prohibited_stopping',
-          'prohibited_overtaking', 'prohibited_bikes', 'double_way'
-        ].includes(type) && (
+        {/* --- 3. PLACAS CIRCULARES DE REGULAMENTAÇÃO (R-3 a R-43b) --- */}
+        {isCircularRegulatory && (
           <g>
             {/* Metallic backplate */}
             <circle cx="50" cy="50" r="46" fill="url(#metalBorderGrad)" filter="url(#plateShadow)" />
@@ -156,20 +220,306 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             <circle cx="50" cy="50" r="44.2" fill="url(#whiteGrad)" />
             {/* Regulatory red outer ring */}
             <circle cx="50" cy="50" r="39.5" fill="none" stroke="url(#redGrad)" strokeWidth="8.2" />
-            
-            {/* Content for specific circular types */}
-            {type === 'prohibited' && (
+
+            {/* A. Sentido Proibido (R-3) */}
+            {(type === 'R-3' || type === 'prohibited') && (
               <g>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
-                {extraData === 'sentido_proibido' && (
-                  <g transform="translate(50, 50) rotate(-45)" filter="url(#symbolShadow)">
-                    <path d="M-22,0 L18,0 M10,-7 L20,0 L10,7" fill="none" stroke="url(#blackGrad)" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round"/>
+                {extraData === 'sentido_proibido' ? (
+                  <g>
+                    <g transform="translate(50, 50) rotate(-45)" filter="url(#symbolShadow)">
+                      <path d="M-22,0 L18,0 M10,-7 L20,0 L10,7" fill="none" stroke="url(#blackGrad)" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </g>
+                    <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
                   </g>
+                ) : (
+                  <rect x="24" y="46" width="52" height="8" rx="1.5" fill="url(#blackGrad)" filter="url(#symbolShadow)" />
                 )}
               </g>
             )}
 
-            {type === 'speed_limit' && (
+            {/* B. Proibido Virar à Esquerda (R-4a) */}
+            {(type === 'R-4a' || type === 'prohibited_turn_left') && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  <path d="M55,66 L55,46 Q55,36 45,36 L30,36" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M34,29 L24,36 L34,43 Z" fill="url(#blackGrad)" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* C. Proibido Virar à Direita (R-4b) */}
+            {(type === 'R-4b' || type === 'prohibited_turn_right') && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  <path d="M45,66 L45,46 Q45,36 55,36 L70,36" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M66,29 L76,36 L66,43 Z" fill="url(#blackGrad)" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* D. Proibido Retornar à Esquerda (R-5a) */}
+            {(type === 'R-5a' || type === 'prohibited_u_turn') && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  <path d="M56,66 L56,44 Q56,31 46,31 Q36,31 36,44 L36,54" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M29,50 L36,59 L43,50 Z" fill="url(#blackGrad)" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* E. Proibido Retornar à Direita (R-5b) */}
+            {type === 'R-5b' && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  <path d="M44,66 L44,44 Q44,31 54,31 Q64,31 64,44 L64,54" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M71,50 L64,59 L57,50 Z" fill="url(#blackGrad)" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* F. Proibido Estacionar (R-6a) */}
+            {(type === 'R-6a' || type === 'prohibited_parking') && (
+              <g>
+                <text 
+                  x="50" 
+                  y="64" 
+                  fill="url(#blackGrad)" 
+                  fontSize="44" 
+                  fontWeight="900" 
+                  fontFamily="Arial, system-ui, sans-serif" 
+                  textAnchor="middle"
+                  filter="url(#symbolShadow)"
+                >
+                  E
+                </text>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* G. Estacionamento Regulamentado (R-6b) */}
+            {type === 'R-6b' && (
+              <text 
+                x="50" 
+                y="64" 
+                fill="url(#blackGrad)" 
+                fontSize="44" 
+                fontWeight="900" 
+                fontFamily="Arial, system-ui, sans-serif" 
+                textAnchor="middle"
+                filter="url(#symbolShadow)"
+              >
+                E
+              </text>
+            )}
+
+            {/* H. Proibido Parar e Estacionar (R-6c) */}
+            {(type === 'R-6c' || type === 'prohibited_stopping') && (
+              <g>
+                <text 
+                  x="50" 
+                  y="64" 
+                  fill="url(#blackGrad)" 
+                  fontSize="44" 
+                  fontWeight="900" 
+                  fontFamily="Arial, system-ui, sans-serif" 
+                  textAnchor="middle"
+                  filter="url(#symbolShadow)"
+                >
+                  E
+                </text>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+                <line x1="78" y1="22" x2="22" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* I. Proibido Ultrapassar (R-7) */}
+            {(type === 'R-7' || type === 'prohibited_overtaking') && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  {renderCarIcon(23, 38, 0.22)}
+                  <g transform="translate(53, 38) scale(0.22)">
+                    <rect x="10" y="30" width="30" height="25" rx="5" fill="url(#redGrad)" />
+                    <rect x="15" y="10" width="20" height="22" rx="4" fill="url(#redGrad)" />
+                    <rect x="18" y="14" width="14" height="8" fill="#FFFFFF" />
+                    <circle cx="18" cy="55" r="4.5" fill="#111827" />
+                    <circle cx="32" cy="55" r="4.5" fill="#111827" />
+                  </g>
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* J. Proibido mudar de faixa da esquerda para direita (R-8a) */}
+            {type === 'R-8a' && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  <line x1="38" y1="26" x2="38" y2="74" stroke="url(#blackGrad)" strokeWidth="3.2" strokeDasharray="4,4" />
+                  <line x1="62" y1="26" x2="62" y2="74" stroke="url(#blackGrad)" strokeWidth="3.2" />
+                  <path d="M38,52 C45,52 48,46 56,46" fill="none" stroke="url(#blackGrad)" strokeWidth="4.5" strokeLinecap="round" />
+                  <path d="M52,40 L61,46 L52,52 Z" fill="url(#blackGrad)" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* K. Proibido mudar de faixa da direita para esquerda (R-8b) */}
+            {type === 'R-8b' && (
+              <g>
+                <g filter="url(#symbolShadow)">
+                  <line x1="38" y1="26" x2="38" y2="74" stroke="url(#blackGrad)" strokeWidth="3.2" />
+                  <line x1="62" y1="26" x2="62" y2="74" stroke="url(#blackGrad)" strokeWidth="3.2" strokeDasharray="4,4" />
+                  <path d="M62,52 C55,52 52,46 44,46" fill="none" stroke="url(#blackGrad)" strokeWidth="4.5" strokeLinecap="round" />
+                  <path d="M48,40 L39,46 L48,52 Z" fill="url(#blackGrad)" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* L. Proibido trânsito de caminhões (R-9) */}
+            {type === 'R-9' && (
+              <g>
+                {renderTruckIcon(23, 33, 0.25)}
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* M. Proibido trânsito de veículos automotores (R-10) */}
+            {type === 'R-10' && (
+              <g>
+                {renderCarIcon(26, 36, 0.24)}
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* N. Proibido trânsito de veículos de tração animal (R-11) */}
+            {type === 'R-11' && (
+              <g>
+                <g stroke="url(#blackGrad)" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(30, 36) scale(0.68)" filter="url(#symbolShadow)">
+                  <rect x="15" y="10" width="25" height="15" />
+                  <path d="M15,20 L2,20 M15,13 L2,13" />
+                  <circle cx="27.5" cy="32" r="7" strokeWidth="2.5" />
+                  <path d="M2,20 L-10,20 L-15,10 M-10,20 L-12,32 M-7,20 L-9,32" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* O. Proibido trânsito de bicicletas (R-12 / prohibited_bikes) */}
+            {(type === 'R-12' || type === 'prohibited_bikes') && (
+              <g>
+                {renderBikeIcon(22, 28, 0.55)}
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* P. Proibido trânsito de tratores/máquinas (R-13) */}
+            {type === 'R-13' && (
+              <g>
+                <g fill="url(#blackGrad)" transform="translate(30, 33) scale(0.7)" filter="url(#symbolShadow)">
+                  <circle cx="12" cy="32" r="10" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
+                  <circle cx="12" cy="32" r="5" />
+                  <circle cx="42" cy="35" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
+                  <circle cx="42" cy="35" r="3.5" />
+                  <rect x="18" y="18" width="22" height="15" rx="2" />
+                  <rect x="12" y="10" width="10" height="10" />
+                  <path d="M12,10 L18,2 H30 L35,10" stroke="url(#blackGrad)" strokeWidth="3" fill="none" />
+                  <line x1="38" y1="18" x2="38" y2="8" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* Q. Peso bruto total máximo permitido (R-14) */}
+            {type === 'R-14' && (
+              <text 
+                x="50" 
+                y="58" 
+                fill="url(#blackGrad)" 
+                fontSize="24" 
+                fontWeight="900" 
+                fontFamily="Arial, system-ui, sans-serif" 
+                textAnchor="middle"
+                filter="url(#symbolShadow)"
+              >
+                {extraData || '10 t'}
+              </text>
+            )}
+
+            {/* R. Altura máxima permitida (R-15) */}
+            {type === 'R-15' && (
+              <g>
+                <g fill="url(#blackGrad)" filter="url(#symbolShadow)">
+                  <polygon points="50,22 44,28 56,28" />
+                  <polygon points="50,78 44,72 56,72" />
+                </g>
+                <text 
+                  x="50" 
+                  y="56" 
+                  fill="url(#blackGrad)" 
+                  fontSize="21" 
+                  fontWeight="900" 
+                  fontFamily="Arial, system-ui, sans-serif" 
+                  textAnchor="middle"
+                  filter="url(#symbolShadow)"
+                >
+                  {extraData || '4,0 m'}
+                </text>
+              </g>
+            )}
+
+            {/* S. Largura máxima permitida (R-16) */}
+            {type === 'R-16' && (
+              <g>
+                <g fill="url(#blackGrad)" filter="url(#symbolShadow)">
+                  <polygon points="22,50 28,44 28,56" />
+                  <polygon points="78,50 72,44 72,56" />
+                </g>
+                <text 
+                  x="50" 
+                  y="56" 
+                  fill="url(#blackGrad)" 
+                  fontSize="21" 
+                  fontWeight="900" 
+                  fontFamily="Arial, system-ui, sans-serif" 
+                  textAnchor="middle"
+                  filter="url(#symbolShadow)"
+                >
+                  {extraData || '3,0 m'}
+                </text>
+              </g>
+            )}
+
+            {/* T. Peso máximo permitido por eixo (R-17) */}
+            {type === 'R-17' && (
+              <g filter="url(#symbolShadow)">
+                <text x="50" y="38" fill="url(#blackGrad)" fontSize="20" fontWeight="900" fontFamily="Arial, system-ui" textAnchor="middle">{extraData || '2 t'}</text>
+                <g stroke="url(#blackGrad)" strokeWidth="4.5" fill="none" transform="translate(0, 12)">
+                  <line x1="30" y1="46" x2="70" y2="46" />
+                  <rect x="24" y="38" width="6" height="16" rx="1.5" fill="url(#blackGrad)" stroke="none" />
+                  <rect x="70" y="38" width="6" height="16" rx="1.5" fill="url(#blackGrad)" stroke="none" />
+                </g>
+              </g>
+            )}
+
+            {/* U. Comprimento máximo permitido (R-18) */}
+            {type === 'R-18' && (
+              <g filter="url(#symbolShadow)">
+                <text x="50" y="36" fill="url(#blackGrad)" fontSize="20" fontWeight="900" fontFamily="Arial, system-ui" textAnchor="middle">{extraData || '10 m'}</text>
+                <g transform="translate(0, 7)">
+                  <path d="M22,50 L78,50" stroke="url(#blackGrad)" strokeWidth="2.2" strokeDasharray="3,3" />
+                  <polygon points="20,50 26,45 26,55" fill="url(#blackGrad)" />
+                  <polygon points="80,50 74,45 74,55" fill="url(#blackGrad)" />
+                  {renderTruckIcon(38, 54, 0.16)}
+                </g>
+              </g>
+            )}
+
+            {/* V. Velocidade máxima permitida (R-19 / speed_limit) */}
+            {(type === 'R-19' || type === 'speed_limit') && (
               <g filter="url(#symbolShadow)">
                 <text 
                   x="50" 
@@ -197,109 +547,110 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               </g>
             )}
 
-            {type === 'prohibited_turn_left' && (
+            {/* W. Proibido acionar buzina ou sinal sonoro (R-20) */}
+            {type === 'R-20' && (
               <g>
-                <g filter="url(#symbolShadow)">
-                  <path d="M55,66 L55,46 Q55,36 45,36 L30,36" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M34,29 L24,36 L34,43 Z" fill="url(#blackGrad)" />
+                <g stroke="url(#blackGrad)" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(30, 36) scale(0.8)" filter="url(#symbolShadow)">
+                  <path d="M5,12 L18,12 L28,2 L28,26 L18,16 L5,16 Z" fill="url(#blackGrad)" stroke="none" />
+                  <path d="M33,9 A6,6 0 0,1 33,19" />
+                  <path d="M38,4 A12,12 0 0,1 38,24" />
                 </g>
                 <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
               </g>
             )}
 
-            {type === 'prohibited_turn_right' && (
-              <g>
-                <g filter="url(#symbolShadow)">
-                  <path d="M45,66 L45,46 Q45,36 55,36 L70,36" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M66,29 L76,36 L66,43 Z" fill="url(#blackGrad)" />
-                </g>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+            {/* X. Alfândega (R-21) */}
+            {type === 'R-21' && (
+              <rect x="22" y="46" width="56" height="8" rx="1" fill="url(#blackGrad)" filter="url(#symbolShadow)" />
+            )}
+
+            {/* Y. Uso obrigatório de corrente (R-22) */}
+            {type === 'R-22' && (
+              <g stroke="url(#blackGrad)" strokeWidth="3" fill="none" transform="translate(35, 35) scale(0.6)" filter="url(#symbolShadow)">
+                <circle cx="25" cy="25" r="22" strokeWidth="6" />
+                <line x1="25" y1="3" x2="25" y2="47" />
+                <line x1="3" y1="25" x2="47" y2="25" />
+                <line x1="9" y1="9" x2="41" y2="41" />
+                <line x1="9" y1="41" x2="41" y2="9" />
               </g>
             )}
 
-            {type === 'prohibited_u_turn' && (
-              <g>
-                <g filter="url(#symbolShadow)">
-                  <path d="M56,66 L56,44 Q56,31 46,31 Q36,31 36,44 L36,54" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M29,50 L36,59 L43,50 Z" fill="url(#blackGrad)" />
-                </g>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+            {/* Z. Conserve-se à direita (R-23) */}
+            {type === 'R-23' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M55,28 L55,70" fill="none" stroke="url(#blackGrad)" strokeWidth="5.5" strokeLinecap="round" />
+                <path d="M49,36 L55,28 L61,36" fill="none" stroke="url(#blackGrad)" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
+                {renderCarIcon(26, 44, 0.32)}
               </g>
             )}
 
-            {type === 'prohibited_parking' && (
-              <g>
-                <text 
-                  x="50" 
-                  y="64" 
-                  fill="url(#blackGrad)" 
-                  fontSize="44" 
-                  fontWeight="900" 
-                  fontFamily="Arial, system-ui, sans-serif" 
-                  textAnchor="middle"
-                  filter="url(#symbolShadow)"
-                >
-                  E
-                </text>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+            {/* AA. Sentido de circulação da via (R-24a / double_way) */}
+            {(type === 'R-24a' || type === 'double_way') && (
+              <g filter="url(#symbolShadow)">
+                <path d="M26,50 L74,50" fill="none" stroke="url(#blackGrad)" strokeWidth="6.5" strokeLinecap="round" />
+                <path d="M66,42 L74,50 L66,58" fill="none" stroke="url(#blackGrad)" strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
               </g>
             )}
 
-            {type === 'prohibited_stopping' && (
-              <g>
-                <text 
-                  x="50" 
-                  y="64" 
-                  fill="url(#blackGrad)" 
-                  fontSize="44" 
-                  fontWeight="900" 
-                  fontFamily="Arial, system-ui, sans-serif" 
-                  textAnchor="middle"
-                  filter="url(#symbolShadow)"
-                >
-                  E
-                </text>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
-                <line x1="78" y1="22" x2="22" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+            {/* AB. Passagem obrigatória (R-24b) */}
+            {type === 'R-24b' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M32,32 L68,68" fill="none" stroke="url(#blackGrad)" strokeWidth="6.5" strokeLinecap="round" />
+                <path d="M58,68 L68,68 L68,58" fill="none" stroke="url(#blackGrad)" strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
               </g>
             )}
 
-            {type === 'prohibited_overtaking' && (
-              <g>
-                <g filter="url(#symbolShadow)">
-                  {/* Left car (red prohibited) */}
-                  <g transform="translate(23, 38) scale(0.22)">
-                    <rect x="10" y="30" width="30" height="25" rx="5" fill="url(#redGrad)" />
-                    <rect x="15" y="10" width="20" height="22" rx="4" fill="url(#redGrad)" />
-                    <rect x="18" y="14" width="14" height="8" fill="#FFFFFF" />
-                    <circle cx="18" cy="55" r="4.5" fill="#111827" />
-                    <circle cx="32" cy="55" r="4.5" fill="#111827" />
-                  </g>
-                  {/* Right car (black) */}
-                  <g transform="translate(53, 38) scale(0.22)">
-                    <rect x="10" y="30" width="30" height="25" rx="5" fill="url(#blackGrad)" />
-                    <rect x="15" y="10" width="20" height="22" rx="4" fill="url(#blackGrad)" />
-                    <rect x="18" y="14" width="14" height="8" fill="#FFFFFF" />
-                    <circle cx="18" cy="55" r="4.5" fill="#111827" />
-                    <circle cx="32" cy="55" r="4.5" fill="#111827" />
-                  </g>
-                </g>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+            {/* AC. Vire à esquerda (R-25a) */}
+            {type === 'R-25a' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M62,64 L62,48 Q62,38 52,38 L30,38" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M36,31 L26,38 L36,45 Z" fill="url(#blackGrad)" />
               </g>
             )}
 
-            {type === 'prohibited_bikes' && (
-              <g>
-                <g stroke="url(#blackGrad)" strokeWidth="4.2" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(5, 7)" filter="url(#symbolShadow)">
-                  <circle cx="33" cy="50" r="8.5" fill="none" strokeWidth="3" />
-                  <circle cx="67" cy="50" r="8.5" fill="none" strokeWidth="3" />
-                  <path d="M33,50 L48,50 L58,38 L67,50 M48,50 L42,34 L37,34 M58,38 L54,31 L58,31" />
-                </g>
-                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+            {/* AD. Vire à direita (R-25b) */}
+            {type === 'R-25b' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M38,64 L38,48 Q38,38 48,38 L70,38" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M64,31 L74,38 L64,45 Z" fill="url(#blackGrad)" />
               </g>
             )}
 
-            {type === 'double_way' && (
+            {/* AE. Siga em frente ou à esquerda (R-25c) */}
+            {type === 'R-25c' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M50,70 L50,32 M44,42 L50,32 L56,42" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M50,52 Q50,42 42,42 L28,42 M34,35 L24,42 L34,49" fill="none" stroke="url(#blackGrad)" strokeWidth="5.2" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AF. Siga em frente ou à direita (R-25d) */}
+            {type === 'R-25d' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M50,70 L50,32 M44,42 L50,32 L56,42" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M50,52 Q50,42 58,42 L72,42 M66,35 L76,42 L66,49" fill="none" stroke="url(#blackGrad)" strokeWidth="5.2" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AG. Siga em frente (R-26) */}
+            {type === 'R-26' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M50,26 L50,74" fill="none" stroke="url(#blackGrad)" strokeWidth="6.5" strokeLinecap="round" />
+                <path d="M42,36 L50,26 L58,36" fill="none" stroke="url(#blackGrad)" strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AH. Veículos de grande porte, mantenham-se à direita (R-27) */}
+            {type === 'R-27' && (
+              <g filter="url(#symbolShadow)">
+                <path d="M66,28 L66,70" fill="none" stroke="url(#blackGrad)" strokeWidth="5.5" strokeLinecap="round" />
+                <path d="M60,36 L66,28 L72,36" fill="none" stroke="url(#blackGrad)" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
+                {renderTruckIcon(21, 38, 0.22)}
+              </g>
+            )}
+
+            {/* AI. Duplo sentido de circulação (R-28) */}
+            {type === 'R-28' && (
               <g filter="url(#symbolShadow)">
                 {/* Left Down Arrow */}
                 <path d="M37,28 L37,70" fill="none" stroke="url(#blackGrad)" strokeWidth="6" strokeLinecap="round" />
@@ -310,13 +661,195 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               </g>
             )}
 
-            {/* Common Screws for circles */}
+            {/* AJ. Proibido trânsito de pedestres (R-29) */}
+            {type === 'R-29' && (
+              <g>
+                {renderPedestrianIcon(12, 10, 0.75)}
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* AK. Pedestre, ande pela esquerda (R-30) */}
+            {type === 'R-30' && (
+              <g filter="url(#symbolShadow)">
+                {renderPedestrianIcon(14, 12, 0.7)}
+                <path d="M65,72 L35,72 M41,66 L35,72 L41,78" fill="none" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AL. Pedestre, ande pela direita (R-31) */}
+            {type === 'R-31' && (
+              <g filter="url(#symbolShadow)">
+                {renderPedestrianIcon(14, 12, 0.7)}
+                <path d="M35,72 L65,72 M59,66 L65,72 L59,78" fill="none" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AM. Circulação exclusiva de ônibus (R-32) */}
+            {type === 'R-32' && (
+              <g fill="url(#blackGrad)" transform="translate(33, 28) scale(0.68)" filter="url(#symbolShadow)">
+                <rect x="5" y="10" width="40" height="36" rx="8" />
+                <rect x="8" y="15" width="34" height="12" fill="#FFFFFF" />
+                <circle cx="12" cy="38" r="3.2" fill="#FFFFFF" />
+                <circle cx="38" cy="38" r="3.2" fill="#FFFFFF" />
+                <rect x="8" y="46" width="8" height="6" />
+                <rect x="34" y="46" width="8" height="6" />
+                <rect x="18" y="36" width="14" height="4" fill="#CBD5E1" />
+              </g>
+            )}
+
+            {/* AN. Sentido de circulação na rotatória (R-33) */}
+            {type === 'R-33' && (
+              <g stroke="url(#blackGrad)" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="translate(50, 50) scale(0.8)" filter="url(#symbolShadow)">
+                <path d="M-15,-20 A25,25 0 0,1 20,-15" />
+                <polygon points="20,-15 12,-22 22,-24" fill="url(#blackGrad)" stroke="none" />
+                <path d="M25,10 A25,25 0 0,1 -10,22" />
+                <polygon points="-10,22 -8,13 -18,17" fill="url(#blackGrad)" stroke="none" />
+                <path d="M-22,5 A25,25 0 0,1 -15,-20" />
+                <polygon points="-15,-20 -22,-12 -12,-8" fill="url(#blackGrad)" stroke="none" />
+              </g>
+            )}
+
+            {/* AO. Circulação exclusiva de bicicletas (R-34) */}
+            {type === 'R-34' && (
+              renderBikeIcon(22, 22, 0.55)
+            )}
+
+            {/* AP. Ciclista, transite à esquerda (R-35a) */}
+            {type === 'R-35a' && (
+              <g filter="url(#symbolShadow)">
+                {renderBikeIcon(22, 16, 0.55)}
+                <path d="M65,72 L35,72 M41,66 L35,72 L41,78" fill="none" stroke="url(#blackGrad)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AQ. Ciclista, transite à direita (R-35b) */}
+            {type === 'R-35b' && (
+              <g filter="url(#symbolShadow)">
+                {renderBikeIcon(22, 16, 0.55)}
+                <path d="M35,72 L65,72 M59,66 L65,72 L59,78" fill="none" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            )}
+
+            {/* AR. Ciclistas à esquerda, pedestres à direita (R-36a) */}
+            {type === 'R-36a' && (
+              <g filter="url(#symbolShadow)">
+                <line x1="50" y1="20" x2="50" y2="80" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {renderBikeIcon(14, 26, 0.42)}
+                {renderPedestrianIcon(14, 18, 0.65)}
+              </g>
+            )}
+
+            {/* AS. Pedestres à esquerda, ciclistas à direita (R-36b) */}
+            {type === 'R-36b' && (
+              <g filter="url(#symbolShadow)">
+                <line x1="50" y1="20" x2="50" y2="80" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {renderPedestrianIcon(-14, 18, 0.65)}
+                {renderBikeIcon(29, 26, 0.42)}
+              </g>
+            )}
+
+            {/* AT. Circulação compartilhada de ciclistas e pedestres (R-36c) */}
+            {type === 'R-36c' && (
+              <g filter="url(#symbolShadow)">
+                {renderBikeIcon(13, 20, 0.45)}
+                {renderPedestrianIcon(14, 16, 0.68)}
+              </g>
+            )}
+
+            {/* AU. Proibido trânsito de motocicletas, motonetas e ciclomotores (R-37) */}
+            {type === 'R-37' && (
+              <g>
+                <g fill="url(#blackGrad)" transform="translate(30, 36) scale(0.8)" filter="url(#symbolShadow)">
+                  <circle cx="10" cy="22" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
+                  <circle cx="40" cy="22" r="7" stroke="url(#blackGrad)" strokeWidth="2" fill="none" />
+                  <path d="M10,22 L22,12 L33,12 L40,22" stroke="url(#blackGrad)" strokeWidth="3.5" fill="none" />
+                  <line x1="16" y1="17" x2="25" y2="17" stroke="url(#blackGrad)" strokeWidth="3" />
+                  <line x1="33" y1="12" x2="31" y2="5" stroke="url(#blackGrad)" strokeWidth="3.5" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* AV. Proibido o trânsito de ônibus (R-38) */}
+            {type === 'R-38' && (
+              <g>
+                <g fill="url(#blackGrad)" transform="translate(26, 36) scale(0.24)" filter="url(#symbolShadow)">
+                  <rect x="5" y="10" width="60" height="25" rx="4" />
+                  <rect x="10" y="14" width="12" height="8" fill="#FFFFFF" />
+                  <rect x="26" y="14" width="12" height="8" fill="#FFFFFF" />
+                  <rect x="42" y="14" width="12" height="8" fill="#FFFFFF" />
+                  <circle cx="18" cy="40" r="6" fill="#111827" />
+                  <circle cx="52" cy="40" r="6" fill="#111827" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* AW. Circulação exclusiva de caminhão (R-39) */}
+            {type === 'R-39' && (
+              renderTruckIcon(22, 32, 0.26)
+            )}
+
+            {/* AX. Trânsito proibido a carros de mão (R-40) */}
+            {type === 'R-40' && (
+              <g>
+                <g stroke="url(#blackGrad)" strokeWidth="3.2" fill="none" strokeLinecap="round" transform="translate(30, 38) scale(0.8)" filter="url(#symbolShadow)">
+                  <circle cx="8" cy="22" r="4.5" fill="url(#blackGrad)" stroke="none" />
+                  <path d="M8,22 L42,10 M16,19 L32,26 L42,26 M32,26 L35,32 M24,21 L26,30" />
+                </g>
+                <line x1="22" y1="22" x2="78" y2="78" stroke="url(#redGrad)" strokeWidth="8.2" />
+              </g>
+            )}
+
+            {/* AY. Circulação exclusiva de VLT/bonde (R-41) */}
+            {type === 'R-41' && (
+              renderVLTIcon(34, 26, 0.65)
+            )}
+
+            {/* AZ. Ciclistas à direita, VLT à esquerda (R-42a) */}
+            {type === 'R-42a' && (
+              <g filter="url(#symbolShadow)">
+                <line x1="50" y1="20" x2="50" y2="80" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {renderVLTIcon(12, 28, 0.44)}
+                {renderBikeIcon(29, 28, 0.44)}
+              </g>
+            )}
+
+            {/* BA. Ciclistas à esquerda, VLT à direita (R-42b) */}
+            {type === 'R-42b' && (
+              <g filter="url(#symbolShadow)">
+                <line x1="50" y1="20" x2="50" y2="80" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {renderBikeIcon(13, 28, 0.44)}
+                {renderVLTIcon(29, 28, 0.44)}
+              </g>
+            )}
+
+            {/* BB. Veículos à esquerda, VLT à direita (R-43a) */}
+            {type === 'R-43a' && (
+              <g filter="url(#symbolShadow)">
+                <line x1="50" y1="20" x2="50" y2="80" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {renderCarIcon(13, 38, 0.44)}
+                {renderVLTIcon(29, 28, 0.44)}
+              </g>
+            )}
+
+            {/* BC. Veículos à direita, VLT à esquerda (R-43b) */}
+            {type === 'R-43b' && (
+              <g filter="url(#symbolShadow)">
+                <line x1="50" y1="20" x2="50" y2="80" stroke="url(#blackGrad)" strokeWidth="2.5" />
+                {renderVLTIcon(12, 28, 0.44)}
+                {renderCarIcon(29, 38, 0.44)}
+              </g>
+            )}
+
+            {/* Common Screws for circular signs */}
             <circle cx="50" cy="9.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
             <circle cx="50" cy="90.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
-        {/* 4. PLACA R-28: Velocidade Mínima (Circular Azul) */}
+        {/* --- 4. PLACA R-28 (Velocidade Mínima permitida / Antigo do acervo) --- */}
         {type === 'speed_min' && (
           <g>
             <circle cx="50" cy="50" r="46" fill="url(#metalBorderGrad)" filter="url(#plateShadow)" />
@@ -346,26 +879,21 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
                 km/h
               </text>
             </g>
-            {/* Screws */}
             <circle cx="50" cy="9.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
             <circle cx="50" cy="90.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
-        {/* 5. PLACAS DE ADVERTÊNCIA: Formato Losango Amarelo/Laranja com Borda Preta */}
+        {/* --- 5. PLACAS DE ADVERTÊNCIA: Losango Amarelo/Laranja com Borda Preta --- */}
         {[
           'warning_curve', 'warning_pedestrian', 'warning_traffic_light', 'warning_curve_moderate',
           'warning_works', 'warning_school', 'warning_barrier', 'warning_slippery', 'warning_bump'
         ].includes(type) && (
           <g>
-            {/* Metallic backplate */}
             <rect x="15" y="15" width="70" height="70" rx="6" transform="rotate(45 50 50)" fill="url(#metalBorderGrad)" filter="url(#plateShadow)"/>
-            {/* Main yellow/orange face */}
             <rect x="16.5" y="16.5" width="67" height="67" rx="4.5" transform="rotate(45 50 50)" fill={type === 'warning_works' ? 'url(#orangeGrad)' : 'url(#yellowGrad)'} />
-            {/* Black border ring */}
             <rect x="19.8" y="19.8" width="60.4" height="60.4" rx="3.5" transform="rotate(45 50 50)" fill="none" stroke="url(#blackGrad)" strokeWidth="3.2" />
 
-            {/* Content for warning types */}
             {type === 'warning_curve' && (
               <g filter="url(#symbolShadow)">
                 {extraData === 'esquerda' ? (
@@ -414,7 +942,6 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
                 <line x1="50" y1="55" x2="58" y2="68" stroke="url(#blackGrad)" strokeWidth="4.2" strokeLinecap="round"/>
                 <line x1="50" y1="44" x2="39" y2="52" stroke="url(#blackGrad)" strokeWidth="3.2" strokeLinecap="round"/>
                 <line x1="50" y1="44" x2="57" y2="52" stroke="url(#blackGrad)" strokeWidth="3.2" strokeLinecap="round"/>
-                {/* Crosswalk */}
                 <line x1="30" y1="75" x2="70" y2="75" stroke="url(#blackGrad)" strokeWidth="3.5"/>
                 <line x1="34" y1="79" x2="66" y2="79" stroke="url(#blackGrad)" strokeWidth="2"/>
               </g>
@@ -442,13 +969,10 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {type === 'warning_school' && (
               <g fill="url(#blackGrad)" stroke="none" transform="translate(6, 6)" filter="url(#symbolShadow)">
-                {/* Adult */}
                 <circle cx="39" cy="32" r="4.5"/>
                 <path d="M34,38 H44 V57 H40 V69 H38 V57 H34 Z"/>
                 <path d="M31,38 L33,53 H35 L33,38 Z"/>
                 <path d="M44,41 L50,48 L51,47 L45,40 Z"/>
-                
-                {/* Child */}
                 <circle cx="54" cy="44" r="3.2"/>
                 <path d="M50,48 H58 V62 H55 V69 H53 V62 H50 Z"/>
                 <rect x="56" y="49" width="4.5" height="5.5" rx="1" fill="url(#blackGrad)"/>
@@ -487,51 +1011,42 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               </g>
             )}
 
-            {/* Screws for Warning diamonds */}
             <circle cx="50" cy="11.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
             <circle cx="50" cy="88.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
-        {/* 6. SEMÁFORO REGULAR (Semáforo Tríplice Motoristas) */}
+        {/* --- 6. SEMÁFORO REGULAR --- */}
         {type === 'light_regular' && (
           <g filter="url(#plateShadow)">
             <rect x="30" y="8" width="40" height="84" rx="8" fill="url(#blackGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
-            {/* Visors */}
             <path d="M26,20 Q50,8 74,20" fill="none" stroke="url(#metalBorderGrad)" strokeWidth="2.5" strokeLinecap="round" />
             <path d="M26,46 Q50,34 74,46" fill="none" stroke="url(#metalBorderGrad)" strokeWidth="2.5" strokeLinecap="round" />
             <path d="M26,72 Q50,60 74,72" fill="none" stroke="url(#metalBorderGrad)" strokeWidth="2.5" strokeLinecap="round" />
-            {/* Lights bg */}
             <circle cx="50" cy="24" r="11" fill="#111827"/>
             <circle cx="50" cy="50" r="11" fill="#111827"/>
             <circle cx="50" cy="76" r="11" fill="#111827"/>
-            {/* Lights glow */}
             <circle cx="50" cy="24" r="9" fill="#EF4444" filter="url(#symbolShadow)" className="animate-pulse" />
             <circle cx="50" cy="50" r="9" fill="#F59E0B" opacity="0.25"/>
             <circle cx="50" cy="76" r="9" fill="#10B981" opacity="0.25"/>
-            {/* Metal pole backing */}
             <rect x="47" y="92" width="6" height="8" fill="url(#metalBorderGrad)" />
           </g>
         )}
 
-        {/* 7. SEMÁFORO PEDESTRES */}
+        {/* --- 7. SEMÁFORO PEDESTRES --- */}
         {type === 'light_pedestrian' && (
           <g filter="url(#plateShadow)">
             <rect x="33" y="14" width="34" height="72" rx="6" fill="url(#blackGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
-            {/* Sections */}
             <rect x="39" y="20" width="22" height="26" rx="2" fill="#111827"/>
             <rect x="39" y="54" width="22" height="26" rx="2" fill="#111827"/>
-            {/* Don't Walk (Red) */}
             <g filter="url(#symbolShadow)">
               <circle cx="50" cy="27" r="3.5" fill="#EF4444"/>
               <path d="M50,30.5 L50,40 M45,33.5 L55,33.5 M47,44 L50,40 L53,44" fill="none" stroke="#EF4444" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
             </g>
-            {/* Walk (Green - blinking as action) */}
             <g filter="url(#symbolShadow)" opacity="0.3">
               <circle cx="50" cy="60" r="3" fill="#10B981"/>
               <path d="M48,63 L52,66 M48,60 Q51,63 50,68 M46,74 L50,69 L54,73" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
             </g>
-            {/* Blinking overlay */}
             <g className="animate-pulse" filter="url(#symbolShadow)">
               <circle cx="50" cy="60" r="3" fill="#10B981"/>
               <path d="M48,63 L52,66 M48,60 Q51,63 50,68 M46,74 L50,69 L54,73" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -539,18 +1054,16 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           </g>
         )}
 
-        {/* 8. TOQUES DE BUZINA - Símbolo de Corneta/Megafone */}
+        {/* --- 8. TOQUES DE BUZINA --- */}
         {type === 'horn_short' && (
           <g filter="url(#plateShadow)">
             <rect x="4" y="4" width="92" height="92" rx="10" fill="url(#whiteGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
             <g filter="url(#symbolShadow)">
               <path d="M25,40 L45,40 L55,25 L55,75 L45,60 L25,60 Z" fill="url(#blackGrad)" stroke="#1F2937" strokeWidth="1.5" strokeLinejoin="round"/>
               <rect x="18" y="44" width="8" height="12" rx="1" fill="#94A3B8"/>
-              {/* Sound waves (green) */}
               <path d="M63,38 Q67,50 63,62" fill="none" stroke="#10B981" strokeWidth="4.5" strokeLinecap="round"/>
               <path d="M72,31 Q78,50 72,69" fill="none" stroke="#10B981" strokeWidth="4.5" strokeLinecap="round" opacity="0.55"/>
             </g>
-            {/* Green OK badge */}
             <circle cx="82" cy="18" r="8" fill="#10B981" filter="url(#symbolShadow)"/>
             <path d="M79,18 L81,20 L85,15" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round"/>
           </g>
@@ -562,39 +1075,29 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
             <g filter="url(#symbolShadow)">
               <path d="M22,40 L42,40 L52,25 L52,75 L42,60 L22,60 Z" fill="url(#redGrad)" stroke="#991B1B" strokeWidth="1.5" strokeLinejoin="round"/>
               <rect x="15" y="44" width="8" height="12" rx="1" fill="#DC2626"/>
-              {/* Loud waves */}
               <path d="M60,35 Q65,50 60,65" fill="none" stroke="#EF4444" strokeWidth="4.5" strokeLinecap="round"/>
               <path d="M68,27 Q75,50 68,73" fill="none" stroke="#EF4444" strokeWidth="4.5" strokeLinecap="round"/>
               <path d="M76,19 Q85,50 76,81" fill="none" stroke="#EF4444" strokeWidth="4.5" strokeLinecap="round"/>
             </g>
-            {/* Prohibited cross badge */}
             <circle cx="82" cy="18" r="8" fill="#EF4444" filter="url(#symbolShadow)"/>
             <path d="M78,14 L86,22 M86,14 L78,22" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round"/>
           </g>
         )}
 
-        {/* 9. SINALIZAÇÃO HORIZONTAL (Asfalto Realista) */}
+        {/* --- 9. SINALIZAÇÃO HORIZONTAL --- */}
         {type === 'line_continuous' && (
           <g filter="url(#plateShadow)">
-            {/* Asfalt pattern */}
             <rect x="6" y="4" width="88" height="92" rx="6" fill="#1F2937" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
             <rect x="10" y="4" width="80" height="92" fill="#2D3748" />
-            
-            {/* Continuous line */}
             {extraData === 'amarela' ? (
               <line x1="50" y1="4" x2="50" y2="96" stroke="#FBBF24" strokeWidth="6.5" />
             ) : (
               <line x1="50" y1="4" x2="50" y2="96" stroke="url(#whiteGrad)" strokeWidth="6.5" />
             )}
-            {/* Lane edges */}
             <line x1="16" y1="4" x2="16" y2="96" stroke="#4A5568" strokeWidth="2"/>
             <line x1="84" y1="4" x2="84" y2="96" stroke="#4A5568" strokeWidth="2"/>
-            
-            {/* Interactive Cars */}
             <rect x="24" y="60" width="14" height="23" rx="3" fill="#2563EB" opacity="0.95" filter="url(#symbolShadow)"/>
             <rect x="62" y="16" width="14" height="23" rx="3" fill="#EF4444" opacity="0.95" filter="url(#symbolShadow)"/>
-            
-            {/* No Overtaking X markings */}
             <path d="M43,45 L47,49 M47,45 L43,49" stroke="#EF4444" strokeWidth="3" strokeLinecap="round"/>
             <path d="M53,45 L57,49 M57,45 L53,49" stroke="#EF4444" strokeWidth="3" strokeLinecap="round"/>
           </g>
@@ -604,15 +1107,10 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           <g filter="url(#plateShadow)">
             <rect x="6" y="4" width="88" height="92" rx="6" fill="#1F2937" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
             <rect x="10" y="4" width="80" height="92" fill="#2D3748"/>
-            
-            {/* Broken divider lines */}
             <line x1="50" y1="12" x2="50" y2="28" stroke="#FBBF24" strokeWidth="4.5" />
             <line x1="50" y1="44" x2="50" y2="60" stroke="#FBBF24" strokeWidth="4.5" />
             <line x1="50" y1="76" x2="50" y2="92" stroke="#FBBF24" strokeWidth="4.5" />
-            
             <rect x="24" y="55" width="14" height="23" rx="3" fill="#10B981" opacity="0.9" filter="url(#symbolShadow)"/>
-            
-            {/* Arrow indicating OK to overtake */}
             <path d="M31,45 L45,34 L59,45" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.55" className="animate-pulse"/>
           </g>
         )}
@@ -621,35 +1119,28 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           <g filter="url(#plateShadow)">
             <rect x="6" y="4" width="88" height="92" rx="6" fill="#1F2937" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
             <rect x="10" y="4" width="80" height="92" fill="#2D3748"/>
-            
-            {/* Double lines */}
             <line x1="45" y1="4" x2="45" y2="96" stroke="#FBBF24" strokeWidth="4" />
             <line x1="55" y1="4" x2="55" y2="96" stroke="#FBBF24" strokeWidth="4" />
-            
             <line x1="16" y1="4" x2="16" y2="96" stroke="#4A5568" strokeWidth="2"/>
             <line x1="84" y1="4" x2="84" y2="96" stroke="#4A5568" strokeWidth="2"/>
-            
             <rect x="25" y="66" width="12" height="20" rx="2" fill="#718096" opacity="0.5"/>
             <rect x="63" y="14" width="12" height="20" rx="2" fill="#718096" opacity="0.5"/>
           </g>
         )}
 
-        {/* 10. GESTOS DO AGENTE E CONDUTOR */}
+        {/* --- 10. GESTOS DO AGENTE E CONDUTOR --- */}
         {type === 'gest_agent_stop' && (
           <g filter="url(#plateShadow)">
             <rect x="4" y="4" width="92" height="92" rx="10" fill="url(#whiteGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2"/>
             <g filter="url(#symbolShadow)">
-              {/* Agent body */}
               <circle cx="50" cy="34" r="10.5" fill="#334155"/>
               <path d="M36,29 Q50,18 64,29 Z" fill="#1E293B"/>
               <line x1="34" y1="29" x2="66" y2="29" stroke="#F59E0B" strokeWidth="2"/>
               <rect x="37" y="44" width="26" height="42" rx="4" fill="#334155"/>
               <rect x="48" y="47" width="4" height="15" fill="#F59E0B"/>
-              {/* Stop hand raise */}
               <line x1="62" y1="49" x2="77" y2="23" stroke="#334155" strokeWidth="5.5" strokeLinecap="round"/>
               <circle cx="78" cy="19" r="5" fill="#1E293B"/>
               <line x1="78" y1="13" x2="78" y2="25" stroke="#EF4444" strokeWidth="2.5"/>
-              {/* Relaxed hand */}
               <line x1="37" y1="49" x2="26" y2="69" stroke="#334155" strokeWidth="5.5" strokeLinecap="round"/>
             </g>
           </g>
@@ -663,10 +1154,8 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               <rect x="30" y="44" width="40" height="14" rx="2" fill="#E2E8F0"/>
               <rect x="28" y="63" width="8" height="4.5" fill="#EF4444"/>
               <rect x="64" y="63" width="8" height="4.5" fill="#EF4444"/>
-              {/* Hand left */}
               <line x1="25" y1="48" x2="7" y2="48" stroke="#F1F5F9" strokeWidth="5.5" strokeLinecap="round"/>
               <circle cx="5" cy="48" r="3.5" fill="#CBD5E1"/>
-              {/* Directive arrow */}
               <path d="M12,32 L2,48 L12,64" fill="none" stroke="#2563EB" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
             </g>
           </g>
@@ -680,11 +1169,9 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               <rect x="30" y="44" width="40" height="14" rx="2" fill="#E2E8F0"/>
               <rect x="28" y="63" width="8" height="4.5" fill="#EF4444"/>
               <rect x="64" y="63" width="8" height="4.5" fill="#EF4444"/>
-              {/* Hand right up */}
               <line x1="25" y1="48" x2="15" y2="48" stroke="#F1F5F9" strokeWidth="5.5" strokeLinecap="round"/>
               <line x1="15" y1="48" x2="15" y2="28" stroke="#F1F5F9" strokeWidth="5.5" strokeLinecap="round"/>
               <circle cx="15" cy="26" r="3.5" fill="#CBD5E1"/>
-              {/* Directive arrow */}
               <path d="M42,24 L55,14 L68,24" fill="none" stroke="#2563EB" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round"/>
             </g>
           </g>
@@ -698,10 +1185,8 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               <rect x="30" y="44" width="40" height="14" rx="2" fill="#E2E8F0"/>
               <rect x="28" y="63" width="8" height="4.5" fill="#EF4444"/>
               <rect x="64" y="63" width="8" height="4.5" fill="#EF4444"/>
-              {/* Waving arm */}
               <line x1="25" y1="48" x2="7" y2="48" stroke="#F1F5F9" strokeWidth="5.5" strokeLinecap="round" className="animate-bounce"/>
               <circle cx="5" cy="48" r="3.5" fill="#CBD5E1" className="animate-bounce"/>
-              {/* Oscillating marks */}
               <path d="M4,55 Q1,60 4,65" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round"/>
               <path d="M4,41 Q1,36 4,31" fill="none" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round"/>
             </g>

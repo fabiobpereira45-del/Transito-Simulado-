@@ -57,7 +57,13 @@ export interface TrafficSign {
     | 'warning_school'
     | 'warning_barrier'
     | 'warning_slippery'
-    | 'warning_bump';
+    | 'warning_bump'
+    | 'R-1' | 'R-2' | 'R-3' | 'R-4a' | 'R-4b' | 'R-5a' | 'R-5b' | 'R-6a' | 'R-6b' | 'R-6c' 
+    | 'R-7' | 'R-8a' | 'R-8b' | 'R-9' | 'R-10' | 'R-11' | 'R-12' | 'R-13' | 'R-14' | 'R-15' 
+    | 'R-16' | 'R-17' | 'R-18' | 'R-19' | 'R-20' | 'R-21' | 'R-22' | 'R-23' | 'R-24a' | 'R-24b' 
+    | 'R-25a' | 'R-25b' | 'R-25c' | 'R-25d' | 'R-26' | 'R-27' | 'R-28' | 'R-29' | 'R-30' | 'R-31' 
+    | 'R-32' | 'R-33' | 'R-34' | 'R-35a' | 'R-35b' | 'R-36a' | 'R-36b' | 'R-36c' | 'R-37' | 'R-38' 
+    | 'R-39' | 'R-40' | 'R-41' | 'R-42a' | 'R-42b' | 'R-43a' | 'R-43b';
   extraData?: string; // Limit speed, toque count, description of gestures
 }
 
