@@ -468,95 +468,560 @@ export const trafficSigns: TrafficSign[] = [
   // --- ADVERTÊNCIA (Amarelo/Preto, Formato Losango) ---
   {
     id: "A-1a",
-    name: "Curva acentuada à Esquerda",
+    name: "Curva Acentuada à Esquerda",
     code: "A-1a",
-    description: "Adverte o condutor da existência de uma curva extremamente fechada (acentuada) à esquerda na via à frente. Reduza a velocidade preventivamente.",
+    description: "Adverte a existência de uma curva acentuada (fechada) à esquerda à frente na via.",
     category: "advertencia",
-    svgType: "warning_curve",
-    extraData: "esquerda"
+    svgType: "A-1a"
   },
   {
     id: "A-1b",
-    name: "Curva acentuada à Direita",
+    name: "Curva Acentuada à Direita",
     code: "A-1b",
-    description: "Adverte o condutor sobre a existência de uma curva muito fechada para a direita. Exige redução de marcha e posicionamento defensivo.",
+    description: "Adverte a existência de uma curva acentuada (fechada) à direita à frente na via.",
     category: "advertencia",
-    svgType: "warning_curve",
-    extraData: "direita"
+    svgType: "A-1b"
   },
   {
     id: "A-2a",
-    name: "Curva à Direita",
+    name: "Curva à Esquerda",
     code: "A-2a",
-    description: "Adverte o condutor da existência de uma curva à direita na via à frente. Reduza a velocidade de forma preventiva.",
+    description: "Adverte a existência de uma curva moderada à esquerda à frente na via.",
     category: "advertencia",
-    svgType: "warning_curve_moderate",
-    extraData: "direita"
+    svgType: "A-2a"
   },
   {
     id: "A-2b",
-    name: "Curva à Esquerda",
+    name: "Curva à Direita",
     code: "A-2b",
-    description: "Adverte o condutor da aproximação de uma curva para a esquerda na via à frente. Reduza a velocidade de forma preventiva.",
+    description: "Adverte a existência de uma curva moderada à direita à frente na via.",
     category: "advertencia",
-    svgType: "warning_curve_moderate",
-    extraData: "esquerda"
+    svgType: "A-2b"
+  },
+  {
+    id: "A-3a",
+    name: "Pista Sinuosa à Esquerda",
+    code: "A-3a",
+    description: "Adverte a existência de uma sequência de curvas sinuosas à frente, iniciando-se à esquerda.",
+    category: "advertencia",
+    svgType: "A-3a"
+  },
+  {
+    id: "A-3b",
+    name: "Pista Sinuosa à Direita",
+    code: "A-3b",
+    description: "Adverte a existência de uma sequência de curvas sinuosas à frente, iniciando-se à direita.",
+    category: "advertencia",
+    svgType: "A-3b"
+  },
+  {
+    id: "A-4a",
+    name: "Curva Acentuada em 'S' à Esquerda",
+    code: "A-4a",
+    description: "Adverte a aproximação de duas curvas acentuadas e sucessivas no formato de 'S', a primeira à esquerda.",
+    category: "advertencia",
+    svgType: "A-4a"
+  },
+  {
+    id: "A-4b",
+    name: "Curva Acentuada em 'S' à Direita",
+    code: "A-4b",
+    description: "Adverte a aproximação de duas curvas acentuadas e sucessivas no formato de 'S', a primeira à direita.",
+    category: "advertencia",
+    svgType: "A-4b"
+  },
+  {
+    id: "A-5a",
+    name: "Curva em 'S' à Esquerda",
+    code: "A-5a",
+    description: "Adverte a aproximação de duas curvas moderadas e sucessivas no formato de 'S', a primeira à esquerda.",
+    category: "advertencia",
+    svgType: "A-5a"
+  },
+  {
+    id: "A-5b",
+    name: "Curva em 'S' à Direita",
+    code: "A-5b",
+    description: "Adverte a aproximação de duas curvas moderadas e sucessivas no formato de 'S', a primeira à direita.",
+    category: "advertencia",
+    svgType: "A-5b"
+  },
+  {
+    id: "A-6",
+    name: "Cruzamento de Vias",
+    code: "A-6",
+    description: "Adverte o cruzamento de duas vias em nível à frente, com risco de fluxo de tráfego conflitante.",
+    category: "advertencia",
+    svgType: "A-6"
+  },
+  {
+    id: "A-7a",
+    name: "Via Lateral à Esquerda",
+    code: "A-7a",
+    description: "Adverte a aproximação de uma interseção com via lateral que se junta à esquerda.",
+    category: "advertencia",
+    svgType: "A-7a"
+  },
+  {
+    id: "A-7b",
+    name: "Via Lateral à Direita",
+    code: "A-7b",
+    description: "Adverte a aproximação de uma interseção com via lateral que se junta à direita.",
+    category: "advertencia",
+    svgType: "A-7b"
+  },
+  {
+    id: "A-8",
+    name: "Interseção em 'T'",
+    code: "A-8",
+    description: "Adverte a aproximação de uma interseção em formato de 'T', onde a via atual termina.",
+    category: "advertencia",
+    svgType: "A-8"
+  },
+  {
+    id: "A-9",
+    name: "Bifurcação em 'Y'",
+    code: "A-9",
+    description: "Adverte que a via se bifurca no formato de 'Y' à frente.",
+    category: "advertencia",
+    svgType: "A-9"
+  },
+  {
+    id: "A-10a",
+    name: "Entroncamento Oblíquo à Esquerda",
+    code: "A-10a",
+    description: "Adverte a aproximação de um entroncamento oblíquo de via secundária que se junta à esquerda.",
+    category: "advertencia",
+    svgType: "A-10a"
+  },
+  {
+    id: "A-10b",
+    name: "Entroncamento Oblíquo à Direita",
+    code: "A-10b",
+    description: "Adverte a aproximação de um entroncamento oblíquo de via secundária que se junta à direita.",
+    category: "advertencia",
+    svgType: "A-10b"
+  },
+  {
+    id: "A-11a",
+    name: "Junções Sucessivas Contrárias, Primeira à Esquerda",
+    code: "A-11a",
+    description: "Adverte a aproximação de duas junções laterais consecutivas em sentidos contrários, a primeira à esquerda.",
+    category: "advertencia",
+    svgType: "A-11a"
+  },
+  {
+    id: "A-11b",
+    name: "Junções Sucessivas Contrárias, Primeira à Direita",
+    code: "A-11b",
+    description: "Adverte a aproximação de duas junções laterais consecutivas em sentidos contrários, a primeira à direita.",
+    category: "advertencia",
+    svgType: "A-11b"
+  },
+  {
+    id: "A-12",
+    name: "Interseção em Círculo",
+    code: "A-12",
+    description: "Adverte a existência de uma interseção em círculo (rotatória) à frente.",
+    category: "advertencia",
+    svgType: "A-12"
+  },
+  {
+    id: "A-13a",
+    name: "Confluência à Esquerda",
+    code: "A-13a",
+    description: "Adverte a confluência e aproximação de tráfego de outra via à esquerda.",
+    category: "advertencia",
+    svgType: "A-13a"
+  },
+  {
+    id: "A-13b",
+    name: "Confluência à Direita",
+    code: "A-13b",
+    description: "Adverte a confluência e aproximação de tráfego de outra via à direita.",
+    category: "advertencia",
+    svgType: "A-13b"
   },
   {
     id: "A-14",
     name: "Semáforo à Frente",
     code: "A-14",
-    description: "Adverte o condutor da aproximação de uma interseção controlada por semáforo eletrônico onde a visibilidade imediata pode ser comprometida.",
+    description: "Adverte a presença de controle semafórico na interseção ou trecho à frente.",
     category: "advertencia",
-    svgType: "warning_traffic_light"
+    svgType: "A-14"
   },
   {
     id: "A-15",
-    name: "Obras na Via",
+    name: "Parada Obrigatória à Frente",
     code: "A-15",
-    description: "Adverte o condutor sobre a presença de obras na pista ou adjacências, demandando velocidade muito reduzida e atenção especial a operários e maquinários.",
+    description: "Adverte a aproximação de uma sinalização de parada obrigatória à frente.",
     category: "advertencia",
-    svgType: "warning_works"
+    svgType: "A-15"
+  },
+  {
+    id: "A-16",
+    name: "Bonde",
+    code: "A-16",
+    description: "Adverte a circulação ou cruzamento de bondes (ou VLT) na via pública à frente.",
+    category: "advertencia",
+    svgType: "A-16"
+  },
+  {
+    id: "A-17",
+    name: "Pista Irregular",
+    code: "A-17",
+    description: "Adverte a existência de irregularidades e depressões contínuas no pavimento da pista.",
+    category: "advertencia",
+    svgType: "A-17"
+  },
+  {
+    id: "A-18",
+    name: "Saliência ou Lombada",
+    code: "A-18",
+    description: "Adverte a presença física de uma saliência, quebra-molas ou lombada no pavimento à frente.",
+    category: "advertencia",
+    svgType: "A-18"
+  },
+  {
+    id: "A-19",
+    name: "Depressão",
+    code: "A-19",
+    description: "Adverte a presença de uma depressão física acentuada na pista adiante.",
+    category: "advertencia",
+    svgType: "A-19"
+  },
+  {
+    id: "A-20a",
+    name: "Declive Acentuado",
+    code: "A-20a",
+    description: "Adverte a aproximação de uma descida íngreme (declive acentuado) na pista.",
+    category: "advertencia",
+    svgType: "A-20a"
+  },
+  {
+    id: "A-20b",
+    name: "Aclive Acentuado",
+    code: "A-20b",
+    description: "Adverte a aproximação de uma subida íngreme (aclive acentuado) na pista.",
+    category: "advertencia",
+    svgType: "A-20b"
+  },
+  {
+    id: "A-21a",
+    name: "Estreitamento de Pista ao Centro",
+    code: "A-21a",
+    description: "Adverte a aproximação de um estreitamento de pista por ambos os lados.",
+    category: "advertencia",
+    svgType: "A-21a"
+  },
+  {
+    id: "A-21b",
+    name: "Estreitamento de Pista à Esquerda",
+    code: "A-21b",
+    description: "Adverte a aproximação de um estreitamento de pista pelo lado esquerdo.",
+    category: "advertencia",
+    svgType: "A-21b"
+  },
+  {
+    id: "A-21c",
+    name: "Estreitamento de Pista à Direita",
+    code: "A-21c",
+    description: "Adverte a aproximação de um estreitamento de pista pelo lado direito.",
+    category: "advertencia",
+    svgType: "A-21c"
+  },
+  {
+    id: "A-21d",
+    name: "Alargamento de Pista à Esquerda",
+    code: "A-21d",
+    description: "Adverte a aproximação de um alargamento de pista pelo lado esquerdo.",
+    category: "advertencia",
+    svgType: "A-21d"
+  },
+  {
+    id: "A-21e",
+    name: "Alargamento de Pista à Direita",
+    code: "A-21e",
+    description: "Adverte a aproximação de um alargamento de pista pelo lado direito.",
+    category: "advertencia",
+    svgType: "A-21e"
   },
   {
     id: "A-22",
-    name: "Passagem de Escolares",
+    name: "Ponte Estreita",
     code: "A-22",
-    description: "Adverte o condutor da proximidade de um trecho de via com trânsito frequente de escolares e crianças atravessando.",
+    description: "Adverte a aproximação de uma ponte estreita com largura de pista reduzida.",
     category: "advertencia",
-    svgType: "warning_school"
+    svgType: "A-22"
+  },
+  {
+    id: "A-23",
+    name: "Ponte Móvel",
+    code: "A-23",
+    description: "Adverte a aproximação de uma ponte levadiça ou móvel que pode estar temporariamente interrompida.",
+    category: "advertencia",
+    svgType: "A-23"
+  },
+  {
+    id: "A-24",
+    name: "Obras na Via",
+    code: "A-24",
+    description: "Adverte o condutor sobre a presença de obras na via pública, requerendo velocidade muito reduzida.",
+    category: "advertencia",
+    svgType: "A-24"
+  },
+  {
+    id: "A-25",
+    name: "Mão Dupla Adiante",
+    code: "A-25",
+    description: "Adverte que o trecho de pista de sentido único passará a ter sentido duplo de circulação (mão dupla).",
+    category: "advertencia",
+    svgType: "A-25"
+  },
+  {
+    id: "A-26a",
+    name: "Sentido Único",
+    code: "A-26a",
+    description: "Adverte o sentido único de circulação de tráfego à frente na via.",
+    category: "advertencia",
+    svgType: "A-26a"
   },
   {
     id: "A-26b",
-    name: "Passagem em Nível com Barreira",
+    name: "Sentido Duplo",
     code: "A-26b",
-    description: "Adverte o condutor da existência de um cruzamento rodoferroviário (passagem em nível) dotado de cancela, barreira ou portão à frente.",
+    description: "Adverte o sentido duplo de circulação de tráfego à frente na via.",
     category: "advertencia",
-    svgType: "warning_barrier"
+    svgType: "A-26b"
   },
   {
     id: "A-27",
-    name: "Pista Escorregadia",
+    name: "Área com Desmoronamento",
     code: "A-27",
-    description: "Adverte o condutor que o trecho de pista à frente apresenta condições escorregadias decorrente de umidade, óleo ou asfalto liso.",
+    description: "Adverte sobre trechos sob risco de desmoronamento de encostas ou barreiras sobre a pista.",
     category: "advertencia",
-    svgType: "warning_slippery"
+    svgType: "A-27"
+  },
+  {
+    id: "A-28",
+    name: "Pista Escorregadia",
+    code: "A-28",
+    description: "Adverte que a pista pode estar escorregadia devido a condições de aderência reduzida.",
+    category: "advertencia",
+    svgType: "A-28"
   },
   {
     id: "A-29",
-    name: "Saliência ou Lombada",
+    name: "Projeção de Cascalho",
     code: "A-29",
-    description: "Adverte o condutor da existência de uma saliência, quebra-molas ou lombada física instalada no pavimento à frente.",
+    description: "Adverte o condutor que há risco de projeção de britas ou cascalho ao passar pelo trecho.",
     category: "advertencia",
-    svgType: "warning_bump"
+    svgType: "A-29"
+  },
+  {
+    id: "A-30a",
+    name: "Trânsito de Ciclistas",
+    code: "A-30a",
+    description: "Adverte sobre a circulação ou travessia de ciclistas na via pública.",
+    category: "advertencia",
+    svgType: "A-30a"
+  },
+  {
+    id: "A-30b",
+    name: "Passagem Sinalizada de Ciclistas",
+    code: "A-30b",
+    description: "Adverte a aproximação de uma travessia específica e sinalizada para ciclistas.",
+    category: "advertencia",
+    svgType: "A-30b"
+  },
+  {
+    id: "A-30c",
+    name: "Trânsito Compartilhado por Ciclistas e Pedestres",
+    code: "A-30c",
+    description: "Adverte que a via ou calçada possui trânsito compartilhado entre ciclistas e pedestres.",
+    category: "advertencia",
+    svgType: "A-30c"
+  },
+  {
+    id: "A-31",
+    name: "Trânsito de Tratores ou Maquinária Agrícola",
+    code: "A-31",
+    description: "Adverte a possibilidade de trânsito ou travessia de tratores e máquinas agrícolas pesadas.",
+    category: "advertencia",
+    svgType: "A-31"
+  },
+  {
+    id: "A-32a",
+    name: "Trânsito de Pedestres",
+    code: "A-32a",
+    description: "Adverte a circulação regular ou travessia informal de pedestres na via.",
+    category: "advertencia",
+    svgType: "A-32a"
   },
   {
     id: "A-32b",
-    name: "Passagem de Pedestres",
+    name: "Passagem Sinalizada de Pedestres",
     code: "A-32b",
-    description: "Adverte o condutor sobre uma área adiante com travessia frequente de pedestres, geralmente demarcada por faixa zebrada na pista.",
+    description: "Adverte a presença de faixa específica e sinalizada para a travessia de pedestres.",
     category: "advertencia",
-    svgType: "warning_pedestrian"
+    svgType: "A-32b"
+  },
+  {
+    id: "A-33a",
+    name: "Área Escolar",
+    code: "A-33a",
+    description: "Adverte a aproximação de um trecho de via adjacente a uma escola ou área com escolares.",
+    category: "advertencia",
+    svgType: "A-33a"
+  },
+  {
+    id: "A-33b",
+    name: "Passagem Sinalizada de Escolares",
+    code: "A-33b",
+    description: "Adverte a presença de faixa sinalizada para a travessia segura de escolares e crianças.",
+    category: "advertencia",
+    svgType: "A-33b"
+  },
+  {
+    id: "A-34",
+    name: "Crianças",
+    code: "A-34",
+    description: "Adverte a proximidade de locais com circulação ou presença frequente de crianças (ex: parques).",
+    category: "advertencia",
+    svgType: "A-34"
+  },
+  {
+    id: "A-35",
+    name: "Animais",
+    code: "A-35",
+    description: "Adverte sobre a possibilidade de animais (como gado) cruzarem a pista.",
+    category: "advertencia",
+    svgType: "A-35"
+  },
+  {
+    id: "A-36",
+    name: "Animais Selvagens",
+    code: "A-36",
+    description: "Adverte sobre a presença ou passagem de animais silvestres na região da pista.",
+    category: "advertencia",
+    svgType: "A-36"
+  },
+  {
+    id: "A-37",
+    name: "Altura Limitada",
+    code: "A-37",
+    description: "Adverte a aproximação de um obstáculo físico com limitação de altura (ex: viaduto).",
+    category: "advertencia",
+    svgType: "A-37",
+    extraData: "4,0m"
+  },
+  {
+    id: "A-38",
+    name: "Largura Limitada",
+    code: "A-38",
+    description: "Adverte a aproximação de um obstáculo físico com limitação de largura de passagem.",
+    category: "advertencia",
+    svgType: "A-38",
+    extraData: "3,0m"
+  },
+  {
+    id: "A-39",
+    name: "Passagem de Nível Sem Barreira",
+    code: "A-39",
+    description: "Adverte a aproximação de um cruzamento de ferrovia (passagem em nível) sem barreiras ou cancelas.",
+    category: "advertencia",
+    svgType: "A-39"
+  },
+  {
+    id: "A-40",
+    name: "Passagem de Nível Com Barreira",
+    code: "A-40",
+    description: "Adverte a aproximação de um cruzamento ferroviário dotado de barreira ou cancela de segurança.",
+    category: "advertencia",
+    svgType: "A-40"
+  },
+  {
+    id: "A-41",
+    name: "Cruz de Santo André",
+    code: "A-41",
+    description: "Adverte a localização exata de um cruzamento em nível com linha férrea (Cruz de Santo André).",
+    category: "advertencia",
+    svgType: "A-41"
+  },
+  {
+    id: "A-42a",
+    name: "Início de Pista Dupla",
+    code: "A-42a",
+    description: "Adverte que o fluxo de sentido único passará a ser dividido por canteiro físico (início de pista dupla).",
+    category: "advertencia",
+    svgType: "A-42a"
+  },
+  {
+    id: "A-42b",
+    name: "Fim de Pista Dupla",
+    code: "A-42b",
+    description: "Adverte que o canteiro divisor de fluxos termina, retornando à pista única comum de mão dupla.",
+    category: "advertencia",
+    svgType: "A-42b"
+  },
+  {
+    id: "A-42c",
+    name: "Pista Dividida",
+    code: "A-42c",
+    description: "Adverte a aproximação de um canteiro divisor central que separa os fluxos no mesmo sentido.",
+    category: "advertencia",
+    svgType: "A-42c"
+  },
+  {
+    id: "A-43",
+    name: "Aeroporto",
+    code: "A-43",
+    description: "Adverte a aproximação de uma zona aeroportuária, com sobrevoos de aeronaves em baixa altitude.",
+    category: "advertencia",
+    svgType: "A-43"
+  },
+  {
+    id: "A-44",
+    name: "Vento Lateral",
+    code: "A-44",
+    description: "Adverte a ocorrência frequente de ventos laterais fortes que podem instabilizar o veículo.",
+    category: "advertencia",
+    svgType: "A-44"
+  },
+  {
+    id: "A-45",
+    name: "Rua Sem Saída",
+    code: "A-45",
+    description: "Adverte que a via adiante é sem saída e sem retorno direto para tráfego contínuo.",
+    category: "advertencia",
+    svgType: "A-45"
+  },
+  {
+    id: "A-46",
+    name: "Peso Bruto Total Limitado",
+    code: "A-46",
+    description: "Adverte sobre a limitação do peso bruto total máximo suportado pela estrutura da via ou ponte.",
+    category: "advertencia",
+    svgType: "A-46",
+    extraData: "10 t"
+  },
+  {
+    id: "A-47",
+    name: "Peso Limitado por Eixo",
+    code: "A-47",
+    description: "Adverte sobre a limitação do peso por eixo suportado pela estrutura da via.",
+    category: "advertencia",
+    svgType: "A-47",
+    extraData: "2 t"
+  },
+  {
+    id: "A-48",
+    name: "Comprimento Limitado",
+    code: "A-48",
+    description: "Adverte sobre a limitação do comprimento total máximo do veículo permitido no trecho.",
+    category: "advertencia",
+    svgType: "A-48",
+    extraData: "10 m"
   },
 
   // --- SINAIS LUMINOSOS ---
