@@ -176,75 +176,65 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Drop shadow filter for 3D depth of plates */}
-          <filter id="plateShadow" x="-15%" y="-15%" width="130%" height="130%">
-            <feDropShadow dx="0" dy="3" stdDeviation="2" floodColor="#000000" floodOpacity="0.35" />
+          {/* Drop shadow filter deactivated for flat printed look */}
+          <filter id="plateShadow" x="0%" y="0%" width="100%" height="100%">
+            {/* No-op filter */}
           </filter>
           
-          {/* Drop shadow for details/symbols on plates */}
-          <filter id="symbolShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="1.5" stdDeviation="1" floodColor="#000000" floodOpacity="0.4" />
+          {/* Drop shadow for details/symbols deactivated for flat printed look */}
+          <filter id="symbolShadow" x="0%" y="0%" width="100%" height="100%">
+            {/* No-op filter */}
           </filter>
 
-          {/* Color Gradients */}
+          {/* Colors redefined as solid flat colors */}
           <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#EF4444" />
-            <stop offset="60%" stopColor="#DC2626" />
-            <stop offset="100%" stopColor="#991B1B" />
+            <stop offset="0%" stopColor="#D32F2F" />
+            <stop offset="100%" stopColor="#D32F2F" />
           </linearGradient>
 
           <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FCD34D" />
-            <stop offset="60%" stopColor="#F59E0B" />
-            <stop offset="100%" stopColor="#D97706" />
+            <stop offset="0%" stopColor="#FFCC00" />
+            <stop offset="100%" stopColor="#FFCC00" />
           </linearGradient>
 
           <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FB923C" />
-            <stop offset="60%" stopColor="#EA580C" />
-            <stop offset="100%" stopColor="#C2410C" />
+            <stop offset="0%" stopColor="#FF6600" />
+            <stop offset="100%" stopColor="#FF6600" />
           </linearGradient>
 
           <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3B82F6" />
-            <stop offset="60%" stopColor="#2563EB" />
-            <stop offset="100%" stopColor="#1D4ED8" />
+            <stop offset="0%" stopColor="#0D47A1" />
+            <stop offset="100%" stopColor="#0D47A1" />
           </linearGradient>
 
           <linearGradient id="whiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="85%" stopColor="#F8FAFC" />
-            <stop offset="100%" stopColor="#E2E8F0" />
+            <stop offset="100%" stopColor="#FFFFFF" />
           </linearGradient>
 
           <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="30%" stopColor="#E2E8F0" />
-            <stop offset="70%" stopColor="#CBD5E1" />
-            <stop offset="100%" stopColor="#94A3B8" />
+            <stop offset="100%" stopColor="#FFFFFF" />
           </linearGradient>
 
           <linearGradient id="metalBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#F1F5F9" />
-            <stop offset="50%" stopColor="#94A3B8" />
-            <stop offset="100%" stopColor="#475569" />
+            <stop offset="0%" stopColor="#CBD5E1" />
+            <stop offset="100%" stopColor="#CBD5E1" />
           </linearGradient>
           
           <linearGradient id="blackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4B5563" />
+            <stop offset="0%" stopColor="#111827" />
             <stop offset="100%" stopColor="#111827" />
           </linearGradient>
 
           <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#10B981" />
-            <stop offset="60%" stopColor="#059669" />
-            <stop offset="100%" stopColor="#047857" />
+            <stop offset="0%" stopColor="#1E5E2F" />
+            <stop offset="100%" stopColor="#1E5E2F" />
           </linearGradient>
 
           <linearGradient id="brownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#8B5A2B" />
-            <stop offset="60%" stopColor="#704214" />
-            <stop offset="100%" stopColor="#5C3317" />
+            <stop offset="0%" stopColor="#5D4037" />
+            <stop offset="100%" stopColor="#5D4037" />
           </linearGradient>
         </defs>
 
@@ -253,34 +243,26 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           <g>
             <polygon 
               points="30,4 70,4 96,30 96,70 70,96 30,96 4,70 4,30" 
-              fill="url(#metalBorderGrad)" 
-              filter="url(#plateShadow)"
+              fill="#D32F2F" 
             />
             <polygon 
-              points="30.5,6 69.5,6 94,30.5 94,69.5 69.5,94 30.5,94 6,69.5 6,30.5" 
-              fill="url(#redGrad)" 
-            />
-            <polygon 
-              points="32,8 68,8 92,32 92,68 68,92 32,92 8,68 8,32" 
+              points="31.5,7.5 68.5,7.5 92.5,31.5 92.5,68.5 68.5,92.5 31.5,92.5 7.5,68.5 7.5,31.5" 
               fill="none" 
-              stroke="url(#whiteGrad)" 
-              strokeWidth="2"
+              stroke="#FFFFFF" 
+              strokeWidth="2.5"
             />
             <text 
               x="50" 
               y="58" 
-              fill="url(#whiteGrad)" 
-              fontSize="20" 
+              fill="#FFFFFF" 
+              fontSize="21" 
               fontWeight="900" 
               fontFamily="Arial, system-ui, sans-serif" 
               textAnchor="middle"
               letterSpacing="0.5"
-              filter="url(#symbolShadow)"
             >
               PARE
             </text>
-            <circle cx="50" cy="11" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
-            <circle cx="50" cy="89" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
@@ -288,33 +270,19 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
         {(type === 'yield' || type === 'R-2') && (
           <g>
             <polygon 
-              points="2,6 98,6 50,94" 
-              fill="url(#metalBorderGrad)" 
-              filter="url(#plateShadow)"
+              points="4,8 96,8 50,90" 
+              fill="#FFFFFF" 
+              stroke="#D32F2F" 
+              strokeWidth="9"
+              strokeLinejoin="round"
             />
-            <polygon 
-              points="5,9 95,9 50,90" 
-              fill="url(#whiteGrad)" 
-              stroke="url(#redGrad)" 
-              strokeWidth="8.5"
-            />
-            <polygon 
-              points="14,13 86,13 50,78" 
-              fill="none" 
-              stroke="url(#redGrad)" 
-              strokeWidth="2.5"
-            />
-            <circle cx="28" cy="12" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
-            <circle cx="72" cy="12" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
-        {/* --- 3. PLACAS CIRCULARES DE REGULAMENTAÇÃO (R-3 a R-43b) --- */}
         {isCircularRegulatory && (
           <g>
-            <circle cx="50" cy="50" r="46" fill="url(#metalBorderGrad)" filter="url(#plateShadow)" />
-            <circle cx="50" cy="50" r="44.2" fill="url(#whiteGrad)" />
-            <circle cx="50" cy="50" r="39.5" fill="none" stroke="url(#redGrad)" strokeWidth="8.2" />
+            <circle cx="50" cy="50" r="46" fill="#D32F2F" />
+            <circle cx="50" cy="50" r="38" fill="#FFFFFF" />
 
             {(type === 'R-3' || type === 'prohibited') && (
               <g>
@@ -1039,23 +1007,19 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
                 {renderCarIcon(29, 38, 0.44)}
               </g>
             )}
-
-            <circle cx="50" cy="9.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
-            <circle cx="50" cy="90.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
         {/* --- 4. PLACA R-28 (Velocidade Mínima permitida / Antigo do acervo) --- */}
         {type === 'speed_min' && (
           <g>
-            <circle cx="50" cy="50" r="46" fill="url(#metalBorderGrad)" filter="url(#plateShadow)" />
-            <circle cx="50" cy="50" r="44.2" fill="url(#blueGrad)" />
-            <circle cx="50" cy="50" r="40" fill="none" stroke="url(#whiteGrad)" strokeWidth="3" />
-            <g filter="url(#symbolShadow)">
+            <circle cx="50" cy="50" r="46" fill="#0D47A1" />
+            <circle cx="50" cy="50" r="41" fill="none" stroke="#FFFFFF" strokeWidth="2.5" />
+            <g>
               <text 
                 x="50" 
                 y="55" 
-                fill="url(#whiteGrad)" 
+                fill="#FFFFFF" 
                 fontSize="34" 
                 fontWeight="900" 
                 fontFamily="Arial, system-ui, sans-serif" 
@@ -1066,7 +1030,7 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               <text 
                 x="50" 
                 y="72" 
-                fill="#E2E8F0" 
+                fill="#FFFFFF" 
                 fontSize="9" 
                 fontWeight="800" 
                 fontFamily="Arial, system-ui, sans-serif" 
@@ -1075,17 +1039,14 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
                 km/h
               </text>
             </g>
-            <circle cx="50" cy="9.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
-            <circle cx="50" cy="90.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
         {/* --- 5. PLACAS DE ADVERTÊNCIA: Losango Amarelo/Laranja com Borda Preta --- */}
         {isWarningSign && type !== 'A-41' && (
           <g>
-            <rect x="15" y="15" width="70" height="70" rx="6" transform="rotate(45 50 50)" fill="url(#metalBorderGrad)" filter="url(#plateShadow)"/>
-            <rect x="16.5" y="16.5" width="67" height="67" rx="4.5" transform="rotate(45 50 50)" fill={['A-24', 'warning_works'].includes(type) ? 'url(#orangeGrad)' : 'url(#yellowGrad)'} />
-            <rect x="19.8" y="19.8" width="60.4" height="60.4" rx="3.5" transform="rotate(45 50 50)" fill="none" stroke="url(#blackGrad)" strokeWidth="3.2" />
+            <rect x="15" y="15" width="70" height="70" rx="4" transform="rotate(45 50 50)" fill={['A-24', 'warning_works'].includes(type) ? '#FF6600' : '#FFCC00'} />
+            <rect x="18" y="18" width="64" height="64" rx="2.5" transform="rotate(45 50 50)" fill="none" stroke="#000000" strokeWidth="2.5" />
 
             {/* A-1a: Curva acentuada à esquerda */}
             {(type === 'A-1a' || (type === 'warning_curve' && extraData === 'esquerda')) && (
@@ -1848,20 +1809,16 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
               </g>
             )}
 
-            <circle cx="50" cy="11.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
-            <circle cx="50" cy="88.5" r="1.5" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
           </g>
         )}
 
         {/* --- 5.1 SPECIAL RENDER FOR A-41 (Cruz de Santo André - Crossed Bars) --- */}
         {isWarningSign && type === 'A-41' && (
-          <g filter="url(#plateShadow)" transform="translate(0, 0)">
-            <rect x="12" y="42" width="76" height="16" rx="2" transform="rotate(45 50 50)" fill="url(#yellowGrad)" stroke="url(#metalBorderGrad)" strokeWidth="1.8" />
-            <rect x="12" y="42" width="76" height="16" rx="2" transform="rotate(-45 50 50)" fill="url(#yellowGrad)" stroke="url(#metalBorderGrad)" strokeWidth="1.8" />
-            <rect x="16" y="45" width="68" height="10" rx="1" transform="rotate(45 50 50)" fill="none" stroke="url(#blackGrad)" strokeWidth="2" />
-            <rect x="16" y="45" width="68" height="10" rx="1" transform="rotate(-45 50 50)" fill="none" stroke="url(#blackGrad)" strokeWidth="2" />
-            {/* Center screw */}
-            <circle cx="50" cy="50" r="1.8" fill="url(#metalGrad)" stroke="#475569" strokeWidth="0.5" />
+          <g transform="translate(0, 0)">
+            <rect x="12" y="42" width="76" height="16" rx="2" transform="rotate(45 50 50)" fill="#FFCC00" stroke="#000000" strokeWidth="1" />
+            <rect x="12" y="42" width="76" height="16" rx="2" transform="rotate(-45 50 50)" fill="#FFCC00" stroke="#000000" strokeWidth="1" />
+            <rect x="16" y="45" width="68" height="10" rx="1" transform="rotate(45 50 50)" fill="none" stroke="#000000" strokeWidth="2" />
+            <rect x="16" y="45" width="68" height="10" rx="1" transform="rotate(-45 50 50)" fill="none" stroke="#000000" strokeWidth="2" />
           </g>
         )}
 
@@ -2272,12 +2229,10 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
         {/* --- PLACAS EDUCATIVAS (ED-1 a ED-11 em Branco/Preto) --- */}
         {isEducational && (
-          <g filter="url(#plateShadow)">
-            <rect x="4" y="20" width="92" height="60" rx="6" fill="url(#whiteGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
-            <rect x="8" y="24" width="84" height="52" rx="4" fill="none" stroke="#000000" strokeWidth="1.5" />
-            <rect x="10" y="26" width="80" height="48" rx="3" fill="none" stroke="#000000" strokeWidth="0.8" />
-            <circle cx="2" cy="50" r="1.5" fill="url(#blackGrad)" />
-            <circle cx="98" cy="50" r="1.5" fill="url(#blackGrad)" />
+          <g>
+            <rect x="4" y="20" width="92" height="60" rx="4" fill="#FFFFFF" stroke="#000000" strokeWidth="2" />
+            <rect x="8" y="24" width="84" height="52" rx="2.5" fill="none" stroke="#000000" strokeWidth="1.5" />
+            <rect x="10" y="26" width="80" height="48" rx="2" fill="none" stroke="#000000" strokeWidth="0.8" />
 
             {/* Render conditional texts inside educational borders */}
             {type === 'ED-1' && (
@@ -2364,12 +2319,10 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
         {/* --- PLACAS DE SERVIÇOS AUXILIARES (S-1 a S-15 em Azul/Branco) --- */}
         {isServiceSign && (
-          <g filter="url(#plateShadow)">
-            <rect x="20" y="4" width="60" height="92" rx="6" fill="url(#blueGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
-            <rect x="23" y="7" width="54" height="86" rx="4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
-            <rect x="27" y="11" width="46" height="46" rx="3" fill="#FFFFFF" />
-            <circle cx="50" cy="5.5" r="1.5" fill="url(#blackGrad)" />
-            <circle cx="50" cy="94.5" r="1.5" fill="url(#blackGrad)" />
+          <g>
+            <rect x="20" y="4" width="60" height="92" rx="5" fill="#0D47A1" />
+            <rect x="23" y="7" width="54" height="86" rx="4" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+            <rect x="27" y="11" width="46" height="46" rx="2.5" fill="#FFFFFF" />
 
             {/* Bottom Arrow/Distance */}
             {(type === 'S-3' || type === 'S-9' || type === 'S-10' || type === 'S-1' || type === 'S-8' || type === 'S-2' || type === 'S-12') && (
@@ -2595,11 +2548,9 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
           <g>
             {/* TUR-1 and TUR-6 are vertical / large rectangular */}
             {(type === 'TUR-1' || type === 'TUR-6') && (
-              <g filter="url(#plateShadow)">
-                <rect x="15" y="5" width="70" height="90" rx="8" fill="url(#brownGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
-                <rect x="18" y="8" width="64" height="84" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.2" />
-                <circle cx="50" cy="9.5" r="2" fill="url(#blackGrad)" />
-                <circle cx="50" cy="90.5" r="2" fill="url(#blackGrad)" />
+              <g>
+                <rect x="15" y="5" width="70" height="90" rx="6" fill="#5D4037" />
+                <rect x="18" y="8" width="64" height="84" rx="4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
 
                 {type === 'TUR-1' && (
                   <g>
@@ -2640,12 +2591,10 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {/* TUR-2 and TUR-3 are square identifying plates */}
             {(type === 'TUR-2' || type === 'TUR-3') && (
-              <g filter="url(#plateShadow)">
-                <rect x="8" y="8" width="84" height="84" rx="8" fill="url(#brownGrad)" stroke="url(#metalBorderGrad)" strokeWidth="2.5" />
-                <rect x="11" y="11" width="78" height="78" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.2" />
-                <rect x="22" y="18" width="56" height="42" rx="3" fill="#FFFFFF" />
-                <circle cx="50" cy="12.5" r="1.5" fill="url(#blackGrad)" />
-                <circle cx="50" cy="87.5" r="1.5" fill="url(#blackGrad)" />
+              <g>
+                <rect x="8" y="8" width="84" height="84" rx="6" fill="#5D4037" />
+                <rect x="11" y="11" width="78" height="78" rx="4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+                <rect x="22" y="18" width="56" height="42" rx="2.5" fill="#FFFFFF" />
 
                 {type === 'TUR-2' && (
                   <g>
@@ -2676,11 +2625,9 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
 
             {/* TUR-4 and TUR-5 are horizontal rectangular plates */}
             {(type === 'TUR-4' || type === 'TUR-5') && (
-              <g filter="url(#plateShadow)">
-                <rect x="4" y="15" width="92" height="70" rx="8" fill="url(#brownGrad)" stroke="url(#metalBorderGrad)" strokeWidth="3" />
-                <rect x="8" y="19" width="84" height="62" rx="5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
-                <circle cx="50" cy="19.5" r="2" fill="url(#blackGrad)" />
-                <circle cx="50" cy="80.5" r="2" fill="url(#blackGrad)" />
+              <g>
+                <rect x="4" y="15" width="92" height="70" rx="6" fill="#5D4037" />
+                <rect x="8" y="19" width="84" height="62" rx="4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
 
                 {type === 'TUR-4' && (
                   <g>
@@ -2722,22 +2669,9 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
         {/* ============================================================ */}
         {isWorkDiamond && (
           <g>
-            {/* Losango laranja com borda escura */}
-            <polygon
-              points="50,4 96,50 50,96 4,50"
-              fill="url(#metalBorderGrad)"
-              filter="url(#plateShadow)"
-            />
-            <polygon
-              points="50,7 93,50 50,93 7,50"
-              fill="#F97316"
-            />
-            <polygon
-              points="50,12 88,50 50,88 12,50"
-              fill="none"
-              stroke="#1C1917"
-              strokeWidth="2.5"
-            />
+            <rect x="15" y="15" width="70" height="70" rx="4" transform="rotate(45 50 50)" fill="#FF6600" />
+            <rect x="18" y="18" width="64" height="64" rx="2.5" transform="rotate(45 50 50)" fill="none" stroke="#000000" strokeWidth="2.5" />
+
 
             {/* OBR-1: Obras na Pista — peão com pá */}
             {type === 'OBR-1' && (
@@ -2930,10 +2864,9 @@ export const SignRenderer: React.FC<SignRendererProps> = ({ type, extraData, siz
         {/* OBRAS — Placas Retangulares de Desvio                         */}
         {/* ============================================================ */}
         {isWorkRect && (
-          <g filter="url(#plateShadow)">
-            <rect x="3" y="25" width="94" height="50" rx="6" fill="#1C1917" />
-            <rect x="5" y="27" width="90" height="46" rx="5" fill="#F97316" />
-            <rect x="7" y="29" width="86" height="42" rx="4" fill="none" stroke="#1C1917" strokeWidth="2" />
+          <g>
+            <rect x="4" y="25" width="92" height="50" rx="4" fill="#FF6600" />
+            <rect x="7" y="28" width="86" height="44" rx="2.5" fill="none" stroke="#000000" strokeWidth="2" />
 
             {type === 'OBR-D1' && (
               <g>
