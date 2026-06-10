@@ -22,7 +22,8 @@ import {
   CheckCircle,
   PlusCircle,
   Home,
-  Check
+  Check,
+  Lock
 } from 'lucide-react';
 
 import { UserProfile, ExamHistory, Achievement } from './types';
